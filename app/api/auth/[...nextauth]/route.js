@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 import { connectDb } from "@utils/database";
 import User from "@models/user";
+import Prompt from "@models/prompt";
 
 const handler = NextAuth({                               //NextAuth -> providers -> callbacks
     providers: [

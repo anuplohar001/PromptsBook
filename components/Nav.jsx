@@ -29,11 +29,12 @@ const Nav = () => {
             <div>
                 {           
                     session?.user ? (
-                        <div>
+                        <div className="flex gap-5">
                             <Link href='/create-prompt' className="py-2 px-2 bg-orange-400 text-white rounded-full text-sm">Create Posts</Link>
                             <Link onClick={signOut} href='/' className="py-2 px-2 bg-orange-400 text-white rounded-full text-sm">Sign Out</Link>
-                            <Link href='/profile' className="mx-2 py-2 px-2 bg-orange-400 text-white rounded-full text-sm">
+                            <Link href='/profile' >
                                 <Image
+                                    className="rounded-full"
                                     src={session?.user.image}
                                     width={40}
                                     height={40}
