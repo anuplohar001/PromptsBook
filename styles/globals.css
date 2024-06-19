@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.main {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+}
+
+.gradient {
+background-color: #A9C9FF;
+    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+}
+
+.gr {
+    font-size: 50px;
+    background: -webkit-linear-gradient(180deg, #f2b705 0%, #fe38c6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text {
+    font-size: 50px;
+    font-weight: 800;
+    background-image: linear-gradient(180deg, #eb1b4b 0%, #fb9c0e 100%);
+    background-clip: text;
+    color: transparent;
+}
