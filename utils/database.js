@@ -3,8 +3,10 @@ let isConnect = false
 
 export const connectDb = async () => {
     mongoose.set('strictQuery', true) //if not set get warnings in console
+    // mongoose.set('strictPopulate', false)
+    
     if (isConnect) {
-        console.log("connected")
+        console.log("MongoDb already connected")
         return;
     }
 

@@ -7,8 +7,6 @@
 
 .main {
     width: 100vw;
-    height: 100vh;
-    position: fixed;
     display: flex;
     justify-content: center;
 }
@@ -31,4 +29,8 @@ background-color: #A9C9FF;
     background-image: linear-gradient(180deg, #eb1b4b 0%, #fb9c0e 100%);
     background-clip: text;
     color: transparent;
+}
+
+.prompt_card {
+    @apply flex flex-col break-inside-avoid rounded-lg border border-gray-300 bg-white bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }

@@ -3,11 +3,11 @@ import Prompt from "@models/prompt";
 
 export const POST = async(request)=>{
 
-    const {prompt, tag, id} = await request.json()
+    const {prompt, tag, padmin} = await request.json()
     try {
 
         await connectDb();
-        const newp = new Prompt({prompt, tag, id})
+        const newp = new Prompt({prompt, tag, padmin})
         await newp.save();
         return new Response(JSON.stringify(newp), {status:201})
         

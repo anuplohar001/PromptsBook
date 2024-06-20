@@ -1,19 +1,19 @@
 import { Schema, model, models } from "mongoose";
 
 const newPrompt = new Schema({
-    prompt:{
+    prompt: {
         type: String,
         required: true
     },
-    
+
     tag: {
         type: String,
         required: true
     },
 
-    id: {
-        type: String,
-        required: true
+    padmin: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
