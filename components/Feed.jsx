@@ -20,7 +20,7 @@ const Feed = () => {
     }, [])
 
     return (
-        <div className="flex flex-wrap justify-center gap-10 m-14">
+        <div className="flex flex-wrap gap-10 m-14">
             {
                 posts.map((post) => (
                     <Card key={post._id} post={post} modify={false} />

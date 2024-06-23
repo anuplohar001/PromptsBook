@@ -22,7 +22,7 @@ const Nav = () => {
 
         <div className="w-full mt-5 flex justify-around">
             <Link href='/'>
-                <span className="m-4 font-bold">PromptsBook</span>
+                <span className="m-4 text-xl font-bold">PromptsBook</span>
             </Link>
             {
             }
