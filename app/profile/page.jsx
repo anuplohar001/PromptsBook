@@ -24,13 +24,10 @@ const page = () => {
       <h1 className='mx-20 gradient-text'>
         My Profile
       </h1>
-      {
-        console.log(myPost)
-      }
-      <div className='flex justify-center'>
+      <div className='flex gap-4 justify-center'>
         {
           myPost.map((item) => (
-            <Card key={item._id} post={item} />
+            <Card key={item._id} post={item} modify={true}/>
           ))
         }
       </div>

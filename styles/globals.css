@@ -6,14 +6,15 @@
 
 
 .main {
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     justify-content: center;
 }
 
-.gradient {
-background-color: #A9C9FF;
-    background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+body {
+    height: 100vh;
+    background-color: #A9C9FF;
+    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
 }
 
 .gr {

@@ -21,7 +21,9 @@ const Form = ({ type, handleClick, post, setPost }) => {
                     </span>
                     <textarea name="prompt"
                         placeholder='Create your Prompt'
-                        id="" className='mb-10 h-44 w-[50vw] p-2 rounded-md shadow-xl'
+                        id="" 
+                        className='mb-10 h-44 w-[50vw] p-2 rounded-md shadow-xl'
+                        value={post.prompt}
                         onChange={(e) => setPost({ ...post, prompt: (e.target.value) })}
                     ></textarea>
                 </label>
@@ -32,6 +34,7 @@ const Form = ({ type, handleClick, post, setPost }) => {
                     </span>
                     <input className='rounded-md p-2 w-[50vw] shadow-xl'
                         placeholder='#tag'
+                        value={post.tag}
                         type="text"
                         onChange={(e) => setPost({ ...post, tag: e.target.value })}
                     />

@@ -11,9 +11,9 @@ export const metadata = {
 function RootComponent({ children }) {
   return (
     <html>
-      <body className='main gradient'>
+      <body>
         <Provider>
-          <main className='w-full'>
+          <main className=''>
             <Nav />
             {children}
           </main>
