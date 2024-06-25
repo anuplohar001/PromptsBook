@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect } from "react"
 import Card from "./Card"
-
+import { useSession } from "next-auth/react"
 const Feed = () => {
-    
+
     const [posts, setPosts] = useState([])
+    const {data: session} = useSession();
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        const getPosts = async ()=>{
+        const getPosts = async () => {
             const data = await fetch('api/prompt/old')
             const post = await data.json();
             setPosts(post)
@@ -19,14 +20,19 @@ const Feed = () => {
 
     }, [])
 
+    
+
     return (
-        <div className="flex flex-wrap gap-10 m-14">
-            {
-                posts.map((post) => (
-                    <Card key={post._id} post={post} modify={false} />
-                ))
-            }
-        </div>
+        <>
+            <input className="shadow-2xl rounded-sm ml-[15vw] mt-5 p-5 w-[59vw] h-8" type="text" placeholder="Search the Prompt"/>
+            <div className="flex flex-wrap gap-10 mt-10 ml-[15vw]">
+                {
+                    posts.map((post) => (
+                        <Card key={post._id} post={post} modify={false} />
+                    ))
+                }
+            </div>
+        </>
     )
 }
 

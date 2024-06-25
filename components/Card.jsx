@@ -1,17 +1,40 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import Like from '@public/assets/like.svg'
+import unLike from '@public/assets/unlike.svg'
 
 const Card = ({ post, modify }) => {
 
     const router = useRouter();
     const { data: session } = useSession()
+    const [Likes, setLikes] = useState({ isLiked: false })
 
-    const userProfile = () =>{
-        if(post.padmin._id === session?.user.id){
+    useEffect(() => {
+        const getLikes = async () => {
+            try {
+                const response = await fetch(`api/prompt/${post._id}/${session?.user.id}`, {
+                    method: "GET"
+                })
+                const data = await response.json()
+                setLikes({ isLiked: data.isLiked });
+
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        if (session?.user.id) getLikes()
+
+    }, [session?.user.id])
+
+
+    const userProfile = () => {
+        if (post.padmin._id === session?.user.id) {
             router.push(`/profile`)
         }
         else
@@ -36,30 +59,59 @@ const Card = ({ post, modify }) => {
         router.push(`/edit-prompt?id=${post._id}`)
     }
 
+    const handleLike = async () => {
+
+        var flag = Likes.isLiked
+        if (Likes.isLiked === true) {
+            setLikes({ isLiked: false })
+            flag = false
+        }
+        else {
+            flag = true
+            setLikes({ isLiked: true })
+        }
+
+        try {
+            const response = await fetch(`api/prompt/${post._id}/${session?.user.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                    isLiked: flag
+                })
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
+
     return (
 
-        <div className='prompt_card'>
-            <div className='flex gap-4'>
-                    <Image
-                        src={post.padmin.image}
-                        alt='Profile Img'
-                        width={40}
-                        height={40}
-                        className='rounded-full object-contain'
-                        onClick={userProfile}
-                    />
+        <div className='prompt_card' onDoubleClick={handleLike}>
+
+            <div className='ml-1 flex gap-4'>
+                <Image
+                    src={post.padmin.image}
+                    alt='Profile Img'
+                    width={40}
+                    height={40}
+                    className='rounded-full object-contain'
+                    onClick={userProfile}
+                />
                 <div className=''>
                     <div className='font-bold'>{post.padmin.username}</div>
                     <div>{post.padmin.email}</div>
 
                 </div>
             </div>
-            <div className='font-semibold overflow-y-scroll'>
-                <div className='mt-5'>{post.prompt}</div>
-                <div className='mt-5 text-violet-700'>#{post.tag}</div>
+            <div className='mt-3 h-[130px] p-2 overflow-y-scroll'>
+                <div className=''>{post.prompt}</div>
+                <div className=' text-violet-700'>#{post.tag}</div>
             </div>
             {
-                modify && (
+                session?.user && modify && (
                     <div className='flex gap-5 justify-center font-medium'>
                         <button onClick={EditPost} className='text-green-700'>
                             Edit
@@ -68,6 +120,21 @@ const Card = ({ post, modify }) => {
                     </div>
                 )
             }
+            {
+                session?.user && (
+                    <div className='transition-[1s]'>
+                        <Image
+                            src={Likes.isLiked ? Like : unLike}
+                            height={25}
+                            width={25}
+                            alt='Like'
+                            className='absolute bottom-3 right-7'
+                            onClick={handleLike}
+                        />
+                    </div>
+                )
+            }
+
         </div>
 
     )

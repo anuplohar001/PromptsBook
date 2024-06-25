@@ -34,5 +34,5 @@ body {
 }
 
 .prompt_card {
-    @apply flex flex-col break-inside-avoid rounded-lg border shadow-2xl border-gray-300 bg-slate-100 bg-clip-padding p-5 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-[220px];
+    @apply flex flex-col break-inside-avoid rounded-sm border shadow-2xl border-gray-300 bg-slate-100 bg-clip-padding p-2 backdrop-blur-lg backdrop-filter w-[300px] h-[190px];
 }

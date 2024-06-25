@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Form from '@components/Form'
+import { useSession } from 'next-auth/react'
 
 const Edit = () => {
     const [post, setPost] = useState({ prompt: "", tag: "" })
+    const {data : session} = useSession()
     const searchParams = useSearchParams();
     const router = useRouter()
     const id = searchParams.get('id')
