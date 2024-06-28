@@ -5,6 +5,32 @@
 @tailwind utilities;
 
 
+/* Webkit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 5px;
+    /* Width of the scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    
+    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    /* Background of the track */
+    border-radius: 10px
+}
+
+body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff8800, #ffaa00);
+    border-radius: 10px;
+}
+
+
+/* Firefox
+* {
+    scrollbar-width: thin;
+    scrollbar-color: linear-gradient(180deg, #ff9500, #ffcc00) #f1f1f1;
+} */
+
+
 .main {
     /* width: 100vw; */
     display: flex;
@@ -12,7 +38,8 @@
 }
 
 body {
-    height: 100vh;
+    height: max-content;
+    padding: 20px;
     background-color: #A9C9FF;
     background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
 }
@@ -34,5 +61,15 @@ body {
 }
 
 .prompt_card {
-    @apply flex flex-col break-inside-avoid rounded-sm border shadow-2xl border-gray-300 bg-slate-100 bg-clip-padding p-2 backdrop-blur-lg backdrop-filter w-[300px] h-[190px];
+    @apply flex flex-col break-inside-avoid rounded-[30px] border shadow-lg border-gray-300 bg-slate-100 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[200px];
+
+}
+
+.prompt_card ::-webkit-scrollbar{
+    @apply bg-slate-100;
+}
+
+.prompt_card ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    border-radius: 10px
 }

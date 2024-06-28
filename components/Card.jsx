@@ -91,14 +91,14 @@ const Card = ({ post, modify }) => {
 
         <div className='prompt_card' onDoubleClick={handleLike}>
 
-            <div className='ml-1 flex gap-4'>
+            <div className='ml-1 flex gap-4 hover:cursor-pointer' onClick={userProfile}>
                 <Image
                     src={post.padmin.image}
                     alt='Profile Img'
                     width={40}
                     height={40}
                     className='rounded-full object-contain'
-                    onClick={userProfile}
+                    
                 />
                 <div className=''>
                     <div className='font-bold'>{post.padmin.username}</div>
@@ -106,12 +106,12 @@ const Card = ({ post, modify }) => {
 
                 </div>
             </div>
-            <div className='mt-3 h-[130px] p-2 overflow-y-scroll'>
-                <div className=''>{post.prompt}</div>
-                <div className=' text-violet-700'>#{post.tag}</div>
+            <div className='mt-3 h-[130px] p-2 '>
+                <div className='h-[60px] overflow-y-scroll'>{post.prompt}</div>
+                <div className=' text-violet-700'>{post.tag}</div>
             </div>
             {
-                session?.user && modify && (
+                session?.user.id === post.padmin._id && modify && (
                     <div className='flex gap-5 justify-center font-medium'>
                         <button onClick={EditPost} className='text-green-700'>
                             Edit
