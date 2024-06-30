@@ -1,5 +1,6 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
+import Like from "@models/like";
 
 export const GET = async (req, { params }) => {
 
@@ -38,6 +39,7 @@ export const DELETE = async (req, {params}) => {
     try {
         await connectDb()
         await Prompt.deleteOne({_id: params.id})
+        await Like.deleteMany({postid: params.id})
         return new Response("Post Deleted", {status:201})
     } catch (error) {
         console.log(error)

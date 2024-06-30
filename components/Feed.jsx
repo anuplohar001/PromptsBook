@@ -39,7 +39,7 @@ const Feed = () => {
 
     return (
         <div> 
-            <div className="flex bg-white mt-3 ml-[15vw] w-max shadow-lg rounded-lg focus:outline-none">
+            <div className="flex bg-white mt-3 ml-[20vw] w-max shadow-lg rounded-lg">
 
                 <Image src={search}
                 height={20}

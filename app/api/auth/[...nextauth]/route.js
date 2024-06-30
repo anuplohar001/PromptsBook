@@ -1,55 +1,82 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import Credentials from "next-auth/providers/credentials"
+import CredentialsProvider from "next-auth/providers/credentials";
 import { connectDb } from "@utils/database";
 import User from "@models/user";
+import { signIn } from "next-auth/react";
 
-const handler = NextAuth({                               //NextAuth -> providers -> callbacks
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET,
-        }),
+export const authOptions = {
     
-        Credentials({
+    providers: [         
+
+        CredentialsProvider({
+
+            credentials: {
+                email: {},
+                password: {},
+            },
+            async authorize(credentials) {
+                if (credentials === null) return null;
+
+                try {
+                    await connectDb()
+                    const user = await User.findOne({ email: credentials?.email})
+
+                    if (user) {
+                        const isMatch = true
+
+                        if (isMatch) {
+                            return user;
+                        } else {
+                            throw new Error("Email or Password is not correct");
+                        }
+                    } else {
+                        throw new Error("User not found");
+                    }
+                } catch (error) {
+                    throw new Error(error);
+                }
+            },
+        }),
+
+        GoogleProvider({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
         })
     ],
 
-    callbacks: {
+    callbacks: {        
 
         async session({ session }) {
-            const sessionUser = await User.findOne({
-                email: session.user.email
-            });
+            // console.log("its ", {session})
+            const sessionUser = await User.findOne({email: session.user.email});
             session.user.id = sessionUser._id.toString();
             return session
         },
 
-        async signIn({ profile }) {
+        // async signIn({ profile }) {
+        //     console.log(profile)
+        //     // try {
+        //     //     await connectDb();
+        //     //     const userext = await User.findOne({ email: profile.email })
+        //     //     if (!userext) {
+        //     //         await User.create({
+        //     //             email: profile.email,
+        //     //             username: profile.name.replace(" ", ""),
+        //     //             image: profile.picture
+        //     //         });
 
-            try {
-                await connectDb();
-                const userext = await User.findOne({ email: profile.email })
-                if (!userext) {
-                    await User.create({
-                        email: profile.email,
-                        username: profile.name.replace(" ", ""),
-                        image: profile.picture
-                    });
-                    console.log("User Created Successfully")
+        //     //     }
+        //     //     return true;
 
-                }
+        //     // } catch (error) {
+        //     //     console.log(error)
+        //     // }
 
-                return true;
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
+        // }
     }
 
-})
+}
 
-export { handler as GET, handler as POST }
+const handler = NextAuth(authOptions)
+export {handler as GET, handler as POST}

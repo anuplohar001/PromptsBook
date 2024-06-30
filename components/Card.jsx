@@ -42,9 +42,9 @@ const Card = ({ post, modify }) => {
     }
 
     const DeletePost = async () => {
-        confirm("Are you sure you want to delete this post")
 
-        if (confirm) {
+        
+        if (confirm("Are you sure you want to delete this post")) {
             const response = await fetch(`api/prompt/${post._id}`, {
                 method: "DELETE"
             })
@@ -95,18 +95,18 @@ const Card = ({ post, modify }) => {
                 <Image
                     src={post.padmin.image}
                     alt='Profile Img'
-                    width={40}
-                    height={40}
-                    className='rounded-full object-contain'
+                    width={30}
+                    height={30}
+                    className='rounded-full'
                     
                 />
-                <div className=''>
+                <div className='text-sm'>
                     <div className='font-bold'>{post.padmin.username}</div>
                     <div>{post.padmin.email}</div>
 
                 </div>
             </div>
-            <div className='mt-3 h-[130px] p-2 '>
+            <div className='text-sm mt-3 h-[130px] p-2 '>
                 <div className='h-[60px] overflow-y-scroll'>{post.prompt}</div>
                 <div className=' text-violet-700'>{post.tag}</div>
             </div>

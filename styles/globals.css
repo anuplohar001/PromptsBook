@@ -23,23 +23,19 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
-
-/* Firefox
-* {
-    scrollbar-width: thin;
-    scrollbar-color: linear-gradient(180deg, #ff9500, #ffcc00) #f1f1f1;
-} */
-
-
 .main {
-    /* width: 100vw; */
     display: flex;
     justify-content: center;
 }
 
 body {
-    height: max-content;
+    height: 100vh;
     padding: 20px;
+    background-color: #A9C9FF;
+    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+}
+
+.gradient{
     background-color: #A9C9FF;
     background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
 }
@@ -62,6 +58,7 @@ body {
 
 .prompt_card {
     @apply flex flex-col break-inside-avoid rounded-[30px] border shadow-lg border-gray-300 bg-slate-100 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[200px];
+    transition: .3s;
 
 }
 
@@ -72,4 +69,33 @@ body {
 .prompt_card ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
     border-radius: 10px
+}
+
+.button {
+    @apply py-2 px-3 bg-black text-white rounded-full text-sm ;
+    
+}
+
+.button:hover{
+    @apply text-black font-semibold bg-white
+}
+
+.btnGoogle {
+    @apply flex gap-4 h-10 w-[40vh] items-center justify-center rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60
+}
+
+.btnCred {
+    @apply mt-2 inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400
+}
+
+.userinfo{
+    @apply block w-[40vh] rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1
+}
+
+.btnclose{
+    @apply absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto items-center
+}
+
+.register{
+    @apply bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex
 }
