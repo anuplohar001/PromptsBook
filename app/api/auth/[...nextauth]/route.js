@@ -42,13 +42,13 @@ export const authOptions = {
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
 
-            authorization: {
-                params: {
-                    prompt: "consent",
-                    access_type: "offline",
-                    response_type: "code",
-                },
-            },
+            // authorization: {
+            //     params: {
+            //         prompt: "consent",
+            //         access_type: "offline",
+            //         response_type: "code",
+            //     },
+            // },
 
             
         })
@@ -65,7 +65,6 @@ export const authOptions = {
         async signIn({account, profile, credentials }) {
 
             if (account.provider === 'google') {
-                console.log(profile)
                 try {
                     await connectDb();
                     const userext = await User.findOne({ email: profile.email })

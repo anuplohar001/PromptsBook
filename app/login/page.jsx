@@ -14,10 +14,9 @@ const page = () => {
 
     async function socialLogin(e) {
         e.preventDefault()
-        const response = await signIn('google',{
-            redirect: false
-        })
-        // console.log(response)
+       if(await signIn('google')){
+           router.push("/")
+       }
     }
 
     async function credentialLogin(e) {

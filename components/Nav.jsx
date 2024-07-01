@@ -5,11 +5,6 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Image from "next/image"
 
-import add from '@public/assets/add.svg'
-import out from '@public/assets/out.svg'
-import logo from '@public/assets/logo.jpg'
-import user from "@public/assets/user.jpg";
-
 const Nav = () => {
 
     const { data: session } = useSession()
@@ -20,7 +15,7 @@ const Nav = () => {
         <div className="w-full mt-2 flex justify-around transition-all">
             
             <Link href='/' className="flex gap-1">
-                <Image src={logo}
+                <Image src='/assets/logo.jpg'
                     alt="Logo"
                     height={50}
                     width={50}
@@ -35,7 +30,7 @@ const Nav = () => {
                         <div className="flex gap-5 text-black font-semibold">
                             <Link href='/create-prompt' className="flex gap-2 p-2 bg-orange-300 hover:bg-orange-400 rounded-full text-sm">
                                 <Image
-                                    src={add}
+                                    src='/assets/add.svg'
                                     alt="Add"
                                     height={15}
                                     width={15}
@@ -44,14 +39,14 @@ const Nav = () => {
                                 
                             <Link onClick={() => signOut({ callbackUrl: '/' })} href='/' className="flex gap-2 p-2 bg-orange-300 hover:bg-orange-400 rounded-full text-sm">
                                 <Image
-                                    src={out}
+                                    src='/assets/out.svg'
                                     height={15}
                                     width={15} />
                                 Sign Out</Link>
                             <Link href='/profile' >
                                 <Image
                                     className="rounded-full"
-                                    src={session?.user.image ? session?.user.image : user}
+                                    src={session?.user.image ? session?.user.image : '/assets/user.jpg'}
                                     alt="Profile Img"
                                     width={40}
                                     height={40}
