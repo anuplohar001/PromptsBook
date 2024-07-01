@@ -22,7 +22,6 @@ const page = () => {
             const response = await fetch('api/registration', {
                 method: 'POST',
                 body: JSON.stringify({
-
                     username: userinfo.username,
                     phone: userinfo.phone,
                     password: userinfo.password,

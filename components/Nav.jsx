@@ -1,16 +1,19 @@
 "use client"
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image"
+
 import add from '@public/assets/add.svg'
 import out from '@public/assets/out.svg'
 import logo from '@public/assets/logo.jpg'
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import user from "@public/assets/user.jpg";
 
 const Nav = () => {
 
-    const { data: session } = useSession();
+    const { data: session } = useSession()
+    
 
     return (
 
@@ -39,7 +42,7 @@ const Nav = () => {
                                 />
                                 Create Posts</Link>
                                 
-                            <Link onClick={signOut} href='/' className="flex gap-2 p-2 bg-orange-300 hover:bg-orange-400 rounded-full text-sm">
+                            <Link onClick={() => signOut({ callbackUrl: '/' })} href='/' className="flex gap-2 p-2 bg-orange-300 hover:bg-orange-400 rounded-full text-sm">
                                 <Image
                                     src={out}
                                     height={15}
@@ -48,7 +51,7 @@ const Nav = () => {
                             <Link href='/profile' >
                                 <Image
                                     className="rounded-full"
-                                    src={session?.user.image}
+                                    src={session?.user.image ? session?.user.image : user}
                                     alt="Profile Img"
                                     width={40}
                                     height={40}

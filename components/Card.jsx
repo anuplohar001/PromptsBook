@@ -4,10 +4,13 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+
 import Like from '@public/assets/like.svg'
 import unLike from '@public/assets/unlike.svg'
+import user from '@public/assets/user.jpg'
 
 const Card = ({ post, modify }) => {
+
 
     const router = useRouter();
     const { data: session } = useSession()
@@ -92,8 +95,9 @@ const Card = ({ post, modify }) => {
         <div className='prompt_card' onDoubleClick={handleLike}>
 
             <div className='ml-1 flex gap-4 hover:cursor-pointer' onClick={userProfile}>
+                
                 <Image
-                    src={post.padmin.image}
+                    src= { post.padmin.image ? (post.padmin.image) : (user)}
                     alt='Profile Img'
                     width={30}
                     height={30}

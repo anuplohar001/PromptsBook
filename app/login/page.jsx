@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import { signIn } from "next-auth/react";
 import close from '@public/assets/close.svg'
@@ -10,6 +10,15 @@ import { useRouter } from 'next/navigation';
 const page = () => {
 
     const router = useRouter()
+    const [error, seterror] = useState("")
+
+    async function socialLogin(e) {
+        e.preventDefault()
+        const response = await signIn('google',{
+            redirect: false
+        })
+        // console.log(response)
+    }
 
     async function credentialLogin(e) {
         e.preventDefault()
@@ -20,7 +29,13 @@ const page = () => {
                 password: formData.get("password"),
                 redirect: false
             });
-            router.push("/")
+
+
+            if(response.ok)
+                router.push("/")
+            else{
+                seterror(response.error)
+            }
             return response
         } catch (error) {
             console.log(error)
@@ -47,7 +62,7 @@ const page = () => {
 
                       <div className="mt-7 flex flex-col gap-2">
                           <button
-                              onClick={() => signIn('google')}
+                              onClick={socialLogin}
                               className="btnGoogle">
                               <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-[18px] w-[18px] " />
                               Continue with Google
@@ -65,6 +80,9 @@ const page = () => {
 
                           <input name="email" type="email" className="mt-2 userinfo" placeholder="Email Address" />
                           <input name="password" type="password" className="mt-2 userinfo" placeholder="Password" />
+                          {
+                            error && <div className='p-2 my-2 bg-red-600 text-white rounded-md text-sm text-center'>! {error}</div>
+                          }
                           <button type='submit' className="btnCred"> Log In  </button>
 
                       </form>

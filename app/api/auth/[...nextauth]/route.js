@@ -3,11 +3,10 @@ import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectDb } from "@utils/database";
 import User from "@models/user";
-import { signIn } from "next-auth/react";
 
 export const authOptions = {
-    
-    providers: [         
+
+    providers: [
 
         CredentialsProvider({
 
@@ -16,22 +15,22 @@ export const authOptions = {
                 password: {},
             },
             async authorize(credentials) {
+
                 if (credentials === null) return null;
 
                 try {
                     await connectDb()
-                    const user = await User.findOne({ email: credentials?.email})
-
+                    const user = await User.findOne({ email: credentials?.email })
                     if (user) {
-                        const isMatch = true
+                        const isMatch = credentials.password === user.password
 
                         if (isMatch) {
                             return user;
                         } else {
-                            throw new Error("Email or Password is not correct");
+                            throw ("Email or Password is not correct");
                         }
                     } else {
-                        throw new Error("User not found");
+                        throw ("User not found");
                     }
                 } catch (error) {
                     throw new Error(error);
@@ -42,41 +41,59 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
+
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                },
+            },
+
+            
         })
     ],
 
-    callbacks: {        
+    callbacks: {
 
         async session({ session }) {
-            // console.log("its ", {session})
-            const sessionUser = await User.findOne({email: session.user.email});
+            const sessionUser = await User.findOne({ email: session.user.email });
             session.user.id = sessionUser._id.toString();
             return session
         },
 
-        // async signIn({ profile }) {
-        //     console.log(profile)
-        //     // try {
-        //     //     await connectDb();
-        //     //     const userext = await User.findOne({ email: profile.email })
-        //     //     if (!userext) {
-        //     //         await User.create({
-        //     //             email: profile.email,
-        //     //             username: profile.name.replace(" ", ""),
-        //     //             image: profile.picture
-        //     //         });
+        async signIn({account, profile, credentials }) {
 
-        //     //     }
-        //     //     return true;
+            if (account.provider === 'google') {
+                console.log(profile)
+                try {
+                    await connectDb();
+                    const userext = await User.findOne({ email: profile.email })
+                    if (!userext) {
+                        await User.create({
+                            email: profile.email,
+                            username: profile.name.replace(" ", ""),
+                            image: profile.picture
+                        });
 
-        //     // } catch (error) {
-        //     //     console.log(error)
-        //     // }
+                    }
+                    return true;
 
-        // }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            else{
+
+                if(credentials){
+                    return true
+                }
+            }
+        }
+        
     }
 
 }
 
 const handler = NextAuth(authOptions)
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST }
