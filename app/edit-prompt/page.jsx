@@ -1,11 +1,13 @@
 "use client"
 
+import { Suspense } from 'react'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Form from '@components/Form'
 
 
-const Edit = () => {
+const Editcomp = () => {
+
     const [post, setPost] = useState({ prompt: "", tag: "" })
     const searchParams = useSearchParams();
     const router = useRouter()
@@ -18,7 +20,6 @@ const Edit = () => {
                 method: "GET"
             })
             const data = await response.json()
-            // alert(data.tag)
 
             setPost({ prompt: data.prompt, tag: data.tag })
         }
@@ -54,6 +55,16 @@ const Edit = () => {
         <div>
             <Form type='Edit' post={post} setPost={setPost} handleClick={handleClick} />
         </div>
+    )
+}
+
+
+const Edit = () => {
+    return (
+
+        <Suspense>
+            <Editcomp/>
+        </Suspense>
     )
 }
 

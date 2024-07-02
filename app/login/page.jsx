@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 const page = () => {
 
+    const [password, setpassword] = useState("password")
     const router = useRouter()
     const [error, seterror] = useState("")
 
@@ -17,6 +18,13 @@ const page = () => {
        if(await signIn('google')){
            router.push("/")
        }
+    }
+
+    const handlePassword = () => {
+        if(password==='password')
+            setpassword("text")
+        else
+            setpassword("password")
     }
 
     async function credentialLogin(e) {
@@ -78,7 +86,15 @@ const page = () => {
                       <form onSubmit={credentialLogin} name='userinfo' autoComplete='true' className="w-[40vh]">
 
                           <input name="email" type="email" className="mt-2 userinfo" placeholder="Email Address" />
-                          <input name="password" type="password" className="mt-2 userinfo" placeholder="Password" />
+                          <div className='userinfo'>
+                              <input name="password" type={password} className="" placeholder="Password" />
+                              <Image
+                                  src={password==='password' ? "assets/show.svg" : "assets/hide.svg"}
+                                  height={20}
+                                  width={20} 
+                                  onClick={handlePassword}/>
+                          </div>
+                          
                           {
                             error && <div className='p-2 my-2 bg-red-600 text-white rounded-md text-sm text-center'>! {error}</div>
                           }
