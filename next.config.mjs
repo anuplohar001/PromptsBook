@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {
+module.exports = {
 
     experimental: {
-        // appDir: true,
+        appDir: true,
         serverComponentsExternalPackages: ["mongoose"],
         missingSuspenseWithCSRBailout: false,
     },
@@ -16,11 +16,6 @@ const nextConfig = {
             topLevelAwait: true,
         }
         return config
-    },
-
-    
+    }
 }
 
-
-
-export default nextConfig
