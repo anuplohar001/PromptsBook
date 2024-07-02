@@ -1,6 +1,6 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
-
+import { NextResponse } from "next/server";
 export const GET = async (req) => {
 
     try {
@@ -8,10 +8,10 @@ export const GET = async (req) => {
         await connectDb();
         const prompt = await Prompt.find({}).populate("padmin");
 
-        return new Response(JSON.stringify(prompt), {status:200})
+        return new NextResponse(JSON.stringify(prompt), {status:200})
 
     } catch (error) {
 
-        return new Response("Failed to fetch all prompts", { status: 500 })
+        return new NextResponse("Failed to fetch all prompts", { status: 500 })
     }
 }

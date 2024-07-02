@@ -26,7 +26,7 @@ const Editcomp = () => {
 
         if (id) getPosts()
 
-    }, [id])
+    }, [])
 
     const handleClick = async (e) => {
 
@@ -63,7 +63,7 @@ const Edit = () => {
     return (
 
         <Suspense>
-            <Editcomp/>
+            <Editcomp />
         </Suspense>
     )
 }

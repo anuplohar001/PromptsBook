@@ -8,7 +8,7 @@ export const GET = async (req, {params}) =>{
         await connectDb()
 
         const post = await Prompt.find({padmin: params.id}).populate("padmin")
-        console.log(post)
+        
         return new Response(JSON.stringify(post), {status:201})
 
     } catch (error) {
