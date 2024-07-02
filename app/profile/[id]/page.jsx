@@ -11,6 +11,7 @@ const UserProfile = ({params}) => {
     const [myPost, setMyPosts] = useState([]);
 
     useEffect(() => {
+
         const fetchPosts = async () => {
             const response = await fetch(`/api/users/${params?.id}/posts`);
             const data = await response.json();

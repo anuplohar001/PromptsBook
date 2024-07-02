@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import search from '@public/assets/search.svg'
 import Card from "./Card"
@@ -11,10 +11,12 @@ const Feed = () => {
     const [searchPost, setsearchdPost] = useState([])
 
     const getPosts = async () => {
-        const data = await fetch('api/prompt/old')
+        
+        const data = await fetch('api/prompt')
         const post = await data.json();
         setPosts(post)
     }
+
     useEffect(() => {       
 
         getPosts()
