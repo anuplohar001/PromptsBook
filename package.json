@@ -2,7 +2,7 @@
   "name": "promptsbook",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,5 +22,7 @@
   "devDependencies": {
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
-  }
+  },
+
+  "type": "module"
 }
