@@ -10,13 +10,12 @@ const Feed = () => {
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
 
-    useEffect(() => {
-
-        const getPosts = async () => {
-            const data = await fetch('api/prompt/old')
-            const post = await data.json();
-            setPosts(post)
-        }
+    const getPosts = async () => {
+        const data = await fetch('api/prompt/old')
+        const post = await data.json();
+        setPosts(post)
+    }
+    useEffect(() => {       
 
         getPosts()
 
