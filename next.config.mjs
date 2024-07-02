@@ -13,6 +13,15 @@ const nextConfig = {
             topLevelAwait: true,
         }
         return config
-    }
+    },
+
+    
 }
+
+module.exports = {
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
+}
+
 export default nextConfig
