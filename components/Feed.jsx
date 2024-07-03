@@ -11,13 +11,13 @@ const Feed = () => {
     const [searchPost, setsearchdPost] = useState([])
 
     const getPosts = async () => {
-        
-        const data = await fetch('api/prompt')
+
+        const data = await fetch('api/feed')
         const post = await data.json();
         setPosts(post)
     }
 
-    useEffect(() => {       
+    useEffect(() => {
 
         getPosts()
 
@@ -39,13 +39,13 @@ const Feed = () => {
 
 
     return (
-        <div> 
+        <div>
             <div className="flex bg-white mt-3 ml-[20vw] w-max shadow-lg rounded-lg">
 
                 <Image src={search}
-                height={20}
-                width={20}
-                className="mx-2"/>
+                    height={20}
+                    width={20}
+                    className="mx-2" />
 
                 <input className="relative  rounded-sm w-[60vw] h-8 p-2"
                     type="text"
