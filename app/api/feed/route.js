@@ -1,7 +1,7 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
 import { NextResponse } from "next/server";
-export const GET = async (req) => {
+export const GET = async (req, res) => {
 
     try {
         
