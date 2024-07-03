@@ -40,6 +40,7 @@ const Feed = () => {
 
     return (
         <div>
+            <button onClick={getPosts}>Refresh</button>
             <div className="flex bg-white mt-3 ml-[20vw] w-max shadow-lg rounded-lg">
 
                 <Image src={search}
