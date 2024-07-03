@@ -17,11 +17,11 @@ const Feed = () => {
         setPosts(post)
     }
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     getPosts()
+        getPosts()
 
-    // }, [])
+    }, [])
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
@@ -40,7 +40,6 @@ const Feed = () => {
 
     return (
         <div>
-            <button onClick={getPosts}>Refresh</button>
             <div className="flex bg-white mt-3 ml-[20vw] w-max shadow-lg rounded-lg">
 
                 <Image src={search}
