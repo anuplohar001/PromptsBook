@@ -17,11 +17,11 @@ const Feed = () => {
         setPosts(post)
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        getPosts()
+    //     getPosts()
 
-    }, [])
+    // }, [])
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
