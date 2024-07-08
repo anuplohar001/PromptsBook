@@ -10,7 +10,7 @@ export const GET = async (req, res) => {
         await connectDb();
         const prompt = await Prompt.find({}).populate("padmin");
 
-        return new NextResponse(JSON.stringify(prompt), {status:200})
+        return new NextResponse(JSON.stringify(prompt), { status: 200})
 
     } catch (error) {
 
