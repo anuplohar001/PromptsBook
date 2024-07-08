@@ -4,17 +4,23 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import search from '@public/assets/search.svg'
 import Card from "./Card"
+import Loader from "./Loader"
+
 const Feed = () => {
 
-    const [posts, setPosts] = useState([])
+
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
+    const [posts, setPosts] = useState([])
+    const [pending, setPending] = useState(false)
 
     const getPosts = async () => {
-
+        setPending(true)
         const data = await fetch('api/feed')
         const post = await data.json();
         setPosts(post)
+        if (data.ok)
+            setPending(false)
     }
 
     useEffect(() => {
@@ -39,8 +45,8 @@ const Feed = () => {
 
 
     return (
-        <div>
-            <div className="flex bg-white mt-3 ml-[20vw] w-max shadow-lg rounded-lg">
+        <div className="flex justify-center items-center flex-col">
+            <div className="flex bg-white mt-3  w-max shadow-lg rounded-lg">
 
                 <Image src={search}
                     height={20}
@@ -53,19 +59,23 @@ const Feed = () => {
                     onChange={getSearched}
                     placeholder="Search the Prompt" />
             </div>
-
-            {
-                searchText ? (<div className="flex flex-wrap gap-10 mt-10 ml-[15vw]">
-                    {
-                        searchPost.map((post) => <Card key={post._id} post={post} modify={false} />)
-                    }
-                </div>) : (<div className="flex flex-wrap gap-10 mt-10 ml-[15vw]">
-                    {
-                        posts.map((post) => <Card key={post._id} post={post} modify={false} />)
-                    }
-                </div>)
-            }
-
+            <div className="text-center">
+                {
+                    pending ? (<Loader />) : (<div>
+                        {
+                            searchText ? (<div className="flex flex-wrap w-[72vw] gap-10 mt-10" >
+                                {
+                                    searchPost.map((post) => <Card key={post._id} post={post} modify={false} />)
+                                }
+                            </div>) : (<div className="flex flex-wrap w-[72vw] gap-10 mt-10 ">
+                                {
+                                    posts.map((post) => <Card key={post._id} post={post} modify={false} />)
+                                }
+                            </div>)
+                        }
+                    </div >)
+                }
+            </div>
 
         </div>
     )

@@ -2,6 +2,8 @@ import React from 'react'
 import '@styles/globals.css'
 import Nav from "@components/Nav";
 import Provider from '@components/Provider'
+import Head from 'next/head';
+import icon from '@public/assets/icon.svg'
 
 export const metadata = {
   title: 'PromptsBook',
@@ -13,7 +15,7 @@ function RootComponent({ children }) {
     <html>
       <body>
         <Provider>
-          <main className=''>
+          <main>
             <Nav />
             {children}
           </main>
