@@ -9,10 +9,10 @@ const Profile = ({ myPost, username }) => {
 
         <div>
             {
-                myPost.length === 0 ? (<div className='m-[10vw]'> <Loader /> </div>) : (<div> <h1 className='mx-20 gradient-text'>
+                myPost.length === 0 ? (<div className='m-[10vw]'> <Loader /> </div>) : (<div> <h1 className='lg:mx-20 mx-3 gradient-text'>
                     {username}
                 </h1>
-                    <div className='m-10 flex gap-10'>
+                    <div className='m-10 flex flex-wrap gap-10'>
                         {
                             myPost.map((item) => (
                                 <Card key={item._id} post={item} modify={true} />
