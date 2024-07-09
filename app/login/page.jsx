@@ -15,17 +15,12 @@ const page = () => {
 
     async function socialLogin(e) {
         e.preventDefault()
-       if(await signIn('google')){
-           router.push("/")
-       }
+        const response = await signIn("google", {
+            callbackUrl: '/'
+        })
     }
 
-    const handlePassword = () => {
-        if(password==='password')
-            setpassword("text")
-        else
-            setpassword("password")
-    }
+    
 
     async function credentialLogin(e) {
         e.preventDefault()
@@ -47,6 +42,13 @@ const page = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const handlePassword = () => {
+        if (password === 'password')
+            setpassword("text")
+        else
+            setpassword("password")
     }
 
   return (

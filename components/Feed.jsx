@@ -12,7 +12,7 @@ const Feed = () => {
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
     const [posts, setPosts] = useState([])
-    const [pending, setPending] = useState(false)
+    const [pending, setPending] = useState(true)
 
     const getPosts = async () => {
         setPending(true)

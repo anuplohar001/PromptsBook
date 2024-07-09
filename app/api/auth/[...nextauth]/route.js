@@ -59,6 +59,9 @@ export const authOptions = {
         async session({ session }) {
             const sessionUser = await User.findOne({ email: session.user.email });
             session.user.id = sessionUser._id.toString();
+            session.user.name = sessionUser.username.toString();
+            if( sessionUser.password )
+                session.user.password = sessionUser.password.toString();
             return session
         },
 
@@ -74,7 +77,10 @@ export const authOptions = {
                             username: profile.name.replace(" ", ""),
                             image: profile.picture
                         });
-
+                    }
+                    else{
+                        userext.image = profile.picture
+                        await userext.save()
                     }
                     return true;
 
@@ -82,6 +88,7 @@ export const authOptions = {
                     console.log(error)
                 }
             }
+            
             else{
 
                 if(credentials){

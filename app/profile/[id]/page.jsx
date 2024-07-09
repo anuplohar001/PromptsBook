@@ -3,8 +3,6 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import Profile from '@components/Profile'
 import { useSearchParams } from 'next/navigation'
-import Loader from '@components/Loader'
-import load from '@public/assets/loader.svg'
 import Image from 'next/image'
 
 const ProfileComp = ({ params }) => {
