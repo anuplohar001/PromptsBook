@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 const page = () => {
 
     const [password, setpassword] = useState("password")
+    const [info, setinfo] = useState({email:"anuplohar001@gmail.com", password:"anup@220803"})
     const router = useRouter()
     const [error, seterror] = useState("")
 
@@ -51,6 +52,10 @@ const page = () => {
             setpassword("password")
     }
 
+    const handlechange = (e) =>{
+        setinfo({...info, [e.target.name]:[e.target.value]})
+    }
+
   return (
       <div className="register">
           <div className="relative p-4 w-[52vh] max-w-md h-full md:h-auto ">
@@ -87,9 +92,9 @@ const page = () => {
 
                       <form onSubmit={credentialLogin} name='userinfo' autoComplete='true' className="w-[40vh]">
 
-                          <input name="email" type="email" className="mt-2 userinfo" placeholder="Email Address" />
+                          <input name="email" type="email" className="mt-2 userinfo" placeholder="Email Address" value={info.email} onChange={handlechange}/>
                           <div className='userinfo'>
-                              <input name="password" type={password} className="" placeholder="Password" />
+                              <input name="password" type={password} className="" placeholder="Password" value={info.password} onChange={handlechange}/>
                               <Image
                                   src={password==='password' ? "assets/show.svg" : "assets/hide.svg"}
                                   height={20}

@@ -45,7 +45,7 @@ const Feed = () => {
 
 
     return (
-        <div className="flex justify-center items-center flex-col">
+        <div className="flex justify-center items-center flex-col ">
             <div className="flex bg-white mt-3  w-max shadow-lg rounded-lg">
 
                 <Image src={search}
@@ -59,7 +59,7 @@ const Feed = () => {
                     onChange={getSearched}
                     placeholder="Search the Prompt" />
             </div>
-            <div className="text-center">
+            <div className="p-2">
                 {
                     pending ? (<Loader />) : (<div>
                         {
@@ -67,7 +67,7 @@ const Feed = () => {
                                 {
                                     searchPost.map((post) => <Card key={post._id} post={post} modify={false} />)
                                 }
-                            </div>) : (<div className="flex flex-wrap w-[72vw] gap-10 mt-10 ">
+                            </div>) : (<div className="flex flex-wrap justify-center items-center gap-10 mt-10 ">
                                 {
                                     posts.map((post) => <Card key={post._id} post={post} modify={false} />)
                                 }

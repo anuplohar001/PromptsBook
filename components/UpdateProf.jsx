@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 const UpdateProf = () => {
 
     const { data: session } = useSession()
+    const [password, setpassword] = useState("password")
     const [edit, setedit] = useState(false)
     const [userinfo, setuserinfo] = useState({ name: "", email: "", password: "" })
     const [pass, setpass] = useState(true)
@@ -14,7 +15,7 @@ const UpdateProf = () => {
         const data = await response.json()
         setuserinfo({ name: data.username, email: data.email, password: data.password })
         console.log(data)
-        if(data.password)
+        if (data.password)
             setpass(true)
         else
             setpass(false)
@@ -30,9 +31,9 @@ const UpdateProf = () => {
         setuserinfo({ ...userinfo, [e.target.name]: e.target.value })
     }
 
-    const saveInfo = async(e) => {
+    const saveInfo = async (e) => {
         setedit(false)
-        if(userinfo.password)
+        if (userinfo.password)
             setpass(true)
         const response = await fetch(`api/users/${session?.user.id}/user`, {
             method: "PATCH",
@@ -43,8 +44,15 @@ const UpdateProf = () => {
             })
         })
 
-        if(response.ok)
+        if (response.ok)
             alert("Profile Updated")
+    }
+
+    const handlePassword = () => {
+        if (password === 'password')
+            setpassword("text")
+        else
+            setpassword("password")
     }
 
     return (
@@ -75,19 +83,26 @@ const UpdateProf = () => {
                     <div className='flex flex-row'>
                         Password
                         <div className='flex flex-col gap-3'>
+                            <div className='flex ml-5 w-[25vw] rounded-xl shadow-2xl bg-white'>
+                                <input onChange={handleChange} name='password' value={userinfo.password} type={password}
+                                    placeholder={userinfo.password ? ("password") : ("create new password")}
+                                    className='w-[23vw] p-3 rounded-xl' />
+                                <Image
+                                    src={password === 'password' ? "assets/show.svg" : "assets/hide.svg"}
+                                    height={20}
+                                    width={20}
+                                    onClick={handlePassword} />
 
-                            <input onChange={handleChange} name='password' value={userinfo.password} type="password"
-                                placeholder={userinfo.password ? ("password") : ("create new password")}
-                                className='ml-5 w-[25vw] p-3 rounded-xl shadow-2xl' />
+                            </div>
 
                             {
                                 !pass && (<input name='newpassword' type="password"
-                                    placeholder = "confirm password"
-                                    className ='ml-5 w-[25vw] p-3 rounded-xl shadow-2xl' />) 
+                                    placeholder="confirm password"
+                                    className='ml-5 w-[25vw] p-3 rounded-xl shadow-2xl' />)
                             }
 
                         </div>
-                        
+
                     </div>
                 </div>) : (<div className='flex flex-col ml-6 gap-3'>
                     <div className='flex'>
@@ -99,8 +114,8 @@ const UpdateProf = () => {
                     </div>
                     <div className='flex'>
 
-                        Password <div type='password' 
-                        className='ml-5 w-[25vw] rounded-xl bg-orange-400 p-3 text-white'>{ pass ? ("******") : ("Set New password")}</div>
+                        Password <div type='password'
+                            className='ml-5 w-[25vw] rounded-xl bg-orange-400 p-3 text-white'>{pass ? ("********") : ("Set New password")}</div>
                     </div>
 
                 </div>)

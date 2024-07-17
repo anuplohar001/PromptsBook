@@ -14,9 +14,13 @@ const Home = () => {
               AI-Powered Prompts
             </span> </h1>
         </div>
-        <div className=' text-center w-[80vw]'>Engage with a community passionate about artificial intelligence, sparking creativity and innovation through diverse, user-generated content. Join us to contribute and inspire!</div>
+        <div className=' text-center w-[80vw] flex flex-col'>
+          <b>Use following credentials for LogIn and access the rest functions</b>
+          <div>Email : <b>anuplohar001@gmail.com</b></div>
+          <div>Password : <b>anup@220803</b></div>
+          </div>
       </section>
-      <Suspense fallback={<p>Loading feed...</p>}>
+      <Suspense>
         <Feed />
       </Suspense>
     </div>
