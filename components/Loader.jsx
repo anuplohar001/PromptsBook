@@ -1,14 +1,14 @@
 import Image from "next/image";
-import load from "@public/assets/loader.svg"
 const Loader = () => {
     return (
-        <div className="mt-10">
+        <div className="mt-10 text-center">
             <Image
-                src={load}
+                src={'assets/loader.svg'}
                 width={70}
                 height={70}
                 alt='loader'
             />
+            <b>If loading continues just RELOAD the page</b>
         </div>
     );
 };

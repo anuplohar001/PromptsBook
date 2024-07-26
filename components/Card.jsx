@@ -109,6 +109,7 @@ const Card = ({ post, modify }) => {
                         className='rounded-full'
 
                     />
+                    
                     <div className='text-sm'>
                         <div className='font-bold'>{post.padmin.username}</div>
                         <div>{post.padmin.email}</div>

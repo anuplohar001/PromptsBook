@@ -8,13 +8,22 @@ const UpdateProf = () => {
     const [edit, setedit] = useState(false)
     const [userinfo, setuserinfo] = useState({ name: "", email: "", password: "" })
     const [pass, setpass] = useState(true)
+    const [editImage, setEditImage] = useState(false)
+    const [file, setFile] = useState();
+    const [dialog, setdialog] = useState(false)
+
+    function handleChangeFile(e) {
+        // console.log(e.target.file);
+        setFile(URL.createObjectURL(e.target.files[0]));
+        setdialog(false)
+    }
 
     const getUserinfo = async () => {
         const response = await fetch(`api/users/${session?.user.id}/user`)
 
         const data = await response.json()
         setuserinfo({ name: data.username, email: data.email, password: data.password })
-        console.log(data)
+        // console.log(data)
         if (data.password)
             setpass(true)
         else
@@ -59,15 +68,39 @@ const UpdateProf = () => {
 
         <div className='md:w-[40vw]'>
             <div className='lg:mx-20 mx-3 mt-5 gradient-text'>Update Profile</div>
-            <div className='text-center'>
+            <div className='text-center transition-[.3s]' onMouseLeave={() => setEditImage(false)}>
+                
                 <Image
-                    src={session?.user.image ? (session?.user.image) : ("/assets/user.jpg")}
+                    src={file ? file : session?.user.image}
                     alt='userimage'
-                    height={80}
-                    width={80}
-                    className='text-center rounded-full m-5 mx-[16vw]' />
+                    height={90}
+                    width={90}
+                    className='text-center rounded-full m-5 mx-[16vw] ' 
+                    onMouseEnter={()=>setEditImage(true)}
+                    />
+                {
+                    editImage && <Image src={"/assets/edit.svg"}
+                        alt="edit"
+                        width={30}
+                        height={30}
+                        className='absolute right-[28vw] top-[41vh] cursor-pointer' 
+                        onClick={()=>setdialog(true)}/>
+                }
+                {
+                    dialog && <div className=' h-[20vh] w-[30vw] bg-white border border-black rounded-lg text-center p-2 absolute'>
+                        <Image src={"/assets/close.svg"}
+                        alt='close'
+                        height={20}
+                        width={20}
+                        className='cursor-pointer'
+                        onClick={()=>setdialog(false)}/>
+                        <input type="file"
+                         className='rounded-lg w-[20vw] mt-4 border border-black'
+                         onChange={handleChangeFile} />
+                    </div>
+                }
+                
             </div>
-
 
             {
                 edit ? (<div className='flex flex-col gap-3 ml-6'>

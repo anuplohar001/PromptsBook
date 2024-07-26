@@ -23,7 +23,13 @@ const Profile = ({ myPost, username }) => {
             }
             <div>
                 {
-                    username === "MY PROFILE" && (<UpdateProf/>)
+                    username === "MY PROFILE" && (<div>
+                        {/* <input type="checkbox" />
+                        <div className='gradient-text'>
+                            Liked Posts
+                        </div> */}
+                        <UpdateProf/>
+                        </div>)
                 }
             </div>
         </div >
