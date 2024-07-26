@@ -4,12 +4,14 @@ const newLikes = new Schema({
 
     postid: {
         type: Schema.Types.ObjectId,
-        required:true
+        ref: 'prompts',
+        required: true
     },
 
-    userid: {
+    padmin: {
         type: Schema.Types.ObjectId,
-        required:true
+        ref: 'User',
+        required: true
     },
 
     isLiked: {

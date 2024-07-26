@@ -5,47 +5,44 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
-const Card = ({ post, modify }) => {
-
+const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
 
     const router = useRouter();
     const { data: session } = useSession()
     const [Likes, setLikes] = useState({ isLiked: false })
     const [copy, setcopy] = useState(false)
 
-    useEffect(() => {
-        const getLikes = async () => {
-            try {
-                const response = await fetch(`api/prompt/${post._id}/${session?.user.id}`, {
-                    method: "GET"
-                })
-                const data = await response.json()
-                setLikes({ isLiked: data.isLiked });
-
-
-            } catch (error) {
-                console.log(error)
-            }
+    const getLikes = async () => {
+        try {
+            const response = await fetch( `/api/prompt/${postid}/${session?.user.id}`, {
+                method: "GET"
+            })
+            const data = await response.json()
+            setLikes({ isLiked: data.isLiked })
+        } catch (error) {
+            console.log(error)
         }
+    }
 
+    useEffect(() => {        
         if (session?.user.id) getLikes()
-
     }, [session?.user.id])
 
 
     const userProfile = () => {
-        if (post.padmin._id === session?.user.id) {
+        
+        if (userid === session?.user.id) {
             router.push(`/profile`)
         }
-        else
-            router.push(`/profile/${post.padmin._id}?name=${post.padmin.username}`)
+        else{
+            console.log(userid)
+            router.push(`/profile/${userid}?name=${username}`)
+        }
     }
 
     const DeletePost = async () => {
-
-
         if (confirm("Are you sure you want to delete this post")) {
-            const response = await fetch(`api/prompt/${post._id}`, {
+            const response = await fetch(`api/prompt/${postid}`, {
                 method: "DELETE"
             })
             if (response.ok) {
@@ -56,7 +53,7 @@ const Card = ({ post, modify }) => {
     }
 
     const EditPost = () => {
-        router.push(`/edit-prompt?id=${post._id}`)
+        router.push(`/edit-prompt?id=${postid}`)
     }
 
     const handleLike = async () => {
@@ -72,7 +69,7 @@ const Card = ({ post, modify }) => {
         }
 
         try {
-            const response = await fetch(`api/prompt/${post._id}/${session?.user.id}`, {
+            const response = await fetch(`api/prompt/${postid}/${session?.user.id}`, {
                 method: "PATCH",
                 body: JSON.stringify({
                     isLiked: flag
@@ -80,13 +77,13 @@ const Card = ({ post, modify }) => {
             })
 
         } catch (error) {
-            console.log(error)
+            console.log("Errr", error)
         }
 
     }
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(post.prompt);
+        navigator.clipboard.writeText(prompt);
         setcopy(true)
         setTimeout(() => {
             setcopy(false)
@@ -102,7 +99,7 @@ const Card = ({ post, modify }) => {
 
 
                     <Image
-                        src={post.padmin.image ? (post.padmin.image) : '/assets/user.jpg'}
+                        src={img ? (img) : '/assets/user.jpg'}
                         alt='Profile Img'
                         width={30}
                         height={30}
@@ -111,8 +108,8 @@ const Card = ({ post, modify }) => {
                     />
                     
                     <div className='text-sm'>
-                        <div className='font-bold'>{post.padmin.username}</div>
-                        <div>{post.padmin.email}</div>
+                        <div className='font-bold'>{username}</div>
+                        <div>{email}</div>
                     </div>
                 </div>
                 <div onClick={handleCopy}>
@@ -124,11 +121,11 @@ const Card = ({ post, modify }) => {
                 </div>
             </div>
             <div className='text-sm mt-3 h-[130px] p-2 '>
-                <div className='h-[60px] overflow-y-scroll'>{post.prompt}</div>
-                <div className=' text-violet-700'>{post.tag}</div>
+                <div className='h-[60px] overflow-y-scroll'>{prompt}</div>
+                <div className=' text-violet-700'>{tag}</div>
             </div>
             {
-                session?.user.id === post.padmin._id && modify && (
+                session?.user.id === userid && modify && (
                     <div className='flex gap-5 justify-center font-medium'>
                         <button onClick={EditPost} className='text-green-700'>
                             Edit

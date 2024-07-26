@@ -3,7 +3,7 @@ const Loader = () => {
     return (
         <div className="mt-10 text-center">
             <Image
-                src={'assets/loader.svg'}
+                src={'/assets/loader.svg'}
                 width={70}
                 height={70}
                 alt='loader'

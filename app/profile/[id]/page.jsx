@@ -10,14 +10,14 @@ const ProfileComp = ({ params }) => {
   const searchParams = useSearchParams();
   const name = searchParams.get("name")
   const [myPost, setMyPosts] = useState([]);
-  const [pending, setpending] = useState(false)
+  const [pending, setpending] = useState()
 
   useEffect(() => {
-
     const fetchPosts = async () => {
       setpending(true)
-      const response = await fetch(`/api/users/${params?.id}/posts`);
+      const response = await fetch( `/api/users/${params?.id}/posts` );
       const data = await response.json();
+    
       setMyPosts(data);
       if (response.ok)
         setpending(false)

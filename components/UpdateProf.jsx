@@ -67,7 +67,6 @@ const UpdateProf = () => {
     return (
 
         <div className='md:w-[40vw]'>
-            <div className='lg:mx-20 mx-3 mt-5 gradient-text'>Update Profile</div>
             <div className='text-center transition-[.3s]' onMouseLeave={() => setEditImage(false)}>
                 
                 <Image

@@ -24,9 +24,7 @@ const Feed = () => {
     }
 
     useEffect(() => {
-
         getPosts()
-
     }, [])
 
     const filterPost = (text) => {
@@ -65,11 +63,35 @@ const Feed = () => {
                         {
                             searchText ? (<div className="flex flex-wrap w-[72vw] gap-10 mt-10" >
                                 {
-                                    searchPost.map((post) => <Card key={post._id} post={post} modify={false} />)
+                                    searchPost.map((item) => (
+
+                                        <Card
+                                            key={item._id}
+                                            prompt={item.prompt}
+                                            tag={item.tag}
+                                            postid={item._id}
+                                            username={item.padmin.username}
+                                            userid={item.padmin.id}
+                                            img={item.padmin.image}
+                                            email={item.padmin.email} />
+
+                                    ))
                                 }
                             </div>) : (<div className="flex flex-wrap justify-center items-center gap-10 mt-10 ">
                                 {
-                                    posts.map((post) => <Card key={post._id} post={post} modify={false} />)
+                                    posts.map((item) => (
+
+                                        <Card
+                                            key={item._id}
+                                            prompt={item.prompt}
+                                            tag={item.tag}
+                                            postid={item._id}
+                                            username={item.padmin.username}
+                                            userid={item.padmin._id}
+                                            img={item.padmin.image}
+                                            email={item.padmin.email} />
+
+                                    ))
                                 }
                             </div>)
                         }
