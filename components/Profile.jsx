@@ -47,13 +47,6 @@ const Profile = ({ myPost, username, updatePr }) => {
                         }
                     </div> </div>)
             }
-            {/* <div>
-                {
-                    updatePr && (<div>
-                        <UpdateProf />
-                    </div>)
-                }
-            </div> */}
         </div >
     )
 }
