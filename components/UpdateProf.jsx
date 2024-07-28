@@ -86,7 +86,7 @@ const UpdateProf = () => {
                         onClick={()=>setdialog(true)}/>
                 }
                 {
-                    dialog && <div className=' h-[20vh] w-[30vw] bg-white border border-black rounded-lg text-center p-2 absolute'>
+                    dialog && <div className=' h-[20vh] w-[30vw] bg-white border rounded-lg text-center p-2 absolute'>
                         <Image src={"/assets/close.svg"}
                         alt='close'
                         height={20}

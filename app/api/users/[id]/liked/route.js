@@ -6,14 +6,14 @@ export const GET = async (req, {params}) => {
     try {
         
         await connectDb()
-        const post = await Like.find({ userid: params.id, isLiked: true }).populate({
+        const post = await Like.find({ padmin: params.id, isLiked: true }).populate({
             path: "postid",
             populate: {
                 path: "padmin",
                 model: "User"
             }
         })       
-        
+        console.log(post)
         return new Response(JSON.stringify(post), { status: 201 })
 
     } catch (error) {

@@ -7,7 +7,6 @@ export const GET = async (req, { params }) => {
         const data = await Like.findOne({ postid: params.id, padmin: params.userid })
         
         if (data){
-            console.log(params)
             return new Response(JSON.stringify(data), { status: 201 })
         }
         
@@ -32,7 +31,6 @@ export const PATCH = async (req, { params }) => {
         const data = await Like.findOne({ postid: params.id, padmin: params.userid })
         data.isLiked = isLiked
         await data.save()
-        console.log(params)
         return new Response("Successfully Liked", {status:201})
 
     } catch (error) {

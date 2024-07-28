@@ -4,35 +4,42 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Profile from '@components/Profile'
 import UpdateProf from '@components/UpdateProf'
+import Loader from '@components/Loader'
 
 const page = () => {
 
   const { data: session } = useSession();
   const [myPost, setMyPosts] = useState([]);
   const [likedPost, setLikedPosts] = useState([]);
-  const [pending, setpending] = useState()
+  const [pending, setpending] = useState(false)
+  const [like, setlike] = useState(false)
 
   const handlePosts = async (e) => {
 
     if (e.target.id === "Liked" && session?.user.id) {
+      setpending(true)
+      setlike(true)
       const response = await fetch(`api/users/${session?.user.id}/liked`, { method: 'GET' })
       const data = await response.json()
       setLikedPosts(data)
+      
+      setpending(false)
     }
     else {
-      setLikedPosts([])
+      setlike(false)
+      // setLikedPosts([])
     }
 
   }
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setpending(true)
+      // setpending(true)
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
       setMyPosts(data);
-      if (response.ok)
-        setpending(false)
+      // if (response.ok)
+        // setpending(false)
     };
 
     if (session?.user.id) fetchPosts();
@@ -43,13 +50,13 @@ const page = () => {
     <div>
       {
         session?.user.id && (<form className='gradient-text flex gap-5 ml-5 mt-3'>
-          <div>
-            <input type="radio" id='My-Posts' name='posts' onChange={handlePosts} />
-            <label htmlFor="My-Posts">My Posts</label>
+          <div >
+            <input className='cursor-pointer' type="radio" id='My-Posts' name='posts' onChange={handlePosts} />
+            <label className='cursor-pointer' htmlFor="My-Posts">My Posts</label>
           </div>
-          <div>
-            <input type="radio" id='Liked' name='posts' onChange={handlePosts} />
-            <label htmlFor="Liked">Liked Posts</label>
+          <div >
+            <input className='cursor-pointer' type="radio" id='Liked' name='posts' onChange={handlePosts} />
+            <label className='cursor-pointer' htmlFor="Liked">Liked Posts</label>
           </div>
           <div className='ml-[29vw]'>
             Update Profile
@@ -58,9 +65,16 @@ const page = () => {
       }
       <div className='flex'>
         {
-          likedPost.length === 0 ? (<Profile myPost={myPost} username="My Posts" updatePr={true} />) : (<Profile myPost={likedPost} username="Liked Posts" updatePr={true} />)
+          !like ? (<Profile myPost={myPost} username="My Posts" updatePr={true} />) : (<div>
+            {
+              pending ? (<div className='m-[13vw]'><Loader /></div>) : (<Profile myPost = { likedPost } username = "Liked Posts" updatePr = { true } /> )
+            }
+            </div>)
         }
-        <UpdateProf />
+        <div >
+
+          <UpdateProf />
+        </div>
       </div>
     </div>
   )
