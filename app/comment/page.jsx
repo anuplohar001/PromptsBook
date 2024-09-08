@@ -1,10 +1,8 @@
 "use client"
 import React, { useEffect, useState, Suspense } from 'react'
-
 import Comment from '@components/Comment'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { Suspense } from 'react'
 
 const page = () => {
   const searchParams = useSearchParams()
