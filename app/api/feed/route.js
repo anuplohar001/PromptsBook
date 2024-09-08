@@ -18,5 +18,3 @@ export const GET = async (req, res) => {
         return new NextResponse("Failed to fetch all prompts", { status: 500 })
     }
 };
-
-export const runtime = 'edge';
