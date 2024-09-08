@@ -1,20 +1,35 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    appDir: true,
-    serverComponentsExternalPackages: ["mongoose"],
-    runtime: 'edge',
-  },
-  images: {
-    domains: ['lh3.googleusercontent.com'],
-  },
-  webpack(config) {
-    config.experiments = {
-      ...config.experiments,
-      topLevelAwait: true,
-    }
-    return config
-  }
-}
 
-module.exports = nextConfig
+const { withSentryConfig } = require("@sentry/nextjs");
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const moduleExports = {
+  images: {
+    domains: ["i.scdn.co", "tailwindui.com", "scontent-ort2-2.xx.fbcdn.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent**",
+      },
+      {
+        protocol: "https",
+        hostname: "platform**",
+      },
+    ],
+  }
+};
+
+const SentryWebpackPluginOptions = {
+  silent: true, 
+};
+
+// Ensure Sentry and other plugins are integrated properly.
+module.exports = withBundleAnalyzer(
+  withSentryConfig(moduleExports, SentryWebpackPluginOptions)
+);
