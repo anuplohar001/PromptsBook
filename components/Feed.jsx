@@ -1,13 +1,12 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import search from '@public/assets/search.svg'
 import Card from "./Card"
 import Loader from "./Loader"
+import { Story } from "./Story"
 
 const Feed = () => {
-
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
@@ -43,13 +42,21 @@ const Feed = () => {
 
 
     return (
-        <div className="flex justify-center items-center flex-col ">
-            <div className="flex bg-white mt-3  w-max shadow-lg rounded-lg">
+        <div className="flex  items-center flex-col relative ">
+            <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
+                {
+                    posts.map((item) => (
+                        <Story img={item.padmin.image}/>
+                    ))
+                }
+            </div>
 
-                <Image src={search}
+            <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
+                <Image src={'/assets/search.svg'}
                     height={20}
                     width={20}
-                    className="mx-2" />
+                    alt="search"
+                    className="mx-2 w-auto" />
 
                 <input className="relative  rounded-sm w-[60vw] h-8 p-2"
                     type="text"
@@ -57,11 +64,12 @@ const Feed = () => {
                     onChange={getSearched}
                     placeholder="Search the Prompt" />
             </div>
-            <div className="p-2">
+
+            <div className="p-2 overflow-scroll h-[63vh] mt-4">
                 {
                     pending ? (<Loader />) : (<div>
                         {
-                            searchText ? (<div className="flex flex-wrap w-[72vw] gap-10 mt-10" >
+                            searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
                                 {
                                     searchPost.map((item) => (
 
@@ -77,7 +85,7 @@ const Feed = () => {
 
                                     ))
                                 }
-                            </div>) : (<div className="flex flex-wrap justify-center items-center gap-10 mt-10 ">
+                            </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
                                 {
                                     posts.map((item) => (
 
@@ -90,7 +98,6 @@ const Feed = () => {
                                             userid={item.padmin._id}
                                             img={item.padmin.image}
                                             email={item.padmin.email} />
-
                                     ))
                                 }
                             </div>)
@@ -99,7 +106,7 @@ const Feed = () => {
                 }
             </div>
 
-        </div>
+        </div >
     )
 }
 

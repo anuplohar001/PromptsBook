@@ -5,16 +5,18 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
-const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
+const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
 
     const router = useRouter();
     const { data: session } = useSession()
     const [Likes, setLikes] = useState({ isLiked: false })
     const [copy, setcopy] = useState(false)
+    const [likesno, setNo] = useState()
 
     const getLikes = async () => {
+        
         try {
-            const response = await fetch( `/api/prompt/${postid}/${session?.user.id}`, {
+            const response = await fetch(`/api/prompt/${postid}/${session?.user.id}`, {
                 method: "GET"
             })
             const data = await response.json()
@@ -22,20 +24,38 @@ const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
         } catch (error) {
             console.log(error)
         }
+        getLikesNo()
     }
 
-    useEffect(() => {        
+    const getLikesNo = async()=>{
+        try {
+            const response = await fetch(`/api/prompt/like/${postid}`, {method:"GET"})
+            const data = await response.json()
+            setNo(data.length)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
         if (session?.user.id) getLikes()
+        getLikesNo()
     }, [session?.user.id])
+    
+    useEffect(()=> {
+        if(Likes.isLiked)
+            setNo(likesno+1)
+        else
+            setNo(likesno-1)
+    }, [Likes.isLiked])
 
 
     const userProfile = () => {
-        
+
         if (userid === session?.user.id) {
             router.push(`/profile`)
         }
-        else{
-            console.log(userid)
+        else {
             router.push(`/profile/${userid}?name=${username}`)
         }
     }
@@ -47,7 +67,7 @@ const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
             })
             if (response.ok) {
                 alert("Post Deleted Successfully")
-                router.push("/")
+                router.back()
             }
         }
     }
@@ -90,23 +110,23 @@ const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
         }, 3000);
     }
 
+    
+
     return (
 
         <div className='prompt_card' onDoubleClick={handleLike}>
-
-            <div className='ml-1 flex gap-4 ' >
+           
+            <div className='ml-1 flex gap-4' >
                 <div className='flex gap-3 hover:cursor-pointer' onClick={userProfile}>
-
-
                     <Image
                         src={img ? (img) : '/assets/user.jpg'}
                         alt='Profile Img'
                         width={30}
                         height={30}
-                        className='rounded-full'
+                        className='rounded-full w-[35px] h-[35px]'
 
                     />
-                    
+
                     <div className='text-sm'>
                         <div className='font-bold'>{username}</div>
                         <div>{email}</div>
@@ -137,13 +157,34 @@ const Card = ({modify, prompt, tag, img, username, email, postid, userid }) => {
             {
                 session?.user && (
                     <div className='transition-[1s]'>
+                        <div className='absolute right-9 bottom-1 text-[10px] font-bold'>
+                            {likesno}
+                        </div>
                         <Image
                             src={Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
                             height={25}
                             width={25}
                             alt='Like'
-                            className='absolute bottom-3 right-7'
+                            className='absolute bottom-4 right-7 cursor-pointer h-5 w-5'
                             onClick={handleLike}
+                        />
+                        
+                        <Image
+                            src={'/assets/comment.svg'}
+                            height={17}
+                            width={17}
+                            alt='Like'
+                            className='absolute bottom-3 cursor-pointer'
+                            onClick={()=>router.push(`/comment?id=${postid}`)}
+                        />
+                        
+                        <Image
+                            src={'/assets/share.svg'}
+                            height={17}
+                            width={17}
+                            alt='Like'
+                            className='absolute bottom-3 left-[42px] cursor-pointer'
+
                         />
                     </div>
                 )

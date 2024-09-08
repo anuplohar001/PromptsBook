@@ -27,7 +27,7 @@ const ProfileComp = ({ params }) => {
   }, [params?.id]);
 
   return (
-    <div className='m-4 ml-5'>
+    <div className='m-4 ml-5 mt-9'>
       <div className='gradient-text '>
         {name}
       </div>

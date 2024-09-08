@@ -22,7 +22,7 @@ const page = () => {
       const response = await fetch(`api/users/${session?.user.id}/liked`, { method: 'GET' })
       const data = await response.json()
       setLikedPosts(data)
-      
+
       setpending(false)
     }
     else {
@@ -34,12 +34,9 @@ const page = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      // setpending(true)
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
       setMyPosts(data);
-      // if (response.ok)
-        // setpending(false)
     };
 
     if (session?.user.id) fetchPosts();
@@ -49,7 +46,7 @@ const page = () => {
   return (
     <div>
       {
-        session?.user.id && (<form className='gradient-text flex gap-5 ml-5 mt-3'>
+        session?.user.id && (<form className='gradient-text flex gap-5 ml-5 mt-9'>
           <div >
             <input className='cursor-pointer' type="radio" id='My-Posts' name='posts' onChange={handlePosts} />
             <label className='cursor-pointer' htmlFor="My-Posts">My Posts</label>
@@ -63,16 +60,17 @@ const page = () => {
           </div>
         </form>)
       }
-      <div className='flex'>
-        {
-          !like ? (<Profile myPost={myPost} username="My Posts" updatePr={true} />) : (<div>
-            {
-              pending ? (<div className='m-[13vw]'><Loader /></div>) : (<Profile myPost = { likedPost } username = "Liked Posts" updatePr = { true } /> )
-            }
+      <div className='flex '>
+        <div className='w-[50vw]'>
+          {
+            !like ? (<Profile myPost={myPost} username="My Posts" updatePr={true} />) : (<div>
+              {
+                pending ? (<div className='m-[13vw]'><Loader /></div>) : (likedPost.length === 0 ? (<div className='m-[15vw] font-bold'>No Liked Post...</div>) : (<Profile myPost={likedPost} username="Liked Posts" updatePr={true} />))
+              }
             </div>)
-        }
+          }
+        </div>
         <div >
-
           <UpdateProf />
         </div>
       </div>

@@ -77,14 +77,14 @@ const UpdateProf = () => {
                     className='text-center rounded-full m-5 mx-[16vw] ' 
                     onMouseEnter={()=>setEditImage(true)}
                     />
-                {
+                {/* {
                     editImage && <Image src={"/assets/edit.svg"}
                         alt="edit"
                         width={30}
                         height={30}
                         className='absolute right-[28vw] top-[41vh] cursor-pointer' 
                         onClick={()=>setdialog(true)}/>
-                }
+                } */}
                 {
                     dialog && <div className=' h-[20vh] w-[30vw] bg-white border rounded-lg text-center p-2 absolute'>
                         <Image src={"/assets/close.svg"}

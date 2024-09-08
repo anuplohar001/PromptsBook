@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react'
 const Profile = ({ myPost, username, updatePr }) => {
       
     return (
-        <div className='flex md:flex-row flex-col h-[70vh] w-[50vw] overflow-y-scroll'>
+        <div className='flex md:flex-row flex-col h-[70vh] w-[50vw] overflow-y-scroll '>
             {
                 myPost.length === 0 ? (<div className='m-[10vw]'> <Loader/> </div>) : (<div className='mt-7 ml-2 w-[50vw ' >                    
 

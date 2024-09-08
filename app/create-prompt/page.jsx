@@ -26,7 +26,7 @@ const Create = () => {
       console.log(response)
       if (response.ok) {
         alert("Post created Successfully")
-        router.push('/')
+        router.back()
       }
 
     } catch (error) {

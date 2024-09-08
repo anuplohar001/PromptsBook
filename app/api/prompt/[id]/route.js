@@ -6,7 +6,8 @@ export const GET = async (req, { params }) => {
 
     try {
         await connectDb()
-        const data = await Prompt.findOne({ _id: params.id })
+        const data = await Prompt.findOne({ _id: params.id }).populate("padmin")
+        
         return new Response(JSON.stringify(data), { status: 201 })
 
     } catch (error) {
@@ -26,7 +27,6 @@ export const PATCH = async (req, { params }) => {
         data.tag = tag;
 
         await data.save()
-        console.log(data)
         return new Response("Succefully edited", { status: 201 })
 
     } catch (error) {
