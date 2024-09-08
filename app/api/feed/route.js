@@ -1,6 +1,7 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
 import { NextResponse } from "next/server";
+
 export const dynamic = 'force-dynamic';
 
 export const GET = async (req, res) => {
@@ -16,6 +17,6 @@ export const GET = async (req, res) => {
 
         return new NextResponse("Failed to fetch all prompts", { status: 500 })
     }
-}
+};
 
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
