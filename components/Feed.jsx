@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import search from '@public/assets/search.svg'
 import Card from "./Card"
 import Loader from "./Loader"
 import { Story } from "./Story"
@@ -20,6 +19,7 @@ const Feed = () => {
         setPosts(post)
         if (data.ok)
             setPending(false)
+        return post
     }
 
     useEffect(() => {
@@ -46,7 +46,9 @@ const Feed = () => {
             <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
                 {
                     posts.map((item) => (
-                        <Story img={item.padmin.image}/>
+                        <Story
+                        key={item._id}
+                        img={item.padmin.image}/>
                     ))
                 }
             </div>

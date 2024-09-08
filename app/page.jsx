@@ -1,5 +1,6 @@
-import Feed from '@components/Feed'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
+const Feed = React.lazy(() => import("@components/Feed"))
+
 
 const Home = () => {
 
@@ -18,9 +19,9 @@ const Home = () => {
           <div>Password : <b>anup@220803</b></div>
         </div>
       </section>
-      <Suspense>
+      
+      <Suspense fallback={<p>Loading...</p>}>
         <Feed />
-
       </Suspense>
 
     </div>

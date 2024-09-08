@@ -158,7 +158,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
                 session?.user && (
                     <div className='transition-[1s]'>
                         <div className='absolute right-9 bottom-1 text-[10px] font-bold'>
-                            {likesno}
+                            {likesno ? (likesno):(0)}
                         </div>
                         <Image
                             src={Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
