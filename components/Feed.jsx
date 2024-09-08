@@ -14,7 +14,9 @@ const Feed = () => {
 
     const getPosts = async () => {
         setPending(true)
-        const data = await fetch('api/feed')
+        const data = await fetch('api/feed',{
+            next: { revalidate: 10 }
+        })
         const post = await data.json();
         setPosts(post)
         if (data.ok)

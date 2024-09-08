@@ -7,7 +7,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const moduleExports = {
   images: {
-    domains: ["i.scdn.co", "tailwindui.com", "scontent-ort2-2.xx.fbcdn.net"],
+    domains: ["i.scdn.co", "tailwindui.com", "scontent-ort2-2.xx.fbcdn.net", 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: "https",
@@ -26,7 +26,7 @@ const moduleExports = {
 };
 
 const SentryWebpackPluginOptions = {
-  silent: true, 
+  silent: true,
 };
 
 // Ensure Sentry and other plugins are integrated properly.
