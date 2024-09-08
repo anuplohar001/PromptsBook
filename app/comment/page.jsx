@@ -4,7 +4,7 @@ import Comment from '@components/Comment'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 
-const page = () => {
+function Comments() {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
   const [details, setdetails] = useState({})
@@ -32,15 +32,24 @@ const page = () => {
 
 
   return (
-    <Suspense>
+    
       <div>
 
         {
           pending ? (<Image src={'/assets/loader.svg'} height={20} width={20} alt='loading' />) : (<Comment postid={id} userid={details.padmin} prompt={details.prompt} tag={details.tag} username={user.username} img={user.image} email={user.email} />)
         }
       </div>
+  )
+}
+
+const page = () => {
+  
+  return (
+    <Suspense>
+      <Comments/>
     </Suspense>
   )
+  
 }
 
 export default page
