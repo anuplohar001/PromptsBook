@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
+import { revalidatePath, revalidateTag } from 'next/cache'
 const Feed = React.lazy(() => import("@components/Feed"))
-export const revalidate = 10;
+
 
 export const checkEnvironment = () => {
   let base_url =
@@ -12,8 +13,12 @@ export const checkEnvironment = () => {
 };
 
 export default async function Page() {
-  let data = await fetch(checkEnvironment().concat("/api/feed"), { cache: 'no-store' })
-  let posts = await data.json()
+  // let data = await fetch(checkEnvironment().concat("/api/feed"), {next:{tags:['feed']} })
+  let data = await fetch("http://localhost:3000/api/feed", { cache: 'no-store' })
+  let posts = []
+  if(data.ok){
+    posts = await data.json()
+  }
 
   return (
     <div className='overflow-y-scroll h-[90vh] p-0'>

@@ -1,5 +1,5 @@
 "use client"
-
+import { revalidatePath, revalidateTag } from 'next/cache'
 import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -27,6 +27,7 @@ const Create = () => {
       if (response.ok) {
         alert("Post created Successfully")
         router.back()
+        // revalidatePath("http://localhost:3000", 'page')
       }
 
     } catch (error) {

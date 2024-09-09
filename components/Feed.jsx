@@ -1,21 +1,18 @@
 "use client"
 import React, { useState, useEffect } from "react"
-import { unstable_noStore as noStore } from "next/cache"
 import Image from "next/image"
 import Card from "./Card"
 import Loader from "./Loader"
 import { Story } from "./Story"
 
-export const revalidate = 10
-
 
 const Feed = ({posts}) => {
-
+    // console.log(posts)
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
-    // const [posts, setPosts] = useState([])
     const [pending, setPending] = useState(false)
-
+    
+    // const [posts, setPosts] = useState([])
     // const getPosts = async () => {
     //     setPending(true)
     //     const response = await fetch('/api/feed', {})
