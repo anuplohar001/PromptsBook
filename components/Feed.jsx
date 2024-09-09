@@ -1,19 +1,16 @@
 "use client"
-import React, { useState, useEffect, useCallback } from "react"
-import useSWR from 'swr'
+import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import Card from "./Card"
-import Comment from "./Comment"
 import Loader from "./Loader"
 import { Story } from "./Story"
 
-const Feed = React.memo(() => {
+const Feed = React.memo(({data}) => {
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
     const [posts, setPosts] = useState([])
     const [pending, setPending] = useState(true)
-    const [comm, setcomm] = useState(false)
 
     const getPosts = async () => {
         // if (posts===null) {
@@ -51,9 +48,7 @@ const Feed = React.memo(() => {
     return (
         <div>
             {
-                comm ? (<div className="h-[30vw] w-[30vw] border border-black absolute">
-                    <Comment />
-                </div>) : (<div className="flex  items-center flex-col relative ">
+                 (<div className="flex  items-center flex-col relative ">
 
                     <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
                         {

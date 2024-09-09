@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 const Feed = React.lazy(() => import("@components/Feed"))
 
 
+
 const Home = () => {
 
 
@@ -17,13 +18,13 @@ const Home = () => {
           <b>Use following credentials for LogIn and access the rest functions</b>
           <div>Email : <b>anuplohar001@gmail.com</b></div>
           <div>Password : <b>anup@220803</b></div>
+         
         </div>
       </section>
       
       <Suspense fallback={<p>Loading...</p>}>
         <Feed />
       </Suspense>
-
     </div>
   )
 }
