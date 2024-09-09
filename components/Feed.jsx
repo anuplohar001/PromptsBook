@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react"
+import { unstable_noStore as noStore } from "next/cache"
 import Image from "next/image"
 import Card from "./Card"
 import Loader from "./Loader"
@@ -14,8 +15,9 @@ const Feed = React.memo(({data}) => {
 
     const getPosts = async () => {
         // if (posts===null) {
+        noStore()
         setPending(true)
-        const response = await fetch('/api/feed')
+        const response = await fetch('/api/feed', {})
         console.log("fetching")
         const data = await response.json();
         if (response.ok) {
