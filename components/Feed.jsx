@@ -17,20 +17,21 @@ const Feed = React.memo(() => {
 
     const getPosts = async () => {
         // if (posts===null) {
-            setPending(true)
-            const data = await fetch('/api/feed')
-            console.log("fetching")
-            const post = await data.json();
-            setPosts(post)
-            if (data.ok)
-                setPending(false)
+        setPending(true)
+        const response = await fetch('/api/feed')
+        console.log("fetching")
+        const data = await response.json();
+        if (response.ok) {
+            setPosts(data)
+            setPending(false)
+        }
         // }
     }
 
-    useEffect(()=>{
-      getPosts()
+    useEffect(() => {
+        getPosts()
     }, [])
-    
+
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
