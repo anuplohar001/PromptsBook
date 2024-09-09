@@ -6,6 +6,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const moduleExports = {
+
+
   images: {
     domains: ["i.scdn.co", "tailwindui.com", "scontent-ort2-2.xx.fbcdn.net", 'lh3.googleusercontent.com'],
     remotePatterns: [

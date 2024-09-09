@@ -1,6 +1,5 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
-import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic';
 
@@ -11,10 +10,10 @@ export const GET = async (req, res) => {
         await connectDb();
         const prompt = await Prompt.find({}).populate("padmin");
 
-        return new NextResponse(JSON.stringify(prompt), { status: 200})
+        return new Response(JSON.stringify(prompt), { status: 200})
 
     } catch (error) {
 
-        return new NextResponse("Failed to fetch all prompts", { status: 500 })
+        return new Response(JSON.stringify("Failed to fetch all prompts"), { status: 500 })
     }
 };

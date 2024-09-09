@@ -41,7 +41,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
   }
 
   return (
-    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] z-10 h-[100vh] bg-black/70'>
+    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] z-10 h-[80vh] bg-black/70'>
 
       <Image
         height={25}
@@ -62,8 +62,8 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
           img={img}
           email={email} />
 
-        <div className='gradient h-[70vh] w-[50vw] ml-6 rounded-md p-2'>
-          <div className='h-[58vh] overflow-scroll'>
+        <div className='gradient h-[50vh] w-[50vw] ml-6 rounded-md p-2'>
+          <div className='h-[45vh] overflow-scroll'>
             
             {
               oldc.length ? (oldc.map((item) => (

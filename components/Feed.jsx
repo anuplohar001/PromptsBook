@@ -1,32 +1,36 @@
 "use client"
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
+import useSWR from 'swr'
 import Image from "next/image"
 import Card from "./Card"
+import Comment from "./Comment"
 import Loader from "./Loader"
 import { Story } from "./Story"
 
-const Feed = () => {
+const Feed = React.memo(() => {
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
     const [posts, setPosts] = useState([])
     const [pending, setPending] = useState(true)
+    const [comm, setcomm] = useState(false)
 
     const getPosts = async () => {
-        setPending(true)
-        const data = await fetch('api/feed',{
-            next: { revalidate: 10 }
-        })
-        const post = await data.json();
-        setPosts(post)
-        if (data.ok)
-            setPending(false)
-        return post
+        // if (posts===null) {
+            setPending(true)
+            const data = await fetch('/api/feed')
+            console.log("fetching")
+            const post = await data.json();
+            setPosts(post)
+            if (data.ok)
+                setPending(false)
+        // }
     }
 
-    useEffect(() => {
-        getPosts()
+    useEffect(()=>{
+      getPosts()
     }, [])
+    
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
@@ -44,74 +48,83 @@ const Feed = () => {
 
 
     return (
-        <div className="flex  items-center flex-col relative ">
-            <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
-                {
-                    posts.map((item) => (
-                        <Story
-                        key={item._id}
-                        img={item.padmin.image}/>
-                    ))
-                }
-            </div>
+        <div>
+            {
+                comm ? (<div className="h-[30vw] w-[30vw] border border-black absolute">
+                    <Comment />
+                </div>) : (<div className="flex  items-center flex-col relative ">
 
-            <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
-                <Image src={'/assets/search.svg'}
-                    height={20}
-                    width={20}
-                    alt="search"
-                    className="mx-2 w-auto" />
-
-                <input className="relative  rounded-sm w-[60vw] h-8 p-2"
-                    type="text"
-                    value={searchText}
-                    onChange={getSearched}
-                    placeholder="Search the Prompt" />
-            </div>
-
-            <div className="p-2 overflow-scroll h-[63vh] mt-4">
-                {
-                    pending ? (<Loader />) : (<div>
+                    <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
                         {
-                            searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
-                                {
-                                    searchPost.map((item) => (
-
-                                        <Card
-                                            key={item._id}
-                                            prompt={item.prompt}
-                                            tag={item.tag}
-                                            postid={item._id}
-                                            username={item.padmin.username}
-                                            userid={item.padmin.id}
-                                            img={item.padmin.image}
-                                            email={item.padmin.email} />
-
-                                    ))
-                                }
-                            </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
-                                {
-                                    posts.map((item) => (
-
-                                        <Card
-                                            key={item._id}
-                                            prompt={item.prompt}
-                                            tag={item.tag}
-                                            postid={item._id}
-                                            username={item.padmin.username}
-                                            userid={item.padmin._id}
-                                            img={item.padmin.image}
-                                            email={item.padmin.email} />
-                                    ))
-                                }
-                            </div>)
+                            posts.map((item) => (
+                                <Story
+                                    key={item._id}
+                                    img={item.padmin.image} />
+                            ))
                         }
-                    </div >)
-                }
-            </div>
+                    </div>
 
-        </div >
+                    <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
+                        <Image src={'/assets/search.svg'}
+                            height={20}
+                            width={20}
+                            alt="search"
+                            className="mx-2 w-auto" />
+
+                        <input className="relative  rounded-sm w-[60vw] h-8 p-2"
+                            type="text"
+                            value={searchText}
+                            onChange={getSearched}
+                            placeholder="Search the Prompt" />
+                    </div>
+
+                    <div className="p-2 overflow-scroll h-[63vh] mt-4">
+                        {
+                            pending ? (<Loader />) : (<div>
+                                {
+                                    searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
+                                        {
+                                            searchPost.map((item) => (
+
+                                                <Card
+                                                    key={item._id}
+                                                    prompt={item.prompt}
+                                                    tag={item.tag}
+                                                    postid={item._id}
+                                                    username={item.padmin.username}
+                                                    userid={item.padmin.id}
+                                                    img={item.padmin.image}
+                                                    email={item.padmin.email} />
+
+                                            ))
+                                        }
+                                    </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
+                                        {
+                                            posts.map((item) => (
+
+                                                <Card
+                                                    key={item._id}
+                                                    prompt={item.prompt}
+                                                    tag={item.tag}
+                                                    postid={item._id}
+                                                    username={item.padmin.username}
+                                                    userid={item.padmin._id}
+                                                    img={item.padmin.image}
+                                                    email={item.padmin.email} />
+                                            ))
+                                        }
+                                    </div>)
+                                }
+                            </div >)
+                        }
+                    </div>
+
+                </div >)
+            }
+
+
+        </div>
     )
-}
+});
 
 export default Feed
