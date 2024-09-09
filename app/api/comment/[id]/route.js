@@ -16,8 +16,8 @@ export const DELETE = async(req, {params}) => {
     try {
         await connectDb()
         await comments.deleteOne({_id: params.id})
-        return new Response("Comment deleted", {status:201})
+            (JSON.stringify({ message: "Comment deleted"}), {status:201})
     } catch (error) {
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }

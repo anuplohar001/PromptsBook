@@ -8,7 +8,7 @@ export const GET = async (req, { params }) => {
         return new Response(JSON.stringify(user), { status: 200 })
 
     } catch (error) {
-        return new Response(JSON.stringify("User Error"), {status: 500})
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }
 
@@ -32,6 +32,6 @@ export const PATCH = async (req, {params}) => {
         return new Response(JSON.stringify("Profile Edited"), {status: 200})
 
     } catch (error) {
-        return new Response({status: 500})
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }

@@ -7,6 +7,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const moduleExports = {
 
+  env: {
+    NEXT_PUBLIC_ENV: 'PRODUCTION', //your next configs goes here
+  },
 
   images: {
     domains: ["i.scdn.co", "tailwindui.com", "scontent-ort2-2.xx.fbcdn.net", 'lh3.googleusercontent.com'],

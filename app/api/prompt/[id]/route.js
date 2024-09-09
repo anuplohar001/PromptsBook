@@ -11,7 +11,7 @@ export const GET = async (req, { params }) => {
         return new Response(JSON.stringify(data), { status: 201 })
 
     } catch (error) {
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 
 }
@@ -27,11 +27,11 @@ export const PATCH = async (req, { params }) => {
         data.tag = tag;
 
         await data.save()
-        return new Response("Succefully edited", { status: 201 })
+        return new Response(JSON.stringify({ message: "Succefully edited"}), { status: 201 })
 
     } catch (error) {
 
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }
 
@@ -40,8 +40,8 @@ export const DELETE = async (req, {params}) => {
         await connectDb()
         await Prompt.deleteOne({_id: params.id})
         await Like.deleteMany({postid: params.id})
-        return new Response("Post Deleted", {status:201})
+        return new Response(JSON.stringify({ message: "Succefully deleted" }), { status: 201 })
     } catch (error) {
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }

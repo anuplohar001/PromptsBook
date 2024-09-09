@@ -16,10 +16,10 @@ export const GET = async (req, { params }) => {
             isLiked: false
         })
         
-        return new Response("Like created", { status: 201 })
+        return new Response(JSON.stringify({ message: "Done !!!" }), { status: 500 })
 
     } catch (error) {
-        console.log("this is error ", error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }
 
@@ -31,10 +31,10 @@ export const PATCH = async (req, { params }) => {
         const data = await Like.findOne({ postid: params.id, padmin: params.userid })
         data.isLiked = isLiked
         await data.save()
-        return new Response("Successfully Liked", {status:201})
+        return new Response(JSON.stringify({ message: "Done" }), { status: 500 })
 
     } catch (error) {
-        console.log("this is error ", error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 
 }

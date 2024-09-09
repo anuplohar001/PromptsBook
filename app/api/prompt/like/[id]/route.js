@@ -8,6 +8,6 @@ export const GET = async(req, {params}) => {
         const data = await Like.find({postid:params.id, isLiked:true})
         return new Response(JSON.stringify(data), {status:201})
     } catch (error) {
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }

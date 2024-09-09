@@ -16,6 +16,6 @@ export const GET = async (req, { params }) => {
         return new Response(JSON.stringify(post), { status: 201 })
 
     } catch (error) {
-        return new Response({ status: 500 })
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }
