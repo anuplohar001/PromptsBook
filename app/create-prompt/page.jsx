@@ -4,7 +4,6 @@ import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Form from '@components/Form'
-import Test from '@components/Test'
 
 const Create = () => {
 
