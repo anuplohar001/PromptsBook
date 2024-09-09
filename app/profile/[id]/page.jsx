@@ -14,7 +14,7 @@ const ProfileComp = ({ params }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${params?.id}/posts`, { cache: 'force-cache' }, { next: { tags: ["posts"] } });
+      const response = await fetch(`/api/users/${params?.id}/posts`, { cache: 'no-store' });
       const data = await response.json();
     
       if (response.ok){

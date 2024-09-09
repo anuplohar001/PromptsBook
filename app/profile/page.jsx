@@ -34,8 +34,7 @@ const page = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${session?.user.id}/posts`, { cache: 'force-cache' }, { next: { tags: ["posts"] } }
-);
+      const response = await fetch(`/api/users/${session?.user.id}/posts`, { cache: 'no-store' });
       const data = await response.json();
       setMyPosts(data);
     };
