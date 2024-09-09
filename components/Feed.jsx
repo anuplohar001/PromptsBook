@@ -6,7 +6,10 @@ import Card from "./Card"
 import Loader from "./Loader"
 import { Story } from "./Story"
 
-const Feed = React.memo(({data}) => {
+export const revalidate = 10
+
+
+const Feed = () => {
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
@@ -14,8 +17,6 @@ const Feed = React.memo(({data}) => {
     const [pending, setPending] = useState(true)
 
     const getPosts = async () => {
-        // if (posts===null) {
-        noStore()
         setPending(true)
         const response = await fetch('/api/feed', {})
         console.log("fetching")
@@ -24,7 +25,6 @@ const Feed = React.memo(({data}) => {
             setPosts(data)
             setPending(false)
         }
-        // }
     }
 
     useEffect(() => {
@@ -123,6 +123,6 @@ const Feed = React.memo(({data}) => {
 
         </div>
     )
-});
+};
 
 export default Feed
