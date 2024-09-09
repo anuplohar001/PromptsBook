@@ -9,27 +9,27 @@ import { Story } from "./Story"
 export const revalidate = 10
 
 
-const Feed = () => {
+const Feed = ({posts}) => {
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
-    const [posts, setPosts] = useState([])
-    const [pending, setPending] = useState(true)
+    // const [posts, setPosts] = useState([])
+    const [pending, setPending] = useState(false)
 
-    const getPosts = async () => {
-        setPending(true)
-        const response = await fetch('/api/feed', {})
-        console.log("fetching")
-        const data = await response.json();
-        if (response.ok) {
-            setPosts(data)
-            setPending(false)
-        }
-    }
+    // const getPosts = async () => {
+    //     setPending(true)
+    //     const response = await fetch('/api/feed', {})
+    //     console.log("fetching")
+    //     const data = await response.json();
+    //     if (response.ok) {
+    //         setPosts(data)
+    //         setPending(false)
+    //     }
+    // }
 
-    useEffect(() => {
-        getPosts()
-    }, [])
+    // useEffect(() => {
+    //     getPosts()
+    // }, [])
 
 
     const filterPost = (text) => {
