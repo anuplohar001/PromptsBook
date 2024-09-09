@@ -2,8 +2,17 @@ import React, { Suspense } from 'react'
 const Feed = React.lazy(() => import("@components/Feed"))
 export const revalidate = 10;
 
+export const checkEnvironment = () => {
+  let base_url =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "http://prompts-book.vercel.app"; // https://v2ds.netlify.app
+
+  return base_url;
+};
+
 export default async function Page() {
-  let data = await fetch('http://localhost:3000/api/feed', { cache: 'no-store' })
+  let data = await fetch(checkEnvironment().concat("/api/feed"), { cache: 'no-store' })
   let posts = await data.json()
 
   return (
