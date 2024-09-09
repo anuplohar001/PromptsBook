@@ -27,7 +27,7 @@ const Create = () => {
       if (response.ok) {
         alert("Post created Successfully")
         router.back()
-        // revalidatePath("http://localhost:3000", 'page')
+        revalidatePath("https://prompts-book.vercel.app", 'page')
       }
 
     } catch (error) {
