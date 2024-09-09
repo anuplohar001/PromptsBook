@@ -14,13 +14,12 @@ const ProfileComp = ({ params }) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      setpending(true)
       const response = await fetch( `/api/users/${params?.id}/posts` );
       const data = await response.json();
     
-      setMyPosts(data);
-      if (response.ok)
-        setpending(false)
+      if (response.ok){
+        setMyPosts(data);
+      }
     };
 
     if (params?.id) fetchPosts();

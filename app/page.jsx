@@ -13,7 +13,8 @@ export const checkEnvironment = () => {
 };
 
 export default async function Page() {
-  let data = await fetch(checkEnvironment().concat("/api/feed"), {next:{tags:['feed']} })
+
+  let data = await fetch(checkEnvironment().concat("/api/feed"))
   // let data = await fetch("http://localhost:3000/api/feed", { cache: 'no-store' })
   let posts = []
   if(data.ok){
@@ -35,7 +36,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense>
         <Feed posts={posts}/>
       </Suspense>
     </div>
