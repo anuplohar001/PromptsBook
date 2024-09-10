@@ -6,7 +6,17 @@ import Loader from "./Loader"
 import { Story } from "./Story"
 
 
+export const checkEnvironment = () => {
+    let base_url =
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "http://prompts-book.vercel.app"; // https://v2ds.netlify.app
+
+    return base_url;
+};
+
 const Feed = ({posts}) => {
+
     // console.log(posts)
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
@@ -46,6 +56,7 @@ const Feed = ({posts}) => {
 
     return (
         <div>
+            
             {
                  (<div className="flex  items-center flex-col relative ">
 

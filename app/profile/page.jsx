@@ -1,5 +1,7 @@
 "use client"
 
+//MY PROFILE
+
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Profile from '@components/Profile'
@@ -19,7 +21,7 @@ const page = () => {
     if (e.target.id === "Liked" && session?.user.id) {
       setpending(true)
       setlike(true)
-      const response = await fetch(`api/users/${session?.user.id}/liked`, { method: 'GET' })
+      const response = await fetch(`api/users/${session?.user.id}/liked`, { method: 'GET'})
       const data = await response.json()
       setLikedPosts(data)
 
@@ -34,9 +36,11 @@ const page = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${session?.user.id}/posts`, { cache: 'no-store' });
-      const data = await response.json();
-      setMyPosts(data);
+      const response = await fetch(`/api/users/${session?.user.id}/posts`);
+      if(response.ok){
+        const data = await response.json();
+        setMyPosts(data);
+      }
     };
 
     if (session?.user.id) fetchPosts();

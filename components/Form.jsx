@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { revalidateAll } from '@lib/actions'
 
 const Form = ({ type, handleClick, post, setPost }) => {
 
@@ -21,7 +22,7 @@ const Form = ({ type, handleClick, post, setPost }) => {
                     </span>
                     <textarea name="prompt"
                         placeholder='Create your Prompt'
-                        id="" 
+                        id=""
                         className='mb-10 h-44 w-[50vw] p-2 rounded-md shadow-xl'
                         value={post.prompt}
                         onChange={(e) => setPost({ ...post, prompt: (e.target.value) })}
@@ -39,9 +40,11 @@ const Form = ({ type, handleClick, post, setPost }) => {
                         onChange={(e) => setPost({ ...post, tag: e.target.value })}
                     />
                 </label>
-
-                <button onClick={handleClick}
-                    className="shadow-xl my-4 w-20 p-2 bg-orange-400 text-white rounded-full text-sm" >{type}...</button>
+                <form>
+                    <button
+                        onClick={handleClick}
+                        className="shadow-xl my-4 w-20 p-2 bg-orange-400 text-white rounded-full text-sm" >{type}...</button>
+                </form>
             </form>
         </div>
     )

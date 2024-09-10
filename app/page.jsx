@@ -1,21 +1,19 @@
 import React, { Suspense } from 'react'
-import { revalidatePath, revalidateTag } from 'next/cache'
-const Feed = React.lazy(() => import("@components/Feed"))
 
+const Feed = React.lazy(() => import("@components/Feed"))
 
 export const checkEnvironment = () => {
   let base_url =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "http://prompts-book.vercel.app"; // https://v2ds.netlify.app
+      : "http://prompts-book.vercel.app";
 
   return base_url;
 };
 
 export default async function Page() {
 
-  let data = await fetch(checkEnvironment().concat("/api/feed"), { cache: 'no-store' })
-  // let data = await fetch("http://localhost:3000/api/feed", { cache: 'no-store' })
+  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tags: ['feed'] } })
   let posts = []
   if(data.ok){
     posts = await data.json()
@@ -32,6 +30,7 @@ export default async function Page() {
           <b>Use following credentials for LogIn and access the rest functions</b>
           <div>Email : <b>anuplohar001@gmail.com</b></div>
           <div>Password : <b>anup@220803</b></div>
+          
 
         </div>
       </section>

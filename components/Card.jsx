@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { revalidateAll } from '@lib/actions'
 
 const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
 
@@ -68,6 +69,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
             if (response.ok) {
                 alert("Post Deleted Successfully")
                 router.back()
+                revalidateAll()
             }
         }
     }

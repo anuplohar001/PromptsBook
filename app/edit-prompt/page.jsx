@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Form from '@components/Form'
+import { revalidateAll, revalidateFeed } from '@lib/actions'
 
 
 const Editcomp = () => {
@@ -43,7 +44,8 @@ const Editcomp = () => {
 
             if (response.ok) {
                 alert("Post Edited Successfully")
-                router.push("/profile")
+                revalidateFeed()
+                router.back()
             }
 
         } catch (error) {

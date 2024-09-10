@@ -4,6 +4,7 @@ import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Form from '@components/Form'
+import { revalidateFeed } from '@lib/actions';
 
 const Create = () => {
 
@@ -14,7 +15,7 @@ const Create = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-
+      
       const response = await fetch('/api/prompt/new', {
         method: 'POST',
         body: JSON.stringify({
@@ -26,8 +27,8 @@ const Create = () => {
       console.log(response)
       if (response.ok) {
         alert("Post created Successfully")
+        revalidateFeed()
         router.back()
-        revalidatePath("https://prompts-book.vercel.app", 'page')
       }
 
     } catch (error) {

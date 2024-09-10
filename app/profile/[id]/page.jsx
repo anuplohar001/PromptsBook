@@ -1,5 +1,7 @@
 "use client"
 
+//USER PROFILE
+
 import React, { useState, useEffect, Suspense } from 'react'
 import Profile from '@components/Profile'
 import { useSearchParams } from 'next/navigation'
@@ -10,14 +12,12 @@ const ProfileComp = ({ params }) => {
   const searchParams = useSearchParams();
   const name = searchParams.get("name")
   const [myPost, setMyPosts] = useState([]);
-  const [pending, setpending] = useState()
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${params?.id}/posts`, { cache: 'no-store' });
-      const data = await response.json();
-    
+      const response = await fetch(`/api/users/${params?.id}/posts`);
       if (response.ok){
+        const data = await response.json();
         setMyPosts(data);
       }
     };

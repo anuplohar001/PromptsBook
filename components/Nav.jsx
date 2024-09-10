@@ -14,6 +14,7 @@ const Nav = () => {
 
         <div className="w-full h-8 flex justify-between transition-all ">
             
+        
             <Link href='/' className="flex gap-1">
                 <Image src='/assets/logo.jpg'
                     alt="Logo"
