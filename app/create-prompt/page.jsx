@@ -24,11 +24,8 @@ const Create = () => {
           padmin: session?.user.id,
         })
       })
-      console.log(response)
       if (response.ok) {
         alert("Post created Successfully")
-        revalidateFeed()
-        revalidateAll()
         router.back()
       }
 

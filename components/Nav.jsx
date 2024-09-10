@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Image from "next/image"
+import { revalidateFeed } from "@lib/actions";
 
 const Nav = () => {
 
@@ -14,7 +15,9 @@ const Nav = () => {
 
         <div className="w-full h-8 flex justify-between transition-all ">
             
-        
+        <form action={revalidateFeed}>
+            <button className="border border-black">Revalidate</button>
+        </form>
             <Link href='/' className="flex gap-1">
                 <Image src='/assets/logo.jpg'
                     alt="Logo"

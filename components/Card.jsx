@@ -70,8 +70,6 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
             })
             if (response.ok) {
                 alert("Post Deleted Successfully")
-                revalidateFeed()
-                revalidateAll()
                 router.back()
             }
         }

@@ -44,7 +44,6 @@ const Editcomp = () => {
 
             if (response.ok) {
                 alert("Post Edited Successfully")
-                revalidateFeed()
                 router.back()
             }
 
