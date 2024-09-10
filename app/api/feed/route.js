@@ -1,9 +1,8 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
 import { NextRequest } from "next/server";
-import { revalidatePath } from "next/cache";
 
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 export const GET = async (request) => {
     try {

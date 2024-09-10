@@ -13,7 +13,7 @@ export const checkEnvironment = () => {
 
 export default async function Page() {
 
-  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tags: ['feed'] } })
+  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tags: ['feed'] }, cache:'force-cache' })
   let posts = []
   if(data.ok){
     posts = await data.json()
