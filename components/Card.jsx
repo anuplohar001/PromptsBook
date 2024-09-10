@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { revalidateAll } from '@lib/actions'
+import { revalidateAll, revalidateFeed } from '@lib/actions'
 
 const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
 
@@ -43,6 +43,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
         getLikesNo()
     }, [session?.user.id])
     
+    
     useEffect(()=> {
         if(Likes.isLiked)
             setNo(likesno+1)
@@ -54,7 +55,8 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
     const userProfile = () => {
 
         if (userid === session?.user.id) {
-            router.push(`/profile`)
+            const myid = 1234
+            router.push(`/profile/${userid}?name=${username}`)
         }
         else {
             router.push(`/profile/${userid}?name=${username}`)
@@ -68,8 +70,9 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
             })
             if (response.ok) {
                 alert("Post Deleted Successfully")
-                router.back()
+                revalidateFeed()
                 revalidateAll()
+                router.back()
             }
         }
     }

@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react'
-
 const Feed = React.lazy(() => import("@components/Feed"))
 
 export const checkEnvironment = () => {
@@ -9,11 +8,11 @@ export const checkEnvironment = () => {
       : "http://prompts-book.vercel.app";
 
   return base_url;
-};
+}
 
 export default async function Page() {
 
-  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tags: ['feed'] }, cache:'force-cache' })
+  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tags: ['feed'], revalidate: 5 }, cache:'force-cache' })
   let posts = []
   if(data.ok){
     posts = await data.json()

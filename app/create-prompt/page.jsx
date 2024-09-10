@@ -1,9 +1,9 @@
 "use client"
-import { revalidatePath, revalidateTag } from 'next/cache'
+
 import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import Form from '@components/Form'
+import Forms from '@components/Forms'
 import { revalidateFeed } from '@lib/actions';
 
 const Create = () => {
@@ -28,6 +28,7 @@ const Create = () => {
       if (response.ok) {
         alert("Post created Successfully")
         revalidateFeed()
+        revalidateAll()
         router.back()
       }
 
@@ -39,7 +40,7 @@ const Create = () => {
 
   return (
     <div>
-      <Form type='Create' handleClick={handleClick} post={post} setPost={setPost} />
+      <Forms type='Create' handleClick={handleClick} post={post} setPost={setPost} />
       
     </div>
   )

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
 const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
+  
   const router = useRouter()
   const { data: session } = useSession()
   const [comments, setcomments] = useState({ comment: "", postid: postid, padmin: session?.user.id })
@@ -29,19 +30,19 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
 
   const handlekeypress = async (e) => {
     const response = await fetch('/api/comment', {
-        method: "POST",
-        body: JSON.stringify({
-          comment: comments.comment,
-          padmin: session?.user.id,
-          postid: postid
-        })
+      method: "POST",
+      body: JSON.stringify({
+        comment: comments.comment,
+        padmin: session?.user.id,
+        postid: postid
       })
-      oldcomments()
-      setcomments({ comment: "" })    
+    })
+    oldcomments()
+    setcomments({ comment: "" })
   }
 
   return (
-    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] z-10 h-[80vh] bg-black/70'>
+    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] z-10 h-[100vh] bg-black/70'>
 
       <Image
         height={25}
@@ -62,39 +63,40 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
           img={img}
           email={email} />
 
-        <div className='gradient h-[50vh] w-[50vw] ml-6 rounded-md p-2'>
-          <div className='h-[45vh] overflow-scroll'>
-            
+        <div className='gradient h-[50vh] w-[50vw] ml-6 rounded-xl '>
+
+          <div className='h-[48vh] overflow-scroll'>
+
             {
               oldc.length ? (oldc.map((item) => (
 
                 <CommCard key={item._id}
-                comentid={item._id}
-                comment={item.comment}
-                img={item.padmin.image}
-                username={item.padmin.username}
-                userid={item.padmin._id}
-                oldcomments={oldcomments}/>
+                  comentid={item._id}
+                  comment={item.comment}
+                  img={item.padmin.image}
+                  username={item.padmin.username}
+                  userid={item.padmin._id}
+                  oldcomments={oldcomments} />
 
-              ))) : (<div className='m-[30vh]'> Be the first to comment on this post ... </div>)
+              ))) : (<div className=' m-[20vh]'> Be the first to comment on this post ... </div>)
             }
-            
           </div>
-          <div className='flex bg-white h-10 m-3 rounded-lg '>
-            <input type="text" placeholder='Type here for comment' className='text-sm w-[46vw] p-2  rounded-lg' value={comments.comment} onChange={
-              (e) => setcomments({ ...comments, comment: e.target.value })
-            }
-              onKeyUp={(e)=> {
-                if(e.key==="Enter")
+
+
+          <div className='flex mt-5 ml-0 bg-white h-10 rounded-lg border w-[50vw]'>
+
+            <input type="text" placeholder='Type here for comment' className='text-sm rounded-lg w-[50vw] p-2' value={comments.comment} onChange={(e) => setcomments({ ...comments, comment: e.target.value })}
+              onKeyUp={(e) => {
+                if (e.key === "Enter")
                   handlekeypress()
-              } } />
+              }} />
             {
-              comments.comment && <Image src={'/assets/addcomment.svg'} height={22} width={22} alt='add+' onClick={handlekeypress} className='mr-2 cursor-pointer' />
+              comments.comment && <Image src={'/assets/addcomment.svg'} height={22} width={22} alt='add+' onClick={handlekeypress} className='cursor-pointer w-[3vw] h-[3vw] p-1' />
             }
 
           </div>
         </div>
-            
+
       </div>
     </div>
   )

@@ -3,8 +3,8 @@
 import { Suspense } from 'react'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import Form from '@components/Form'
-import { revalidateAll, revalidateFeed } from '@lib/actions'
+import Forms from '@components/Forms'
+import { revalidateFeed } from '@lib/actions'
 
 
 const Editcomp = () => {
@@ -55,7 +55,7 @@ const Editcomp = () => {
 
     return (
         <div>
-            <Form type='Edit' post={post} setPost={setPost} handleClick={handleClick} />
+            <Forms type='Edit' post={post} setPost={setPost} handleClick={handleClick} />
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import { connectDb } from "@utils/database";
 import Prompt from "@models/prompt";
-import { NextRequest } from "next/server";
 
 export const dynamic = 'force-dynamic';
 

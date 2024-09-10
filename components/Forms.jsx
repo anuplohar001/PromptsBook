@@ -1,11 +1,8 @@
 "use client"
 
-import React, { useState } from 'react'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { revalidateAll } from '@lib/actions'
+import React from 'react'
 
-const Form = ({ type, handleClick, post, setPost }) => {
+const Forms = ({ type, handleClick, post, setPost }) => {
 
     return (
 
@@ -40,14 +37,14 @@ const Form = ({ type, handleClick, post, setPost }) => {
                         onChange={(e) => setPost({ ...post, tag: e.target.value })}
                     />
                 </label>
-                <form>
-                    <button
-                        onClick={handleClick}
-                        className="shadow-xl my-4 w-20 p-2 bg-orange-400 text-white rounded-full text-sm" >{type}...</button>
-                </form>
+            </form>
+            <form>
+                <button
+                    onClick={handleClick}
+                    className="shadow-xl my-4 w-20 p-2 bg-orange-400 text-white rounded-full text-sm" >{type}...</button>
             </form>
         </div>
     )
 }
 
-export default Form
+export default Forms

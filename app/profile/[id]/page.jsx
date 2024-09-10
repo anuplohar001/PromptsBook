@@ -1,36 +1,25 @@
-"use client"
-
 //USER PROFILE
-
-import React, { useState, useEffect, Suspense } from 'react'
 import Profile from '@components/Profile'
-import { useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 
-const ProfileComp = ({ params }) => {
+export const checkEnvironment = () => {
+  let base_url =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "http://prompts-book.vercel.app";
 
-  const searchParams = useSearchParams();
-  const name = searchParams.get("name")
-  const [myPost, setMyPosts] = useState([]);
+  return base_url;
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${params?.id}/posts`);
-      if (response.ok){
-        const data = await response.json();
-        setMyPosts(data);
-      }
-    };
+const ProfileComp = async ({ params }) => {
 
-    if (params?.id) fetchPosts();
-  }, [params?.id]);
-
+  const response = await fetch(checkEnvironment().concat(`/api/users/${params?.id}/posts`));
+  const data = await response.json();
   return (
     <div className='m-4 ml-5 mt-9'>
       <div className='gradient-text '>
-        {name}
+        {data[0].padmin.username}
       </div>
-      <Profile myPost={myPost} username={name} />
+      <Profile myPost={data} username={data[0].padmin.username} />
     </div>
   )
 }
@@ -40,11 +29,7 @@ const ProfileComp = ({ params }) => {
 const UserProfile = ({ params }) => {
   return (
 
-    <Suspense>
-
-      <ProfileComp params={params} />
-
-    </Suspense>
+    <ProfileComp params={params} />
   )
 }
 
