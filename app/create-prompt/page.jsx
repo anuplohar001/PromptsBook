@@ -4,7 +4,6 @@ import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Forms from '@components/Forms'
-import { revalidateFeed } from '@lib/actions';
 
 const Create = () => {
 

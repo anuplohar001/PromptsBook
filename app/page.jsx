@@ -1,18 +1,11 @@
 import React, { Suspense } from 'react'
 const Feed = React.lazy(() => import("@components/Feed"))
 
-export const checkEnvironment = () => {
-  let base_url =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "http://prompts-book.vercel.app";
-
-  return base_url;
-}
+import { checkEnvironment } from '@lib/actions'
 
 export default async function Page() {
-
-  let data = await fetch(checkEnvironment().concat("/api/feed"))
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { revalidate: 1 } })
   let posts = []
   if(data.ok){
     posts = await data.json()

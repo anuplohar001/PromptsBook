@@ -15,7 +15,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
     const [likesno, setNo] = useState()
 
     const getLikes = async () => {
-        
+
         try {
             const response = await fetch(`/api/prompt/${postid}/${session?.user.id}`, {
                 method: "GET"
@@ -28,9 +28,9 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
         getLikesNo()
     }
 
-    const getLikesNo = async()=>{
+    const getLikesNo = async () => {
         try {
-            const response = await fetch(`/api/prompt/like/${postid}`, {method:"GET"})
+            const response = await fetch(`/api/prompt/like/${postid}`, { method: "GET" })
             const data = await response.json()
             setNo(data.length)
         } catch (error) {
@@ -42,32 +42,19 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
         if (session?.user.id) getLikes()
         getLikesNo()
     }, [session?.user.id])
-    
-    
-    useEffect(()=> {
-        if(Likes.isLiked)
-            setNo(likesno+1)
+
+
+    useEffect(() => {
+        if (Likes.isLiked)
+            setNo(likesno + 1)
         else
-            setNo(likesno-1)
+            setNo(likesno - 1)
     }, [Likes.isLiked])
 
-
-    const userProfile = () => {
-
-        if (userid === session?.user.id) {
-            const myid = 1234
-            router.push(`/profile/${userid}?name=${username}`)
-        }
-        else {
-            router.push(`/profile/${userid}?name=${username}`)
-        }
-    }
-
     const DeletePost = async () => {
+        
         if (confirm("Are you sure you want to delete this post")) {
-            const response = await fetch(`api/prompt/${postid}`, {
-                method: "DELETE"
-            })
+            const response = await fetch(`/api/prompt/${postid}`, { method: "DELETE" })
             if (response.ok) {
                 alert("Post Deleted Successfully")
                 router.back()
@@ -113,14 +100,14 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
         }, 3000);
     }
 
-    
+
 
     return (
 
         <div className='prompt_card' onDoubleClick={handleLike}>
-           
+
             <div className='ml-1 flex gap-4' >
-                <div className='flex gap-3 hover:cursor-pointer' onClick={userProfile}>
+                <div className='flex gap-3 hover:cursor-pointer' onClick={() => router.push(`/profile/${userid}?name=${username}`)}>
                     <Image
                         src={img ? (img) : '/assets/user.jpg'}
                         alt='Profile Img'
@@ -161,7 +148,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
                 session?.user && (
                     <div className='transition-[1s]'>
                         <div className='absolute right-9 bottom-1 text-[10px] font-bold'>
-                            {likesno ? (likesno):(0)}
+                            {likesno ? (likesno) : (0)}
                         </div>
                         <Image
                             src={Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
@@ -171,16 +158,16 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
                             className='absolute bottom-4 right-7 cursor-pointer h-5 w-5'
                             onClick={handleLike}
                         />
-                        
+
                         <Image
                             src={'/assets/comment.svg'}
                             height={17}
                             width={17}
                             alt='Like'
                             className='absolute bottom-3 cursor-pointer'
-                            onClick={()=>router.push(`/comment?id=${postid}`)}
+                            onClick={() => router.push(`/comment/${postid}`)}
                         />
-                        
+
                         <Image
                             src={'/assets/share.svg'}
                             height={17}

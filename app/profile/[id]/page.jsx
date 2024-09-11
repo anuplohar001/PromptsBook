@@ -1,14 +1,6 @@
 //USER PROFILE
 import Profile from '@components/Profile'
-
-export const checkEnvironment = () => {
-  let base_url =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "http://prompts-book.vercel.app";
-
-  return base_url;
-}
+import { checkEnvironment } from '@lib/actions';
 
 const ProfileComp = async ({ params }) => {
 
@@ -16,9 +8,6 @@ const ProfileComp = async ({ params }) => {
   const data = await response.json();
   return (
     <div className='m-4 ml-5 mt-9'>
-      <div className='gradient-text '>
-        {data[0].padmin.username}
-      </div>
       <Profile myPost={data} username={data[0].padmin.username} />
     </div>
   )

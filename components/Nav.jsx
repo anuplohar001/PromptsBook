@@ -4,20 +4,17 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Image from "next/image"
-import { revalidateFeed } from "@lib/actions";
+import {useRouter} from "next/navigation";
 
 const Nav = () => {
-
+    const router = useRouter()
     const { data: session } = useSession()
     
 
     return (
 
         <div className="w-full h-8 flex justify-between transition-all ">
-            
-        <form action={revalidateFeed}>
-            <button className="border border-black">Revalidate</button>
-        </form>
+        
             <Link href='/' className="flex gap-1">
                 <Image src='/assets/logo.jpg'
                     alt="Logo"
@@ -50,7 +47,7 @@ const Nav = () => {
                                     width={15} 
                                     className="w-4"/>
                                 Sign Out</Link>
-                            <Link href='/profile' >
+                            <div className="cursor-pointer" onClick={() => router.push(`/profile/${session?.user.id}?name=${session?.user.name}`)} >
                                 <Image
                                     className="rounded-full"
                                     src={session?.user.image ? session?.user.image : '/assets/user.jpg'}
@@ -58,7 +55,7 @@ const Nav = () => {
                                     width={40}
                                     height={40}
                                 />
-                            </Link>
+                            </div>
                         </div>
                     ) : (<Link href='/login' className="button text-[13px]">Sign In</Link>)
 

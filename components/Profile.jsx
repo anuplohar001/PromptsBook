@@ -4,11 +4,16 @@ import React from 'react'
 import Card from './Card'
 import Loader from './Loader'
 import UpdateProf from './UpdateProf'
-
+import { useSession } from 'next-auth/react'
 const Profile = ({ myPost, username, likes, updatepr }) => {
-
+    const {data : session} = useSession()
     return (
-        <div className='flex md:flex-row flex-col h-[70vh] w-[50vw] overflow-y-scroll '>
+        <div className='flex flex-col h-[70vh] w-[50vw] overflow-y-scroll '>
+            <div className='gradient-text '>
+                {
+                    session?.user.name === myPost[0].padmin.username ? ("My Profile") : (myPost[0].padmin.username)
+                }
+            </div>
             {
                 <div className='flex flex-wrap gap-4'>
                     {

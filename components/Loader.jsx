@@ -1,15 +1,11 @@
 import Image from "next/image";
 const Loader = () => {
     return (
-        <div className="mt-10 flex flex-col justify-center items-center w-[25vw]">
-            <Image
-                src={'/assets/loader.svg'}
-                width={70}
-                height={70}
-                alt='loader'
-                className="text-center"
-            />
-            <b>If loading continues just RELOAD the page</b>
+        <div>
+            <div className="m-[10vw]">
+                <div className="animate-spin h-[5vw] w-[5vw] rounded-full border-[5px] border-blue-500 border-t-white">
+                </div>
+            </div>
         </div>
     );
 };
