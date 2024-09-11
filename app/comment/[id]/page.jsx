@@ -8,8 +8,10 @@ const Comments = async ({ params }) => {
   const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
   const data = await response.json()
 
-  if(!data)
-    throw new Error("Error in fetching Comments")
+  if (!data) {
+    return (<div className='m-[15vw] text-red-600 font-bold text-lg'>Error in fetching Comments</div>)
+  }
+
   return (
 
     <div>

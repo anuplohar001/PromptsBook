@@ -8,6 +8,9 @@ export default async function Page() {
   const data = await fetch(checkEnvironment().concat("/api/feed"), { next: { revalidate: 1 } })
   const posts = await data.json()
   
+  if (!posts) {
+    return (<div className='m-[15vw] text-red-600 font-bold text-lg'>Error in fetching Posts</div>)
+  }
 
   return (
     <div className='overflow-y-scroll h-[90vh] p-0'>
