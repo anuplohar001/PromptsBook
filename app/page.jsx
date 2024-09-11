@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-const Feed = React.lazy(() => import("@components/Feed"))
+import Feed from "@components/Feed"
 
 import { checkEnvironment } from '@lib/actions'
 
