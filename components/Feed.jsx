@@ -16,27 +16,11 @@ export const checkEnvironment = () => {
 };
 
 const Feed = ({posts}) => {
-
-    // console.log(posts)
+    
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
     const [pending, setPending] = useState(false)
     
-    // const [posts, setPosts] = useState([])
-    // const getPosts = async () => {
-    //     setPending(true)
-    //     const response = await fetch('/api/feed', {})
-    //     console.log("fetching")
-    //     const data = await response.json();
-    //     if (response.ok) {
-    //         setPosts(data)
-    //         setPending(false)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     getPosts()
-    // }, [])
 
 
     const filterPost = (text) => {

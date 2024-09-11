@@ -9,7 +9,7 @@ export default function ErrorPage({ error, reset}) {
 
     return (
         <div className="flex items-center justify-center h-screen">
-            <div className="text-2xl text-red-500">Error fetching user's data</div>
+            <div className="text-2xl text-red-500">{error}</div>
             <button className="m-2  p-2 rounded-md shadow-lg bg-orange-300 hover:bg-orange-400 text-black flex" onClick={()=>reset()}>
                 <Image src={'/assets/reload.svg'} 
                 height={20}
