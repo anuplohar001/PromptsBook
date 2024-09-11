@@ -1,15 +1,13 @@
 import React, { Suspense } from 'react'
-const Feed = React.lazy(() => import("@components/Feed"))
+import Feed from "@components/Feed"
 
 import { checkEnvironment } from '@lib/actions'
 
 export default async function Page() {
   
-  let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { revalidate: 1 } })
-  let posts = []
-  if(data.ok){
-    posts = await data.json()
-  }
+  const data = await fetch(checkEnvironment().concat("/api/feed"), { next: { revalidate: 1 } })
+  const posts = await data.json()
+  
 
   return (
     <div className='overflow-y-scroll h-[90vh] p-0'>
