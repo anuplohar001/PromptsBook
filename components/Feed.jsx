@@ -62,7 +62,7 @@ const Feed = ({posts}) => {
 
                     <div className="flex gap-5 mt-3 h-[14vh] w-[80vw] overflow-scroll">
                         {
-                            posts.map((item) => (
+                            posts && posts.map && posts.map((item) => (
                                 <Story
                                     key={item._id}
                                     img={item.padmin.image} />
