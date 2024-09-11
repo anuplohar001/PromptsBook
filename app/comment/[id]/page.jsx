@@ -4,7 +4,7 @@ import Comment from '@components/Comment'
 import { checkEnvironment } from '@lib/actions'
 
 const Comments = async ({ params }) => {
-
+  
   const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
   const data = await response.json()
   return (

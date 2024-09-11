@@ -47,7 +47,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
       <Image
         height={25}
         width={25}
-        src={'assets/close.svg'}
+        src={'/assets/close.svg'}
         alt='close'
         className='cursor-pointer m-5 ml-[90vw] gradient rounded-md'
         onClick={() => router.back()} />

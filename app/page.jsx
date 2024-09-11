@@ -4,6 +4,7 @@ const Feed = React.lazy(() => import("@components/Feed"))
 import { checkEnvironment } from '@lib/actions'
 
 export default async function Page() {
+  
   let data = await fetch(checkEnvironment().concat("/api/feed"), { next: { revalidate: 1 } })
   let posts = []
   if(data.ok){

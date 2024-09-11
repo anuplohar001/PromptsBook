@@ -3,7 +3,7 @@ import Profile from '@components/Profile'
 import { checkEnvironment } from '@lib/actions';
 
 const ProfileComp = async ({ params }) => {
-
+  
   const response = await fetch(checkEnvironment().concat(`/api/users/${params?.id}/posts`));
   const data = await response.json();
   return (
@@ -14,12 +14,4 @@ const ProfileComp = async ({ params }) => {
 }
 
 
-
-const UserProfile = ({ params }) => {
-  return (
-
-    <ProfileComp params={params} />
-  )
-}
-
-export default UserProfile
+export default ProfileComp
