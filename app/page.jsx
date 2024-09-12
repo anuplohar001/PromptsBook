@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import Feed from "@components/Feed"
 
 import { checkEnvironment } from '@lib/actions'
@@ -6,7 +6,7 @@ import Loader from '@components/Loader'
 
 export default async function Page() {
 
-  const data = await fetch(checkEnvironment().concat("/api/feed"), { next: { tag: 'feed' } })
+  const data = await fetch(checkEnvironment().concat("/api/feed"), { revalidate: 2 })
   const posts = await data.json()
 
 
