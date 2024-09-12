@@ -5,7 +5,7 @@ import { connectDb } from "@utils/database";
 import User from "@models/user";
 
 export const authOptions = {
-
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
 
         CredentialsProvider({
@@ -20,6 +20,7 @@ export const authOptions = {
 
                 try {
                     await connectDb()
+                    console.log("1st find")
                     const user = await User.findOne({ email: credentials?.email })
                     if (user) {
                         const isMatch = credentials.password === user.password

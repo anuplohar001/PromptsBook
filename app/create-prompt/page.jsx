@@ -38,8 +38,7 @@ const Create = () => {
 
   return (
     <div>
-      <Forms type='Create' handleClick={handleClick} post={post} setPost={setPost} />
-      
+      <Forms type='Create' handleClick={handleClick} post={post} setPost={setPost} />      
     </div>
   )
 }

@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import Comment from '@components/Comment'
 import { checkEnvironment } from '@lib/actions'
 import Errors from '@components/Errors'
+import Loader from '@components/Loader'
 
-const page = async ({ params }) => {
+const CommentComp = async ({ params }) => {
 
   const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
   const data = await response.json()
@@ -22,4 +23,13 @@ const page = async ({ params }) => {
   )
 }
 
+const page = ({params}) => {
+  return (
+    <Suspense fallback={<Loader/>}>
+      <CommentComp params={params}/>
+    </Suspense>
+  )
+}
+
 export default page
+

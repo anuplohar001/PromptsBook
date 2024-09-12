@@ -1,17 +1,16 @@
 //USER PROFILE
 import Errors from '@components/Errors';
+import Loader from '@components/Loader';
 import Profile from '@components/Profile'
 import { checkEnvironment } from '@lib/actions';
-
-
-
+import { Suspense } from 'react';
 
 const ProfileComp = async ({ params }) => {
   const response = await fetch(checkEnvironment().concat(`/api/users/${params?.id}/posts`));
   const data = await response.json();
   
   if (!response.ok)
-    return (<Errors/>)
+    return (<Errors userid={userid}/>)
 
   return (
     <div className='m-4 ml-5 mt-9'>
@@ -23,5 +22,13 @@ const ProfileComp = async ({ params }) => {
   )
 }
 
+const page = ({params}) => {
+  return (
+    <Suspense fallback={<Loader/>}>
+      <ProfileComp params={params}/>
+    </Suspense>
+  )
+}
 
-export default ProfileComp
+export default page
+
