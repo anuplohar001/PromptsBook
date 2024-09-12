@@ -1,14 +1,15 @@
 import React from 'react'
 import Feed from "@components/Feed"
+import Errors from '@components/Errors'
 import { checkEnvironment } from '@lib/actions'
 
 export default async function Page() {
+  
+  const response = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
+  const posts = await response.json()
 
-  const data = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
-  const posts = await data.json()
-
-  if(!data.ok)
-    return (<div className='m-[10vw] text-red-600 font-bold'>Something Went Wrong !!!</div>)
+  if(!response.ok)
+    return (<Errors/>)
 
   return (
     <div className='overflow-y-scroll h-[90vh] p-0'>

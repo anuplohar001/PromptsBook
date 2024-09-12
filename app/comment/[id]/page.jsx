@@ -2,6 +2,7 @@
 import React from 'react'
 import Comment from '@components/Comment'
 import { checkEnvironment } from '@lib/actions'
+import Errors from '@components/Errors'
 
 const page = async ({ params }) => {
 
@@ -9,7 +10,7 @@ const page = async ({ params }) => {
   const data = await response.json()
 
   if (!response.ok)
-    return (<div className='m-[10vw] text-red-600 font-bold'>Something Went Wrong !!!</div>)
+    return (<Errors/>)
 
   return (
 
