@@ -27,9 +27,8 @@ export default async function Page() {
         </div>
       </section>
 
-      <Suspense fallback = {"Loading..."}>
         <Feed posts={posts}/>
-      </Suspense>
+     
     </div>
   )
 }
