@@ -4,6 +4,7 @@ import React, {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Forms from '@components/Forms'
+import { revalidateTag } from 'next/cache'
 
 const Create = () => {
 
@@ -25,6 +26,7 @@ const Create = () => {
       })
       if (response.ok) {
         alert("Post created Successfully")
+        revalidateTag('feed')
         router.back()
       }
 
