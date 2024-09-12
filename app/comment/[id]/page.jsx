@@ -16,7 +16,7 @@ const Comments = async ({ params }) => {
 
     <div>
       {
-        data && (<Comment postid={params?.id} userid={data.padmin} prompt={data.prompt} tag={data.tag} username={data.padmin.name} img={data.padmin.image} email={data.padmin.email} />)
+        response.ok && (<Comment postid={params?.id} userid={data.padmin} prompt={data.prompt} tag={data.tag} username={data.padmin.name} img={data.padmin.image} email={data.padmin.email} />)
       }
       
     </div>
