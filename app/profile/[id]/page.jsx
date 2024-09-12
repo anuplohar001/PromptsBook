@@ -6,7 +6,9 @@ import { checkEnvironment } from '@lib/actions';
 import { Suspense } from 'react';
 
 const ProfileComp = async ({ params }) => {
-  const response = await fetch(checkEnvironment().concat(`/api/users/${params?.id}/posts`));
+  
+  const userid = params?.id
+  const response = await fetch(checkEnvironment().concat(`/api/users/${userid}/posts`));
   const data = await response.json();
   
   if (!response.ok)

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Feed from "@components/Feed"
 import Errors from '@components/Errors'
 import { checkEnvironment } from '@lib/actions'
+import Loader from '@components/Loader'
 
-export default async function Page() {
+const Home = async ({params}) => {
   
   const response = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
   const posts = await response.json()
@@ -28,4 +29,15 @@ export default async function Page() {
     </div>
   )
 }
+
+const page = ({params}) => {
+  return (
+    <Suspense fallback={<Loader/>}>
+      <Home params={params}/>
+    </Suspense>
+  )
+}
+
+export default page
+
 
