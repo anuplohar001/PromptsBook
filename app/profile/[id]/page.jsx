@@ -13,7 +13,10 @@ const ProfileComp = async ({ params }) => {
 
   return (
     <div className='m-4 ml-5 mt-9'>
-      <Profile myPost={data} username={data[0].padmin.username} />
+      {
+        data && (<Profile myPost={data} username={data[0].padmin.username} />)
+      }
+      
     </div>
   )
 }

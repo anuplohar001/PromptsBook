@@ -17,7 +17,7 @@ const Profile = ({ myPost, username, likes, updatepr }) => {
             {
                 <div className='flex flex-wrap gap-4'>
                     {
-                        myPost.map((item) => (
+                        myPost && myPost.map && myPost.map((item) => (
                             <Card
                                 key={item._id}
                                 post={item}

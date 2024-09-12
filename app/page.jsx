@@ -6,7 +6,7 @@ import Loader from '@components/Loader'
 
 export default async function Page() {
 
-  const data = await fetch(checkEnvironment().concat("/api/feed"), {cache: "no-store"})
+  const data = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
   const posts = await data.json()
 
 
