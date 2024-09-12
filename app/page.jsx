@@ -1,14 +1,14 @@
 import React from 'react'
 import Feed from "@components/Feed"
-
 import { checkEnvironment } from '@lib/actions'
-import Loader from '@components/Loader'
 
 export default async function Page() {
 
   const data = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
   const posts = await data.json()
 
+  if(!data.ok)
+    return (<div className='m-[10vw] text-red-600 font-bold'>Something Went Wrong !!!</div>)
 
   return (
     <div className='overflow-y-scroll h-[90vh] p-0'>
@@ -23,9 +23,7 @@ export default async function Page() {
 
         </div>
       </section>
-
-        <Feed posts={posts}/>
-     
+        <Feed posts={posts}/>     
     </div>
   )
 }
