@@ -14,6 +14,10 @@ const newPrompt = new Schema({
     padmin: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+
+    expiresAfter: {
+        type: Date
     }
 })
 

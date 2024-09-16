@@ -12,7 +12,7 @@ const ProfileComp = async ({ params }) => {
   const data = await response.json();
   
   if (!response.ok)
-    return (<Errors userid={userid}/>)
+    return (<Errors/>)
 
   return (
     <div className='m-4 ml-5 mt-9'>

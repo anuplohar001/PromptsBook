@@ -13,9 +13,8 @@ function RootComponent({ children }) {
     <html>
       <body>
         <Provider>
-          <main>
-            <Nav />
-           
+          <main className='flex'>
+            <Nav />           
             {children}
           </main>
           <SpeedInsights/>

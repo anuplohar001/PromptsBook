@@ -30,14 +30,13 @@ body::-webkit-scrollbar-thumb {
 
 body {
     height: 100vh;
-    padding: 20px;
     background-color: #A9C9FF;
     background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
 }
 
 .gradient {
-    background-color: #A9C9FF;
-    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    background-color: #9abfff;
+    background: linear-gradient(180deg, #9fc2ff 0%, #fbaae4 100%);
 }
 
 .gr {

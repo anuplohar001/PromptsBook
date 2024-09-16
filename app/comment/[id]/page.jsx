@@ -9,7 +9,6 @@ const CommentComp = async ({ params }) => {
 
   const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
   const data = await response.json()
-
   if (!response.ok)
     return (<Errors/>)
 
@@ -17,7 +16,7 @@ const CommentComp = async ({ params }) => {
 
     <div>
       {
-        response.ok && (<Comment postid={params?.id} userid={data.padmin} prompt={data.prompt} tag={data.tag} username={data.padmin.name} img={data.padmin.image} email={data.padmin.email} />)
+        response.ok && (<Comment postid={params?.id} userid={data.padmin._id} prompt={data.prompt} tag={data.tag} username={data.padmin.username} img={data.padmin.image} email={data.padmin.email} />)
       }      
     </div>
   )

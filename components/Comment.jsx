@@ -12,7 +12,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
   const { data: session } = useSession()
   const [comments, setcomments] = useState({ comment: "", postid: postid, padmin: session?.user.id })
   const [oldc, setoldc] = useState([])
-
+  
   const oldcomments = async () => {
     try {
       const response = await fetch(`/api/comment/${postid}`)

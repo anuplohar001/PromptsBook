@@ -8,7 +8,7 @@ export const GET = async(req, { params }) => {
         const postc = await comments.find({ postid: params.id }).populate("padmin")
         return new Response (JSON.stringify(postc), {status:201})
     } catch (error) {
-        console.log(error)
+        return new Response(JSON.stringify({ message: "Error occured" }), { status: 500 })
     }
 }
 

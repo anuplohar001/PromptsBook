@@ -26,7 +26,6 @@ const Create = () => {
       })
       if (response.ok) {
         alert("Post created Successfully")
-        revalidateTag('feed')
         router.back()
       }
 

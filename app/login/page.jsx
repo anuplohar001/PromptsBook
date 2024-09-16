@@ -99,6 +99,7 @@ const page = () => {
                                   src={password==='password' ? "assets/show.svg" : "assets/hide.svg"}
                                   height={20}
                                   width={20} 
+                                  alt='eye'
                                   onClick={handlePassword}/>
                           </div>
                           

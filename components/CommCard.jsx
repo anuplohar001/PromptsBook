@@ -32,7 +32,7 @@ const CommCard = ({ comentid, comment, img, username, oldcomments, userid }) => 
     return (
         <div className='m-2 p-1 flex h-[8vh] w-[27vw] rounded-xl bg-white'>
             <div className='flex cursor-pointer'>
-                <Image src={img} height={10} width={10} className='w-[30px] h-[30px] m-1 rounded-full  border-black' />
+                <Image src={img} alt="userimg" height={10} width={10} className='w-[30px] h-[30px] m-1 rounded-full  border-black' />
                 <div className='ml-2 mr-3 mt-2 text-[11px] w-max'>
                     {username}
                 </div>
