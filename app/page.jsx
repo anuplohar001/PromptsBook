@@ -8,8 +8,8 @@ const Home = async () => {
   
   const response = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
   const posts = await response.json()
-  const responses = await fetch(checkEnvironment().concat("/api/story"), { next: { revalidate: 2 }, method:"GET" })
-  const story = await responses.json()
+  // const responses = await fetch(checkEnvironment().concat("/api/story"), { next: { revalidate: 2 }, method:"GET" })
+  // const story = await responses.json()
 
   
   if(!response.ok){    
@@ -30,7 +30,7 @@ const Home = async () => {
           </div>
         </div>
       </section>
-        <Feed posts={posts} story={story}/>     
+        <Feed posts={posts}/>     
     </div>
   )
 }

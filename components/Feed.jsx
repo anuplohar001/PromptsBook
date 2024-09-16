@@ -1,18 +1,15 @@
 "use client"
-import React, { useState, useEffect } from "react"
-import Clock from 'react-live-clock';
+import React, { useState } from "react"
 import Image from "next/image"
 import Card from "./Card"
-import Loader from "./Loader"
-import { Story } from "./Story"
-import { useSession } from "next-auth/react"
-const Feed = ({ posts, story }) => {
 
-    const postStory = async () => {
-        const responses = await fetch("/api/story", { method: "POST" })
-        if (responses.ok)
-            alert("Story Posted")
-    }
+const Feed = ({ posts }) => {
+
+    // const postStory = async () => {
+    //     const responses = await fetch("/api/story", { method: "POST" })
+    //     if (responses.ok)
+    //         alert("Story Posted")
+    // }
 
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
