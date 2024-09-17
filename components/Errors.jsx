@@ -12,8 +12,8 @@ const Errorc = () => {
         setTimeout(() => {            
             router.refresh()
             console.log("Refreshing");
-        }, 3000);                
-    },)
+        }, 3000);           
+    },[])
     
     return (
         <div>

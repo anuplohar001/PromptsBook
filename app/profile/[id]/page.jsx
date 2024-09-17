@@ -6,13 +6,14 @@ import { checkEnvironment } from '@lib/actions';
 import { Suspense } from 'react';
 
 const ProfileComp = async ({ params }) => {
-  
+
   const userid = params?.id
   const response = await fetch(checkEnvironment().concat(`/api/users/${userid}/posts`));
   const data = await response.json();
-  
+  const random = Math.floor(Math.random() * 2)
+
   if (!response.ok)
-    return (<Errors/>)
+    return (<Errors />)
 
   return (
     <div className='m-4 ml-5 mt-9'>
@@ -24,10 +25,10 @@ const ProfileComp = async ({ params }) => {
   )
 }
 
-const page = ({params}) => {
+const page = ({ params }) => {
   return (
-    <Suspense fallback={<Loader/>}>
-      <ProfileComp params={params}/>
+    <Suspense fallback={<Loader />}>
+      <ProfileComp params={params} />
     </Suspense>
   )
 }
