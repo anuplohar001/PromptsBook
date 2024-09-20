@@ -2,9 +2,8 @@
 import React, {useEffect} from 'react'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
-import { Suspense } from 'react'
 
-const Errorc = () => {
+const Errors = () => {
 
     const router = useRouter()
 
@@ -30,14 +29,6 @@ const Errorc = () => {
                     </button></form>
             </div>
         </div>
-    )
-}
-
-const Errors = () => {
-    return (
-        <Suspense>
-            <Errorc />
-        </Suspense>
     )
 }
 

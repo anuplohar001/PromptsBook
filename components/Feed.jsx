@@ -69,7 +69,7 @@ const Feed = ({ posts }) => {
                                             tag={item.tag}
                                             postid={item._id}
                                             username={item.padmin.username}
-                                            userid={item.padmin.id}
+                                            userid={item.padmin._id}
                                             img={item.padmin.image}
                                             email={item.padmin.email} />
 

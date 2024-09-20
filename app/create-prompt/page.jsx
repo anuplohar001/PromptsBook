@@ -16,8 +16,11 @@ const Create = () => {
     e.preventDefault();
     try {
       
-      const response = await fetch('/api/prompt/new', {
+      const response = await fetch('https://backend-woad-nu.vercel.app/create', {
         method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,

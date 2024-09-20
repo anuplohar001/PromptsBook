@@ -3,13 +3,19 @@ import Feed from "@components/Feed"
 import Errors from '@components/Errors'
 import { checkEnvironment } from '@lib/actions'
 import Loader from '@components/Loader'
+
+
 const Home = async () => {
   
-  const response = await fetch(checkEnvironment().concat("/api/feed"), {next: { revalidate: 2 }})
-  const posts = await response.json()
+  const response = await fetch("https://backend-woad-nu.vercel.app/feed",{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    
+  })
+  const posts = await response.json()  
   const random = Math.floor(Math.random()*2)
-  // const responses = await fetch(checkEnvironment().concat("/api/story"), { next: { revalidate: 2 }, method:"GET" })
-  // const story = await responses.json()
 
   
   if(!response.ok){    
@@ -30,7 +36,7 @@ const Home = async () => {
           </div>
         </div>
       </section>
-        <Feed posts={posts}/>     
+        <Feed posts={posts.prompts}/>     
     </div>
   )
 }

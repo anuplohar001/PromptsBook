@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { revalidateAll, revalidateFeed } from '@lib/actions'
+import Link from 'next/link'
 
 const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
 
@@ -105,9 +106,8 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
     return (
 
         <div className='prompt_card' onDoubleClick={handleLike}>
-
             <div className='ml-1 flex gap-4' >
-                <div className='flex gap-3 hover:cursor-pointer' onClick={() => router.push(`/profile/${userid}?name=${username}`)}>
+                <Link href={`/profile/${userid}`} className='flex gap-3 hover:cursor-pointer'>
                     <Image
                         src={img ? (img) : '/assets/user.jpg'}
                         alt='Profile Img'
@@ -121,7 +121,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
                         <div className='font-bold'>{username}</div>
                         <div>{email}</div>
                     </div>
-                </div>
+                </Link>
                 <div onClick={handleCopy}>
                     <Image src={copy ? '/assets/tick.svg' : '/assets/copy.svg'}
                         height={18}

@@ -66,7 +66,7 @@ const Nav = () => {
                                         width={15}
                                         className="w-7 h-7" />
                                     <div className="lg:block hidden">Sign Out</div></Link>
-                                <div className="w-[10vw] cursor-pointer flex rounded-full p-1 hover:bg-white hover:duration-500" onClick={() => router.push(`/profile/${session?.user.id}?name=${session?.user.name}`)} >
+                                <Link className="w-[10vw] cursor-pointer flex rounded-full p-1 hover:bg-white hover:duration-500" href={`/profile/${session?.user.id}`} >
                                     <Image
                                         className="rounded-full m-1 w-7 h-7"
                                         src={session?.user.image ? session?.user.image : '/assets/user.jpg'}
@@ -75,7 +75,7 @@ const Nav = () => {
                                         height={40}
                                     />
                                     <div className="lg:block hidden">My Profile</div>
-                                </div>
+                                </Link>
                             </>
 
                         ) : (<Link href='/login' className="p-2 w-[10vw] h-12 hover:bg-white hover:duration-500 rounded-full flex">

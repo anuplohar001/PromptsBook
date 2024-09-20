@@ -9,6 +9,7 @@ const CommentComp = async ({ params }) => {
 
   const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
   const data = await response.json()
+  
   if (!response.ok)
     return (<Errors/>)
 
