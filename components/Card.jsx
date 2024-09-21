@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { revalidateAll, revalidateFeed } from '@lib/actions'
+import { serverUrl } from '@lib/actions'
 import Link from 'next/link'
 
 const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
@@ -40,8 +40,10 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
     }
 
     useEffect(() => {
-        if (session?.user.id) getLikes()
-        getLikesNo()
+        if (session?.user.id) {
+            getLikes()
+            getLikesNo()
+        }
     }, [session?.user.id])
 
 
@@ -53,9 +55,14 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
     }, [Likes.isLiked])
 
     const DeletePost = async () => {
-        
+
         if (confirm("Are you sure you want to delete this post")) {
-            const response = await fetch(`/api/prompt/${postid}`, { method: "DELETE" })
+            const response = await fetch(serverUrl().concat(`/delete?id=${postid}`), {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
             if (response.ok) {
                 alert("Post Deleted Successfully")
                 router.back()

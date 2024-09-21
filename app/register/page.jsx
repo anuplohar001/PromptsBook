@@ -6,6 +6,7 @@ import close from '@public/assets/close.svg'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { serverUrl } from '@lib/actions'
 
 const page = () => {
 
@@ -19,8 +20,11 @@ const page = () => {
     const userRegister = async () => {
 
         try {
-            const response = await fetch('api/registration', {
+            const response = await fetch(serverUrl().concat('api/registration'), {
                 method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
                     username: userinfo.username,
                     phone: userinfo.phone,
@@ -28,7 +32,7 @@ const page = () => {
                     email: userinfo.email
                 })
             })
-            if (response) {
+            if (response.ok) {
                 router.push('/login')
             }
         } catch (error) {

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Helmet } from "react-helmet";
 import { useSession } from 'next-auth/react';
+import { serverUrl } from '@lib/actions';
+
 const CommCard = ({ comentid, comment, img, username, oldcomments, userid }) => {
 
     const { data: session } = useSession()
@@ -17,7 +19,12 @@ const CommCard = ({ comentid, comment, img, username, oldcomments, userid }) => 
     const handledelete = async () => {
         if (confirm("Are you sure you want to delete this comment")) {
             try {
-                const response = await fetch(`/api/comment/${comentid}`, { method: "DELETE" })
+                const response = await fetch(serverUrl().concat(`/deleteComment?id=${comentid}`), { 
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                 })
 
                 if (response.ok) {
                     alert("comment deleted")

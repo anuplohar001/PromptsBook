@@ -20,7 +20,6 @@ export const authOptions = {
 
                 try {
                     await connectDb()
-                    console.log("1st find")
                     const user = await User.findOne({ email: credentials?.email })
                     if (user) {
                         const isMatch = credentials.password === user.password

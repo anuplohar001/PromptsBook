@@ -1,21 +1,20 @@
 import React, { Suspense } from 'react'
 import Feed from "@components/Feed"
 import Errors from '@components/Errors'
-import { checkEnvironment } from '@lib/actions'
+import { serverUrl } from '@lib/actions'
 import Loader from '@components/Loader'
 
 
 const Home = async () => {
   
-  const response = await fetch("https://backend-woad-nu.vercel.app/feed",{
+  const response = await fetch(serverUrl().concat("/feed"),{
     method: "GET",
     headers: {
       "Content-Type": "application/json"
     },
-    
+    next: { revalidate: 2 }
   })
   const posts = await response.json()  
-  const random = Math.floor(Math.random()*2)
 
   
   if(!response.ok){    

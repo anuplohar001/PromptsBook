@@ -1,14 +1,21 @@
 
 import React, { Suspense } from 'react'
 import Comment from '@components/Comment'
-import { checkEnvironment } from '@lib/actions'
+import { serverUrl } from '@lib/actions'
 import Errors from '@components/Errors'
 import Loader from '@components/Loader'
 
 const CommentComp = async ({ params }) => {
 
-  const response = await fetch(checkEnvironment().concat(`/api/prompt/${params?.id}/`), { method: "GET" })
-  const data = await response.json()
+  const response = await fetch(serverUrl().concat(`/feed?id=${params?.id}`), { 
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+   })
+
+  const prompts = await response.json()
+  const data = prompts.prompts
   
   if (!response.ok)
     return (<Errors/>)

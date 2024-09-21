@@ -5,19 +5,29 @@ import Card from './Card'
 import CommCard from './CommCard'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { serverUrl } from '@lib/actions'
+import Loader from './Loader'
 
 const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
-  
+
   const router = useRouter()
   const { data: session } = useSession()
   const [comments, setcomments] = useState({ comment: "", postid: postid, padmin: session?.user.id })
   const [oldc, setoldc] = useState([])
-  
+  const [pending, setpending] = useState(false)
+
   const oldcomments = async () => {
     try {
-      const response = await fetch(`/api/comment/${postid}`)
+      setpending(true)
+      const response = await fetch(serverUrl().concat(`/comments?id=${postid}`), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
       const data = await response.json()
-      setoldc(data)
+      setoldc(data.comments)
+      setpending(false)
     } catch (error) {
       console.log(error)
     }
@@ -29,8 +39,11 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
 
 
   const handlekeypress = async (e) => {
-    const response = await fetch('/api/comment', {
+    const response = await fetch(serverUrl().concat('/postComment'), {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         comment: comments.comment,
         padmin: session?.user.id,
@@ -64,22 +77,27 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
           email={email} />
 
         <div className='gradient h-[50vh] w-[50vw] ml-6 rounded-xl '>
-
           <div className='h-[48vh] overflow-scroll'>
-
             {
-              oldc.length ? (oldc.map((item) => (
+              pending ? (<Loader />) : (
+                <div>
+                  {
+                    oldc.length ? (oldc.map((item) => (
 
-                <CommCard key={item._id}
-                  comentid={item._id}
-                  comment={item.comment}
-                  img={item.padmin.image}
-                  username={item.padmin.username}
-                  userid={item.padmin._id}
-                  oldcomments={oldcomments} />
+                      <CommCard key={item._id}
+                        comentid={item._id}
+                        comment={item.comment}
+                        img={item.padmin.image}
+                        username={item.padmin.username}
+                        userid={item.padmin._id}
+                        oldcomments={oldcomments} />
 
-              ))) : (<div className=' m-[20vh]'> Be the first to comment on this post ... </div>)
+                    ))) : (<div className=' m-[20vh]'> Be the first to comment on this post ... </div>)
+                  }
+                </div>)
             }
+
+
           </div>
 
 

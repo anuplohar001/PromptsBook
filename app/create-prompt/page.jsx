@@ -5,6 +5,7 @@ import {useRouter} from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Forms from '@components/Forms'
 import { revalidateTag } from 'next/cache'
+import { serverUrl } from '@lib/actions'
 
 const Create = () => {
 
@@ -16,7 +17,7 @@ const Create = () => {
     e.preventDefault();
     try {
       
-      const response = await fetch('https://backend-woad-nu.vercel.app/create', {
+      const response = await fetch( serverUrl().concat('/create'), {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
