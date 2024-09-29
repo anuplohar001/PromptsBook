@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import Forms from '@components/Forms'
 import { revalidateTag } from 'next/cache'
 import { serverUrl } from '@lib/actions'
+import { toast } from 'sonner'
 
 const Create = () => {
 
@@ -29,7 +30,7 @@ const Create = () => {
         })
       })
       if (response.ok) {
-        alert("Post created Successfully")
+        toast.success('Post Created Successfully')
         router.back()
       }
 

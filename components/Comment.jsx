@@ -15,7 +15,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
   const [comments, setcomments] = useState({ comment: "", postid: postid, padmin: session?.user.id })
   const [oldc, setoldc] = useState([])
   const [pending, setpending] = useState(false)
-
+  const [posting, setPosting] = useState(false)
   const oldcomments = async () => {
     try {
       setpending(true)
@@ -39,8 +39,9 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
 
 
   const handlekeypress = async (e) => {
+    setPosting(true)
     const response = await fetch(serverUrl().concat('/postComment'), {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -50,13 +51,13 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
         postid: postid
       })
     })
+    setPosting(false)
     oldcomments()
     setcomments({ comment: "" })
   }
 
   return (
-    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] z-10 h-[100vh] bg-black/70'>
-
+    <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] h-[100vh] z-10  bg-black/70'>
       <Image
         height={25}
         width={25}
@@ -86,10 +87,10 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
 
                       <CommCard key={item._id}
                         comentid={item._id}
-                        comment={item.comment}
-                        img={item.padmin.image}
-                        username={item.padmin.username}
-                        userid={item.padmin._id}
+                        comment={item.content}
+                        img={item.userid.image}
+                        username={item.userid.username}
+                        userid={item.userid._id}
                         oldcomments={oldcomments} />
 
                     ))) : (<div className=' m-[20vh]'> Be the first to comment on this post ... </div>)
@@ -108,9 +109,12 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
                 if (e.key === "Enter")
                   handlekeypress()
               }} />
-            {
-              comments.comment && <Image src={'/assets/addcomment.svg'} height={22} width={22} alt='add+' onClick={handlekeypress} className='cursor-pointer w-[3vw] h-[3vw] p-1' />
-            }
+            <div>
+              {
+                posting ? (<div className="mt-2 mr-2 animate-spin h-6 w-6 rounded-full border-[2px] border-blue-500 border-t-white">
+                </div>) : (comments.comment && <Image src={'/assets/addcomment.svg'} height={22} width={22} alt='add+' onClick={handlekeypress} className='cursor-pointer w-[3vw] h-[3vw] p-1' />)
+              }
+            </div>
 
           </div>
         </div>

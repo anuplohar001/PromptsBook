@@ -16,6 +16,21 @@ const Home = async () => {
   })
   const posts = await response.json()  
 
+  const storyResponse = await fetch(serverUrl().concat(`/oldStory`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    next: { revalidate: 2 }
+  })
+  const oldStory = await storyResponse.json()
+  const idd = new Map()
+  
+  oldStory.map((item) => (
+    idd.set(item.userid._id, item.userid.image)
+  ))
+  const users = Array.from(idd)
+  
   
   if(!response.ok){    
     return (<Errors/>)
@@ -35,7 +50,7 @@ const Home = async () => {
           </div>
         </div>
       </section>
-        <Feed posts={posts.prompts}/>     
+        <Feed posts={posts.prompts} storyAdmin={users} story={oldStory}/>     
     </div>
   )
 }

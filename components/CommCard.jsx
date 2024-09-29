@@ -20,7 +20,7 @@ const CommCard = ({ comentid, comment, img, username, oldcomments, userid }) => 
         if (confirm("Are you sure you want to delete this comment")) {
             try {
                 const response = await fetch(serverUrl().concat(`/deleteComment?id=${comentid}`), { 
-                    method: "DELETE",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     },

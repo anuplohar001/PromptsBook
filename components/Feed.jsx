@@ -2,18 +2,13 @@
 import React, { useState } from "react"
 import Image from "next/image"
 import Card from "./Card"
+import { Story } from "./Story";
+import { useSession } from "next-auth/react";
+const Feed = ({ posts, storyAdmin }) => {
 
-const Feed = ({ posts }) => {
-
-    // const postStory = async () => {
-    //     const responses = await fetch("/api/story", { method: "POST" })
-    //     if (responses.ok)
-    //         alert("Story Posted")
-    // }
-
+    const { data: session } = useSession()
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
-    const [pending, setPending] = useState(false)
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
@@ -22,84 +17,93 @@ const Feed = ({ posts }) => {
 
 
     const getSearched = (e) => {
-        setSearchtext(e.target.value)
-        setTimeout(() => {
-            const post = filterPost(e.target.value)
-            setsearchdPost(post)
-        }, 500);
+        const a = e.target.innerText
+        const b = e.target.value
+        if(a){
+            setSearchtext(a)
+            setTimeout(() => {
+                const post = filterPost(a)
+                setsearchdPost(post)
+            }, 500);
+        }
+        else{
+            setSearchtext(b)
+            setTimeout(() => {
+                const post = filterPost(b)
+                setsearchdPost(post)
+            }, 500);
+        }
+        
     }
 
 
+
     return (
-        <div>
+        <div className="flex  items-center flex-col relative ">
+            <div className="flex gap-3 w-[60vw] m-2">
+                {session?.user.id && <Story img={session?.user.image} admin={session?.user.id} />}
+                {
+                    storyAdmin.map((admin) => (
+                        admin[0] != session?.user.id && (<Story key={admin[0]} admin={admin[0]} img={admin[1]} />)
+                    ))
+                }
+            </div>
+            <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
+                <Image src={'/assets/search.svg'}
+                    height={20}
+                    width={20}
+                    alt="search"
+                    className="mx-2 w-7 h-7" />
 
-            {
-                (<div className="flex  items-center flex-col relative ">
-                    {/* <button onClick={postStory}>Add Story</button> */}
-                    {/* <div className="flex gap-5 w-[80vw] overflow-scroll">
+                <input className="relative  rounded-sm w-[60vw] h-8 p-2"
+                    type="text"
+                    value={searchText}
+                    onChange={getSearched}
+                    placeholder="Search the Prompt" />
+            </div>
+
+            <div className="p-2 overflow-scroll h-[63vh] mt-4">
+                {
+                    searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
                         {
-                            story && story.map && story.map((item)=>{
-                                <Story/>
-                            })
+                            searchPost.map((item) => (
+
+                                <Card
+                                    key={item._id}
+                                    prompt={item.prompt}
+                                    tag={item.tag}
+                                    postid={item._id}
+                                    username={item.padmin.username}
+                                    userid={item.padmin._id}
+                                    img={item.padmin.image}
+                                    email={item.padmin.email} />
+
+                            ))
                         }
-                    </div> */}
-                    <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
-                        <Image src={'/assets/search.svg'}
-                            height={20}
-                            width={20}
-                            alt="search"
-                            className="mx-2 w-7 h-7" />
-
-                        <input className="relative  rounded-sm w-[60vw] h-8 p-2"
-                            type="text"
-                            value={searchText}
-                            onChange={getSearched}
-                            placeholder="Search the Prompt" />
-                    </div>
-
-                    <div className="p-2 overflow-scroll h-[63vh] mt-4">
+                    </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
                         {
-                            searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
-                                {
-                                    searchPost.map((item) => (
+                            posts && posts.map && posts.map((item) => (
 
-                                        <Card
-                                            key={item._id}
-                                            prompt={item.prompt}
-                                            tag={item.tag}
-                                            postid={item._id}
-                                            username={item.padmin.username}
-                                            userid={item.padmin._id}
-                                            img={item.padmin.image}
-                                            email={item.padmin.email} />
-
-                                    ))
-                                }
-                            </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
-                                {
-                                    posts && posts.map && posts.map((item) => (
-
-                                        <Card
-                                            key={item._id}
-                                            prompt={item.prompt}
-                                            tag={item.tag}
-                                            postid={item._id}
-                                            username={item.padmin.username}
-                                            userid={item.padmin._id}
-                                            img={item.padmin.image}
-                                            email={item.padmin.email} />
-                                    ))
-                                }
-                            </div>)
+                                <Card
+                                    key={item._id}
+                                    prompt={item.prompt}
+                                    tag={item.tag}
+                                    postid={item._id}
+                                    username={item.padmin.username}
+                                    userid={item.padmin._id}
+                                    img={item.padmin.image}
+                                    email={item.padmin.email}
+                                    getSearched={getSearched} />
+                            ))
                         }
+                    </div>)
+                }
 
-                    </div>
+            </div>
 
-                </div >)
-            }
+        </div >
 
 
-        </div>
     )
 };
 

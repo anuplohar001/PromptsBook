@@ -6,34 +6,50 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { serverUrl } from '@lib/actions'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
-const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => {
+const Card = ({ 
+    modify, 
+    prompt, 
+    tag, 
+    img, 
+    username, 
+    email, 
+    postid, 
+    userid,
+    getSearched 
+}) => {
 
     const router = useRouter();
     const { data: session } = useSession()
     const [Likes, setLikes] = useState({ isLiked: false })
     const [copy, setcopy] = useState(false)
     const [likesno, setNo] = useState()
+    const [pending, setpending] = useState(true)
 
     const getLikes = async () => {
 
         try {
-            const response = await fetch(`/api/prompt/${postid}/${session?.user.id}`, {
+            setpending(true)
+            const response = await fetch( serverUrl().concat(`/likes/${postid}/${session?.user.id}`), {
                 method: "GET"
             })
             const data = await response.json()
-            setLikes({ isLiked: data.isLiked })
+            setLikes({ isLiked: data.isLike })
         } catch (error) {
             console.log(error)
         }
         getLikesNo()
+        setpending(false)
     }
 
     const getLikesNo = async () => {
         try {
-            const response = await fetch(`/api/prompt/like/${postid}`, { method: "GET" })
+            setpending(true)
+            const response = await fetch( serverUrl().concat(`/likes/${postid}`), { method: "GET" })
             const data = await response.json()
-            setNo(data.length)
+            setNo(data.no)
+            setpending(false)
         } catch (error) {
             console.log(error)
         }
@@ -64,7 +80,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
                 },
             })
             if (response.ok) {
-                alert("Post Deleted Successfully")
+                toast.success("Post Deleted Successfully")
                 router.back()
             }
         }
@@ -87,11 +103,14 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
         }
 
         try {
-            const response = await fetch(`api/prompt/${postid}/${session?.user.id}`, {
-                method: "PATCH",
+            const response = await fetch(serverUrl().concat(`/putLike/${postid}/${session?.user.id}`), {
+                method: "PUT",
                 body: JSON.stringify({
                     isLiked: flag
-                })
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
             })
 
         } catch (error) {
@@ -139,7 +158,7 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
             </div>
             <div className='text-sm mt-3 h-[130px] p-2 '>
                 <div className='h-[60px] overflow-y-scroll'>{prompt}</div>
-                <div className=' text-violet-700'>{tag}</div>
+                <div className=' text-violet-700 cursor-pointer' onClick={getSearched}>{tag}</div>
             </div>
             {
                 session?.user.id === userid && modify && (
@@ -154,17 +173,24 @@ const Card = ({ modify, prompt, tag, img, username, email, postid, userid }) => 
             {
                 session?.user && (
                     <div className='transition-[1s]'>
-                        <div className='absolute right-9 bottom-1 text-[10px] font-bold'>
-                            {likesno ? (likesno) : (0)}
-                        </div>
-                        <Image
-                            src={Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
-                            height={25}
-                            width={25}
-                            alt='Like'
-                            className='absolute bottom-4 right-7 cursor-pointer h-5 w-5'
-                            onClick={handleLike}
-                        />
+                        {
+                            !pending && (<div className='absolute right-9 bottom-1 text-[10px] font-bold'>
+                                {likesno ? (likesno) : (0)}
+                            </div>)
+                        }
+                        
+                        {
+                            pending ? (<div className="absolute bottom-4 right-7 cursor-pointer h-5 w-5 mt-2 mr-2 animate-spin rounded-full border-[2px] border-blue-500 border-t-white">
+                            </div>): (<Image
+                            src = {Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
+                        height={25}
+                        width={25}
+                        alt='Like'
+                        className='absolute bottom-4 right-7 cursor-pointer h-5 w-5'
+                        onClick={handleLike}
+                        />)
+                        }
+                        
 
                         <Image
                             src={'/assets/comment.svg'}
