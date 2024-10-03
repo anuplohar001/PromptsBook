@@ -104,11 +104,14 @@ const Stories = ({ user, oldStory }) => {
                                   (<div key={item._id} id={index} className='box border-2 rounded-md min-w-56 text-center relative'>
                                         <div className='h-[27vh] m-4 overflow-y-scroll'>{item.story}</div>
                                         <div onClick={() => deleteStory(item)} className='cursor-pointer w-max h-max absolute right-0'>
-                                            <Image
-                                                src={'/assets/trash.svg'}
-                                                height={25}
-                                                width={25}
-                                                alt='delete' />
+                                        {
+                                                session?.user.id === user && (<Image
+                                                    src={'/assets/trash.svg'}
+                                                    height={25}
+                                                    width={25}
+                                                    alt='delete' />)
+                                        }
+                                            
                                         </div>
                                     </div>)
                                 ))) : (<div>Tap below to add story</div>)
