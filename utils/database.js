@@ -7,7 +7,7 @@ export const connectDb = async () => {
         return;
     }
     try {
-        await mongoose.connect(process.env.MONGODB_URI, { dbName: "propmts",})
+        await mongoose.connect(process.env.MONGODB_URI, { dbName: "prompts",})
         isConnect = true
         console.log("mongo db connected")
     } catch (error) {

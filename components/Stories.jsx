@@ -10,8 +10,8 @@ const Stories = ({ user, oldStory }) => {
     const [story, setstory] = useState("")
     const { data: session } = useSession()
     const [pending, setPending] = useState(false)
-    const image = oldStory[0].userid.image
-    const name = oldStory[0].userid.username
+    const image = oldStory.length ? (oldStory[0].userid.image) : (session?.user.image)
+    const name = oldStory.length ? (oldStory[0].userid.username) : (session?.user.name)
     const [storytransition, setstorytransition] = useState(1)
 
 
@@ -41,12 +41,12 @@ const Stories = ({ user, oldStory }) => {
         try {
             setPending(true)
             const response = await fetch(serverUrl().concat("/postStory"), {
-                method: "PUT",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    content: story,
+                    story: story,
                     userid: user
                 })
             })
@@ -57,6 +57,7 @@ const Stories = ({ user, oldStory }) => {
             }
         } catch (error) {
             console.log(error)
+            setPending(false)
         }
     }
 
@@ -99,7 +100,7 @@ const Stories = ({ user, oldStory }) => {
                         <div id='anups' className="flex gap-7 ">
 
                             {
-                                oldStory.map((item, index) => (
+                                oldStory.length ? (oldStory.map((item, index) => (
                                   (<div key={item._id} id={index} className='box border-2 rounded-md min-w-56 text-center relative'>
                                         <div className='h-[27vh] m-4 overflow-y-scroll'>{item.story}</div>
                                         <div onClick={() => deleteStory(item)} className='cursor-pointer w-max h-max absolute right-0'>
@@ -110,7 +111,7 @@ const Stories = ({ user, oldStory }) => {
                                                 alt='delete' />
                                         </div>
                                     </div>)
-                                ))
+                                ))) : (<div>Tap below to add story</div>)
                             }
                         </div>
                     </div>

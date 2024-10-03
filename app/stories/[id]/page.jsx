@@ -12,9 +12,8 @@ const page = async({ params }) => {
         next: {revalidate: 2}
     })
     const oldStory = await response.json()
-    
     return (
-        <Stories user={params?.id} oldStory={oldStory}/>
+        oldStory && <Stories user={params?.id} oldStory={oldStory}/>
     )
 }
 

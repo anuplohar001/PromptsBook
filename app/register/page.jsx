@@ -18,9 +18,8 @@ const page = () => {
     }
 
     const userRegister = async () => {
-
         try {
-            const response = await fetch(serverUrl().concat('api/registration'), {
+            const response = await fetch(serverUrl().concat('/registration'), {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -33,7 +32,8 @@ const page = () => {
                 })
             })
             if (response.ok) {
-                router.push('/login')
+                alert("Account created successfully")
+                router.push("/login")
             }
         } catch (error) {
             console.log(error)
@@ -77,14 +77,13 @@ const page = () => {
                     </div>
 
 
-                    <form onSubmit={userRegister} className="w-[40vh]">
+                    <div className="w-[40vh]">
                         <input onChange={handlechange} name="username" type="username" className="userinfo" placeholder="User Name" />
                         <input onChange={handlechange} name="phone" type="number" className="mt-2 userinfo" placeholder="Phone" />
                         <input onChange={handlechange} name="email" type="email" className="mt-2 userinfo" placeholder="Email Address" />
                         <input onChange={handlechange} name="password" type="password" className="mt-2 userinfo" placeholder="Password" />
-                        <button type='submit' className="btnCred"> Register  </button>
-
-                    </form>
+                        <button onClick={userRegister} type='submit' className="btnCred"> Register  </button>
+                    </div>
                     <div className="mt-6 text-center text-sm text-slate-800">
                         Already have an account ? {" "}
                         <Link href='/login' className="font-medium text-[#4285f4]">Log In</Link>
