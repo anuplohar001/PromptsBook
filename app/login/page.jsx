@@ -57,14 +57,14 @@ const page = () => {
     }
 
   return (
-      <div className="register">
+      <div className="register ">
           <div className="relative p-4 w-[52vh] max-w-md h-full md:h-auto ">
-              <div className="relative gradient rounded-lg shadow">
+              <div className="relative gradient rounded-lg shadow comp-animation">
                   <Link href='/' type="button" className="btnclose">
                       <Image src={close} alt='close' height={20} width={20} />
                   </Link>
 
-                  <div className="p-5">
+                  <div className="p-5 ">
                       <div className="text-center">
                           <p className="mt-2 mb-3 text-xl font-semibold leading-5 text-slate-900">
                               Login to your account

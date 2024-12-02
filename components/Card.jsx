@@ -131,7 +131,7 @@ const Card = ({
 
     return (
 
-        <div className='prompt_card' onDoubleClick={handleLike}>
+        <div className='prompt_card comp-animation' onDoubleClick={handleLike}>
             <div className='ml-1 flex gap-4' >
                 <Link href={`/profile/${userid}`} className='flex gap-3 hover:cursor-pointer'>
                     <Image
@@ -172,7 +172,7 @@ const Card = ({
             }
             {
                 session?.user && (
-                    <div className='transition-[1s]'>
+                    <div className='transition-[1s] comp-animation'>
                         {
                             !pending && (<div className='absolute right-9 bottom-1 text-[10px] font-bold'>
                                 {likesno ? (likesno) : (0)}

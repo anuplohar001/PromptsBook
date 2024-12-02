@@ -78,10 +78,10 @@ const UpdateProf = () => {
     }
 
     return (
-        <>
+        <div className=''>
         {
             pending ? (<Loader/>) : (<div className=''>
-                <div className='text-center transition-[.3s]' onMouseLeave={() => setEditImage(false)}>
+                    <div className='text-center transition-[.3s] comp-animation' onMouseLeave={() => setEditImage(false)}>
 
                     <Image
                         src={file ? file : session?.user.image}
@@ -116,7 +116,7 @@ const UpdateProf = () => {
                 </div>
 
                 {
-                    edit ? (<div className='flex flex-col gap-3 ml-6'>
+                        edit ? (<div className='flex flex-col gap-3 ml-6'>
                         <div>
                             Username
                             <input onChange={handleChange} name='name' value={userinfo.name} type="text" placeholder='username' className='w-[25vw] ml-5 p-3 rounded-xl shadow-2xl' />
@@ -150,7 +150,7 @@ const UpdateProf = () => {
                             </div>
 
                         </div>
-                    </div>) : (<div className='flex flex-col ml-6 gap-3'>
+                        </div>) : (<div className='flex flex-col ml-6 gap-3 comp-animation'>
                         <div className='flex'>
                             Username <div className='ml-5 w-[25vw] rounded-xl bg-orange-400 p-3 text-white'>{userinfo.name}</div>
                         </div>
@@ -177,7 +177,7 @@ const UpdateProf = () => {
 
             </div>)
         }
-        </>
+        </div>
     )
 }
 

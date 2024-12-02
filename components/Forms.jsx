@@ -6,7 +6,7 @@ const Forms = ({ type, handleClick, post, setPost }) => {
 
     return (
 
-        <div className='ml-20'>
+        <div className='ml-20 comp-animation'>
             <h1 className='gradient-text'>
                 {type} post
             </h1>

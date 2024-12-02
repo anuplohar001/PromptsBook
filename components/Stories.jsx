@@ -87,7 +87,7 @@ const Stories = ({ user, oldStory }) => {
                 <Image src={"/assets/close.svg"} alt='close' height={25} width={25} className='m-5 ml-[90vw] gradient rounded-md cursor-pointer' />
             </Link>
 
-            <div className='h-[70vh] w-[40vw] ml-[30vw] flex flex-col gradient rounded-lg'>
+            <div className='h-[70vh] w-[40vw] ml-[30vw] flex flex-col gradient rounded-lg comp-animation'>
                 <Link href={`/profile/${user}`} className='flex mt-4 ml-4 mb-1 h-max'>
 
                     <Image src={image} height={35} width={35} alt='user' className='rounded-full' />

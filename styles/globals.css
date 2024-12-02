@@ -56,9 +56,18 @@ body {
 }
 
 .prompt_card {
-    @apply flex flex-col rounded-[10px] border shadow-lg border-gray-300 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[185px];
-    transition: .3s;
+    @apply flex flex-col rounded-[10px] border shadow-lg border-gray-300 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[185px];  
+    
     background-color: rgb(230, 207, 241);
+}
+
+.comp-animation {
+    transition-timing-function: ease-in-out;
+    transition-duration: 1s;
+    transition-property: opacity;
+    @starting-style {
+        opacity: 0;
+    }
 }
 
 .prompt_card ::-webkit-scrollbar {
