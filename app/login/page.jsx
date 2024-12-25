@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 const page = () => {
 
     const [password, setpassword] = useState("password")
-    const [info, setinfo] = useState({email:"anuplohar001@gmail.com", password:"anup@220803"})
+    const [info, setinfo] = useState({email:"anuplohar001@gmail.com", password:"pass@123"})
     const router = useRouter()
     const [error, seterror] = useState("")
 

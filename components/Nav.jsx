@@ -58,6 +58,16 @@ const Nav = () => {
                                     />
                                     <div className="lg:block hidden">Create Post</div></Link>
 
+                                <Link href='/message' className="w-[10vw] flex gap-2 p-2 rounded-full hover:bg-white hover:duration-500">
+                                    <Image
+                                        src='/assets/messages.svg'
+                                        alt="Add"
+                                        height={15}
+                                        width={15}
+                                        className="w-7 h-7"
+                                    />
+                                    <div className="lg:block hidden">Messages</div></Link>
+
                                 <Link onClick={() => signOut({ callbackUrl: '/' })} href='/' className="w-[10vw] flex gap-2 p-2 rounded-full hover:bg-white hover:duration-500">
                                     <Image
                                         src='/assets/out.svg'
