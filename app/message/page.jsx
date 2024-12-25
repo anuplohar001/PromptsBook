@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
-import socketIo from 'socket.io-client'
+import socket from '@lib/socket'
 import { serverUrl } from '@lib/actions'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -10,7 +10,6 @@ const page = () => {
 
     const [users, setusers] = useState([])
     const chatContainerRef = useRef(null)
-    const socket = socketIo('https://backend-tfsk.onrender.com/', { transports: ['websocket'] })
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('')
     const { data: session } = useSession();
