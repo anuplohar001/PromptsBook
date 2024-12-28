@@ -4,15 +4,21 @@ import socket from '@lib/socket'
 import { serverUrl } from '@lib/actions'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import EmojiPicker from 'emoji-picker-react'
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 
 const page = () => {
 
 
+    const { data: session } = useSession();
     const [users, setusers] = useState([])
     const chatContainerRef = useRef(null)
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('')
-    const { data: session } = useSession();
+    const [isTyping, setIsTyping] = useState(false);
+    const [typingUser, setTypingUser] = useState("");
+    const [showPicker, setShowPicker] = useState(false);
     const [username, setUsername] = useState({
         id: "66fe820a361df8729883be35",
         name: "AshwiniJanrao",
@@ -20,6 +26,10 @@ const page = () => {
     });
 
 
+
+    const handleEmojiClick = (emoji) => {
+        setMessage((prev) => prev + emoji.native);
+    };
 
     const getMessages = async () => {
         const response = await fetch(serverUrl().concat('/messages'), {
@@ -29,7 +39,7 @@ const page = () => {
             }
         })
         const olddata = await response.json();
-        olddata.messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        await olddata.messages.sort((a, b) => new Date(a.date) - new Date(b.date));
         setMessages(olddata.messages)
     }
 
@@ -47,9 +57,11 @@ const page = () => {
     }
 
     const sendMessage = () => {
+        setShowPicker(false)
         const msg = { from: session?.user.id, to: username.id, text: message }
         socket.emit("sendMessage", msg)
         setMessage('')
+        handleStopTyping();
     }
 
     const processDate = (olddate) => {
@@ -65,6 +77,13 @@ const page = () => {
         return formattedDateTime
     }
 
+    const handleTyping = () => {
+        socket.emit("typing", { from: session?.user.id, to: username.id });
+    };
+
+    const handleStopTyping = () => {
+        socket.emit("stopTyping", { from: session?.user.id, to: username.id });
+    };
 
 
     useEffect(() => {
@@ -80,6 +99,20 @@ const page = () => {
             setMessages((prevMessages) => [...prevMessages, data])
         })
 
+        socket.on("userTyping", (data) => {
+            if (data.to === session?.user.id) {
+                setTypingUser(data.from);
+                setIsTyping(true);
+            }
+        });
+
+        socket.on("userStoppedTyping", (data) => {
+            if (data.to === session?.user.id) {
+                setIsTyping(false);
+                setTypingUser("");
+            }
+        });
+
         return () => {
             console.log("disconnected")
             socket.off()
@@ -90,9 +123,9 @@ const page = () => {
 
     return (
         <div className="flex h-screen w-screen ">
-            <div className="w-1/3 m-4 p-4 rounded shadow-md border border-white">
-                <h1 className='text-lg text-center'>All Chats</h1>
-                <div>
+            <div className="w-1/3 m-4 p-4 rounded shadow-md border border-white gradient">
+                <h1 className='text-lg text-center '>All Chats</h1>
+                <div className='h-[80vh] m-3 overflow-y-scroll'>
                     {
                         users.map((user, index) => (
                             <div key={user._id}>
@@ -117,13 +150,16 @@ const page = () => {
                     <Image className='rounded-full' src={username.img} width={30} height={30} alt='img' />
                     <div>{username.name}</div>
                 </div>
+                {isTyping && typingUser === username.id && (
+                    <div className="text-sm text-gray-500 italic">Typing...</div>
+                )}
                 <div ref={chatContainerRef} className="text-right overflow-y-auto flex-grow space-y-4 px-2">
 
                     {messages.map && messages.map((msg, index) => (
                         <div key={index}>
                             {
                                 ((msg.from === session?.user.id && msg.to === username.id) || (msg.from === username.id && msg.to === session?.user.id)) && (<div className={`flex items-center ${msg.from === session?.user.id ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-xs px-4 py-2 rounded-lg shadow-md ${msg.from === session?.user.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
+                                    <div className={`max-w-xs px-4 py-2 rounded-lg shadow-md ${msg.from === session?.user.id ? 'bg-blue-500 text-white text-right' : 'bg-gray-200 text-gray-800 text-left'}`}>
                                         <div >
                                             {msg.text}
                                         </div>
@@ -138,15 +174,43 @@ const page = () => {
                     ))}
                 </div>
 
-                <div className="flex items-center border-t border-gray-300 mt-4 pt-4">
-                    <input
-                        type="text"
-                        placeholder="Type a message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                        className="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
-                    />
+                <div className="flex items-center border-t border-gray-300 mt-4 pt-4 ">
+                    <div className='p-1 pl-2 w-11/12 h-11 flex justify-between border border-gray-300 rounded-lg bg-white'>
+
+                        <input
+                            className="p-1 w-5/6"
+                            type="text"
+                            placeholder="Type a message"
+                            value={message}
+                            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                            onChange={(e) => {
+                                setMessage(e.target.value);
+                                handleTyping();
+                                }
+                            }
+                        />
+                        <button
+                            onClick={() => setShowPicker((prev) => !prev)}
+                            className='font-bold text-2xl'
+                        >
+                            &#128526;
+                        </button>
+                    </div>
+
+                    {showPicker && (
+                        <div className='absolute z-10 bottom-20 right-28'>
+                            <Image
+                            src={'/assets/close.svg'}
+                            height={30}
+                            width={30}
+                            alt='close'
+                            className='cursor-pointer'
+                                onClick={() => setShowPicker((prev) => !prev)}
+                            />
+                            <Picker data={data} onEmojiSelect={handleEmojiClick} />
+                        </div>
+                    )}
+
                     <button
                         className="ml-2 px-4 py-2 bg-green-400 text-white rounded-lg shadow hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300"
                         onClick={sendMessage}

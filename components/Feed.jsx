@@ -4,11 +4,23 @@ import Image from "next/image"
 import Card from "./Card"
 import { Story } from "./Story";
 import { useSession } from "next-auth/react";
+import Share from "./Share";
+
 const Feed = ({ posts, storyAdmin }) => {
 
     const { data: session } = useSession()
     const [searchText, setSearchtext] = useState("")
     const [searchPost, setsearchdPost] = useState([])
+    const [share, setShare] = useState(false)
+    const [items, setItems] = useState(null)
+
+    function handleshare (item) {
+        setItems(item)
+        if(!share)
+            setShare(true)
+        else
+            setShare(false)
+    }
 
     const filterPost = (text) => {
         const regx = new RegExp(text, "i");
@@ -40,6 +52,9 @@ const Feed = ({ posts, storyAdmin }) => {
 
     return (
         <div className="flex  items-center flex-col relative ">
+            {
+                share && (<Share handleshare={handleshare} item={items}/>)
+            }
             <div className="flex gap-3 w-[60vw] m-2">
                 {session?.user.id && <Story img={session?.user.image} admin={session?.user.id} />}
                 {
@@ -76,7 +91,9 @@ const Feed = ({ posts, storyAdmin }) => {
                                     username={item.padmin.username}
                                     userid={item.padmin._id}
                                     img={item.padmin.image}
-                                    email={item.padmin.email} />
+                                    email={item.padmin.email} 
+                                    handleshare={()=>handleshare(item)}
+                                    />
 
                             ))
                         }
@@ -93,7 +110,9 @@ const Feed = ({ posts, storyAdmin }) => {
                                     userid={item.padmin._id}
                                     img={item.padmin.image}
                                     email={item.padmin.email}
-                                    getSearched={getSearched} />
+                                    getSearched={getSearched} 
+                                    handleshare={() => handleshare(item)}
+                                    />
                             ))
                         }
                     </div>)

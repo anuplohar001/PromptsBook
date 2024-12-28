@@ -17,7 +17,8 @@ const Card = ({
     email, 
     postid, 
     userid,
-    getSearched 
+    getSearched,
+    handleshare
 }) => {
 
     const router = useRouter();
@@ -26,7 +27,7 @@ const Card = ({
     const [copy, setcopy] = useState(false)
     const [likesno, setNo] = useState()
     const [pending, setpending] = useState(true)
-
+    
     const getLikes = async () => {
 
         try {
@@ -207,8 +208,9 @@ const Card = ({
                             width={17}
                             alt='Like'
                             className='absolute bottom-3 left-[42px] cursor-pointer'
-
+                            onClick={handleshare}
                         />
+                        
                     </div>
                 )
             }

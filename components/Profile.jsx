@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react'
 
 const Profile = ({ myPost }) => {
 
+    console.log(myPost)
     const { data: session } = useSession()
 
     return (
