@@ -55,7 +55,7 @@ const Feed = ({ posts, storyAdmin }) => {
             {
                 share && (<Share handleshare={handleshare} item={items}/>)
             }
-            <div className="flex gap-3 w-[60vw] m-2">
+            <div className="flex gap-3 h-20 w-[60vw] m-2 overflow-x-scroll">
                 {session?.user.id && <Story img={session?.user.image} admin={session?.user.id} />}
                 {
                     storyAdmin.map((admin) => (
