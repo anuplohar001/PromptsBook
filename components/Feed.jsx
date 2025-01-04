@@ -51,11 +51,11 @@ const Feed = ({ posts, storyAdmin }) => {
 
 
     return (
-        <div className="flex  items-center flex-col relative ">
+        <div className="flex items-center flex-col relative">
             {
                 share && (<Share handleshare={handleshare} item={items}/>)
             }
-            <div className="flex gap-3 h-20 w-[60vw] m-2 overflow-x-scroll">
+            <div className="flex gap-3 w-[80vw] h-24 m-2 overflow-x-scroll">
                 {session?.user.id && <Story img={session?.user.image} admin={session?.user.id} />}
                 {
                     storyAdmin.map((admin) => (
@@ -63,23 +63,30 @@ const Feed = ({ posts, storyAdmin }) => {
                     ))
                 }
             </div>
-            <div className="flex bg-white mt-1 w-max shadow-lg rounded-lg">
+            {
+                !session && (<div className="text-white font-bold">
+                    Email : <u>anuplohar001@gmail.com</u> Password : <u>pass@123</u>
+                </div>)
+            }
+            
+            <div className="flex allbg w-max shadow-lg rounded-lg">
+                 
                 <Image src={'/assets/search.svg'}
                     height={20}
                     width={20}
                     alt="search"
                     className="mx-2 w-7 h-7" />
 
-                <input className="relative  rounded-sm w-[60vw] h-8 p-2"
+                <input className="relative text-white rounded-sm w-[60vw] h-8 p-2 allbg"
                     type="text"
                     value={searchText}
                     onChange={getSearched}
                     placeholder="Search the Prompt" />
             </div>
 
-            <div className="p-2 overflow-scroll h-[63vh] mt-4">
+            <div className="p-2 overflow-scroll h-[71vh] mt-1">
                 {
-                    searchText ? (<div className="flex flex-wrap w-[72vw] gap-10" >
+                    searchText ? (<div className="flex flex-wrap w-[72vw] gap-7" >
                         {
                             searchPost.map((item) => (
 
@@ -97,7 +104,7 @@ const Feed = ({ posts, storyAdmin }) => {
 
                             ))
                         }
-                    </div>) : (<div className="flex flex-wrap justify-center items-center gap-10">
+                    </div>) : (<div className="flex flex-wrap justify-center items-center gap-7">
                         {
                             posts && posts.map && posts.map((item) => (
 

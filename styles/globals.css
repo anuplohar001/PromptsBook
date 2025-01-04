@@ -8,18 +8,19 @@
 /* Webkit-based browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
     /* Width of the scrollbar */
 }
 
 body::-webkit-scrollbar-track {
 
-    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    background: black;
     /* Background of the track */
     border-radius: 10px
 }
 
 body::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #ff8800, #ffaa00);
+    background: grey;
     border-radius: 10px;
 }
 
@@ -29,9 +30,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 body {
-    height: 100vh;
-    background-color: #A9C9FF;
-    background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+    background-color: rgb(17, 17, 17);
+}
+
+.allbg {
+    background-color: rgb(17, 17, 17);
+}
+
+.navbg {
+    background-color: #242424;
 }
 
 .gradient {
@@ -48,17 +55,21 @@ body {
 }
 
 .gradient-text {
-    font-size: 35px;
+    font-size: 45px;
     font-weight: 800;
-    background-image: linear-gradient(180deg, #eb1b4b 0%, #fb9c0e 100%);
+    background-image: linear-gradient(180deg, #6645f8 0%, #a769f8 100%);
     background-clip: text;
     color: transparent;
 }
 
-.prompt_card {
+.hovercolor :hover {
+    background-color: rgba(230, 207, 241, 0.705);
+}
+
+/* .prompt_card {
     @apply flex flex-col rounded-[10px] border shadow-lg border-gray-300 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[185px];  
     
-    background-color: rgb(230, 207, 241);
+    background-color: rgba(230, 207, 241, 0.705);
 }
 
 .comp-animation {
@@ -78,7 +89,85 @@ body {
 .prompt_card ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
     border-radius: 10px
+} */
+
+.top-left-font {
+    font-weight:900;
+    margin-top: 8px;
+    color: white;
+    font-size: 20px; 
+    letter-spacing: 0.05em;
 }
+
+.prompt_card {
+    @apply flex flex-col rounded-[10px] border shadow-lg border-gray-700 bg-clip-padding p-3 backdrop-blur-lg backdrop-filter w-[300px] h-[240px];
+    background-color: rgba(40, 40, 40, 0.9); /* Ensure it contrasts with the dark theme */
+    color: #ffffff; /* Set text color to white */
+    margin: 1rem; /* Add spacing between cards */
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.prompt_card:hover {
+    transform: translateY(-5px); /* Subtle hover effect */
+    background-color: rgba(55, 55, 55, 0.9); /* Slightly lighter hover background */
+}
+
+.story:hover {
+    transform: translateY(-5px);
+    background-color: rgba(55, 55, 55, 0.9);
+    transition-duration: 300ms;
+    border-color: #FF4081;
+}
+
+.prompt_card ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: rgba(30, 30, 30, 0.9); /* Dark scrollbar track */
+    border-radius: 10px;
+}
+
+.prompt_card ::-webkit-scrollbar-thumb {
+    background: #8B5CF6;
+    border-radius: 10px;
+}
+
+.post-text {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.tags span {
+  display: inline-block;
+  background-color: #444;
+  color: #ddd;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.email {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0;
+}
+
 
 .button {
     @apply py-2 px-3 bg-black text-white rounded-full;
@@ -94,7 +183,7 @@ body {
 }
 
 .btnCred {
-    @apply mt-2 inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400
+    @apply mt-2 inline-flex w-full items-center justify-center rounded-lg bg-purple-500 hover:bg-violet-500 hover:duration-500 p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400
 }
 
 .userinfo {

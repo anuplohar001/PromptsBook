@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 export const Story = ({admin, img}) => {
     const {data : session} = useSession()
     return(
-        <Link href={`/stories/${admin}`} className="p-1 min-h-[60px] h-[60px] w-[60px] min-w-[60px] rounded-full bg-white border-[3px] border-pink-400 cursor-pointer relative ">     
+        <Link href={`/stories/${admin}`} className="mt-2 p-1 min-h-[60px] h-[60px] w-[60px] min-w-[60px] rounded-full allbg border-[3px] border-pink-400 cursor-pointer relative story">     
             <Image src={img}
             alt="userimg"
             height={20}

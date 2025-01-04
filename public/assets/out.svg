@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="sign-out">
-  <rect width="256" height="256" fill="none"></rect>
-  <polyline fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" points="174.011 86 216 128 174.011 170"></polyline>
-  <line x1="104" x2="215.971" y1="128" y2="128" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
-  <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" d="M104,216H48a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8h56"></path>
-</svg>
+<svg fill="#000000" viewBox="0 0 24 24" id="sign-out-alt" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path id="primary" d="M12,2a10,10,0,0,1,9.8,8h-8l.59-.58a2,2,0,0,0-2.84-2.84l-4,4a2,2,0,0,0,0,2.84l4,4A2,2,0,0,0,13,18a2,2,0,0,0,2-2,2,2,0,0,0-.58-1.42L13.83,14h8A10,10,0,1,1,12,2Z" style="fill: #dedede;"></path><path id="secondary" d="M8.29,12.71l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L11.41,13H22c0-.33.05-.66.05-1s0-.67-.05-1H11.41l2.3-2.29a1,1,0,1,0-1.42-1.42l-4,4A1,1,0,0,0,8.29,12.71Z" style="fill: #6d5d92;"></path></g></svg>

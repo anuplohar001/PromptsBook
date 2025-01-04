@@ -82,13 +82,13 @@ const Stories = ({ user, oldStory }) => {
 
 
     return (
-        <div className='absolute top-0 left-0 right-0 bottom-0 w-[100vw] h-[100vh] z-10  bg-black/70' >
+        <div className='text-white absolute top-0 left-0 right-0 bottom-0 w-[100vw] h-[100vh] z-10  bg-black/70' >
             <Link href={'/'}>
-                <Image src={"/assets/close.svg"} alt='close' height={25} width={25} className='m-5 ml-[90vw] gradient rounded-md cursor-pointer' />
+                <Image src={"/assets/close.svg"} alt='close' height={30} width={30} className='p-1 m-5 mt-8 ml-[80vw] navbg rounded-md cursor-pointer' />
             </Link>
 
-            <div className='h-[70vh] w-[40vw] ml-[30vw] flex flex-col gradient rounded-lg comp-animation'>
-                <Link href={`/profile/${user}`} className='flex mt-4 ml-4 mb-1 h-max'>
+            <div className='h-[70vh] w-[40vw] ml-[30vw] flex flex-col navbg rounded-lg comp-animation '>
+                <Link href={`/profile/${user}`} className='flex mt-4 ml-4 mb-1 h-max justify-center'>
 
                     <Image src={image} height={35} width={35} alt='user' className='rounded-full' />
                     <div className='ml-2 font-bold'>{name}</div>
@@ -122,7 +122,7 @@ const Stories = ({ user, oldStory }) => {
 
                         {
                             session?.user.id === user && (<div className='flex m-3 ml-8 bg-white h-12 rounded-full'>
-                                <textarea type="text" placeholder='Type here to add to Story' onChange={(e) => setstory(e.target.value)} value={story} className='mt-1 h-10 w-[28vw] p-2 pl-3 rounded-full focus:outline-none'></textarea>
+                                <textarea type="text" placeholder='Type here to add to Story' onChange={(e) => setstory(e.target.value)} value={story} className='text-black mt-1 h-10 w-[28vw] p-2 pl-3 rounded-full focus:outline-none'></textarea>
 
                                 {
                                     story && (<Image src={'/assets/send.png'} alt='send' height={30} width={30} className='m-2 cursor-pointer' onClick={handleStory} />)

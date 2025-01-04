@@ -37,20 +37,7 @@ const Home = async () => {
   }
   
   return (
-    <div className='overflow-y-scroll h-[90vh] p-0 mt-2'>
-      
-      <section className='w-[80vw] flex justify-center items-center flex-col'>
-        <div className='text-[30px] font-black text-center shadows'>
-          <h1 className='leading-[1.10]'>Discover & Share AI-Powered Prompts</h1>
-        </div>
-        <div className='text-[13px] text-center w-[80vw] flex flex-col'>
-          <b>Use following credentials for LogIn and access the rest functions</b>
-          <div>&#128231; Email : <b>anuplohar001@gmail.com</b></div>
-          <div>&#128273; Password : <b>pass@123</b>
-          
-          </div>
-        </div>
-      </section>
+    <div className='overflow-y-scroll p-0 mt-2 '>
         <Feed posts={posts.prompts} storyAdmin={users} story={oldStory}/>     
     </div>
   )

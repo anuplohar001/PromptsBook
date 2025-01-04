@@ -8,14 +8,14 @@ import { serverUrl } from '@lib/actions'
 import Link from 'next/link'
 import { toast } from 'sonner'
 
-const Card = ({ 
-    modify, 
-    prompt, 
-    tag, 
-    img, 
-    username, 
-    email, 
-    postid, 
+const Card = ({
+    modify,
+    prompt,
+    tag,
+    img,
+    username,
+    email,
+    postid,
     userid,
     getSearched,
     handleshare
@@ -27,12 +27,12 @@ const Card = ({
     const [copy, setcopy] = useState(false)
     const [likesno, setNo] = useState()
     const [pending, setpending] = useState(true)
-    
+
     const getLikes = async () => {
 
         try {
             setpending(true)
-            const response = await fetch( serverUrl().concat(`/likes/${postid}/${session?.user.id}`), {
+            const response = await fetch(serverUrl().concat(`/likes/${postid}/${session?.user.id}`), {
                 method: "GET"
             })
             const data = await response.json()
@@ -47,7 +47,7 @@ const Card = ({
     const getLikesNo = async () => {
         try {
             setpending(true)
-            const response = await fetch( serverUrl().concat(`/likes/${postid}`), { method: "GET" })
+            const response = await fetch(serverUrl().concat(`/likes/${postid}`), { method: "GET" })
             const data = await response.json()
             setNo(data.no)
             setpending(false)
@@ -140,13 +140,13 @@ const Card = ({
                         alt='Profile Img'
                         width={30}
                         height={30}
-                        className='rounded-full w-[35px] h-[35px]'
+                        className='rounded-full w-[35px] h-[35px] user-image'
 
                     />
 
                     <div className='text-sm'>
-                        <div className='font-bold'>{username}</div>
-                        <div>{email}</div>
+                        <div className='font-bold username'>{username}</div>
+                        <div className='email'>{email}</div>
                     </div>
                 </Link>
                 <div onClick={handleCopy}>
@@ -158,63 +158,69 @@ const Card = ({
                 </div>
             </div>
             <div className='text-sm mt-3 h-[130px] p-2 '>
-                <div className='h-[60px] overflow-y-scroll'>{prompt}</div>
-                <div className=' text-violet-700 cursor-pointer' onClick={getSearched}>{tag}</div>
+                <div className='h-[60px] overflow-y-scroll post-text'>{prompt}</div>
+                <div className=' text-violet-700 cursor-pointer tags' onClick={getSearched}>
+                    <span>{tag}</span>
+
+                </div>
             </div>
-            {
-                session?.user.id === userid && modify && (
-                    <div className='flex gap-5 justify-center font-medium'>
-                        <button onClick={EditPost} className='text-green-700'>
-                            Edit
-                        </button>
-                        <button onClick={DeletePost} className='text-red-700'>Delete</button>
-                    </div>
-                )
-            }
-            {
-                session?.user && (
-                    <div className='transition-[1s] comp-animation'>
-                        {
-                            !pending && (<div className='absolute right-9 bottom-1 text-[10px] font-bold'>
-                                {likesno ? (likesno) : (0)}
-                            </div>)
-                        }
-                        
-                        {
-                            pending ? (<div className="absolute bottom-4 right-7 cursor-pointer h-5 w-5 mt-2 mr-2 animate-spin rounded-full border-[2px] border-blue-500 border-t-white">
-                            </div>): (<Image
-                            src = {Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
-                        height={25}
-                        width={25}
-                        alt='Like'
-                        className='absolute bottom-4 right-7 cursor-pointer h-5 w-5'
-                        onClick={handleLike}
-                        />)
-                        }
-                        
+            <div className='flex justify-between'>
+                
+                {
+                    session?.user && (
+                        <div className="relative flex items-center space-x-3 p-2 transition-all duration-500 post-actions">
+                            {!pending && (
+                                <div className="absolute left-7 -bottom-1 text-xs font-bold text-white">
+                                    {likesno ? likesno : 0}
+                                </div>
+                            )}
 
-                        <Image
-                            src={'/assets/comment.svg'}
-                            height={17}
-                            width={17}
-                            alt='Like'
-                            className='absolute bottom-3 cursor-pointer'
-                            onClick={() => router.push(`/comment/${postid}`)}
-                        />
+                            {pending ? (
+                                <div className="absolute bottom-4 right-8 cursor-pointer h-6 w-6 animate-spin rounded-full border-2 border-blue-500 border-t-transparent">
+                                </div>
+                            ) : (
+                                <Image
+                                    src={Likes.isLiked ? '/assets/like.svg' : '/assets/unlike.svg'}
+                                    height={25}
+                                    width={25}
+                                    alt="Like"
+                                    className="cursor-pointer h-6 w-6 transition-transform duration-300 hover:scale-110"
+                                    onClick={handleLike}
+                                />
+                            )}
 
-                        <Image
-                            src={'/assets/share.svg'}
-                            height={17}
-                            width={17}
-                            alt='Like'
-                            className='absolute bottom-3 left-[42px] cursor-pointer'
-                            onClick={handleshare}
-                        />
-                        
-                    </div>
-                )
-            }
+                            <Image
+                                src="/assets/comment.svg"
+                                height={20}
+                                width={20}
+                                alt="Comment"
+                                className="cursor-pointer h-5 w-5 transition-transform duration-300 hover:scale-110"
+                                onClick={() => router.push(`/comment/${postid}`)}
+                            />
 
+                            <Image
+                                src="/assets/share.svg"
+                                height={20}
+                                width={20}
+                                alt="Share"
+                                className="cursor-pointer h-5 w-5 transition-transform duration-300 hover:scale-110"
+                                onClick={handleshare}
+                            />
+                        </div>
+
+                    )
+                }
+                {
+                    session?.user.id === userid && modify && (
+                        <div className='flex gap-5 justify-center font-medium'>
+                            <button onClick={EditPost} className='text-green-700'>
+                                Edit
+                            </button>
+                            <button onClick={DeletePost} className='text-red-700'>Delete</button>
+                        </div>
+                    )
+                }
+            </div>
         </div>
 
     )

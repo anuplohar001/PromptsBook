@@ -59,17 +59,17 @@ const page = () => {
   return (
       <div className="register ">
           <div className="relative p-4 w-[52vh] max-w-md h-full md:h-auto ">
-              <div className="relative gradient rounded-lg shadow comp-animation">
+              <div className="relative navbg rounded-lg shadow comp-animation">
                   <Link href='/' type="button" className="btnclose">
                       <Image src={close} alt='close' height={20} width={20} />
                   </Link>
 
                   <div className="p-5 ">
                       <div className="text-center">
-                          <p className="mt-2 mb-3 text-xl font-semibold leading-5 text-slate-900">
+                          <p className="mt-2 mb-3 text-xl font-semibold leading-5 text-white">
                               Login to your account
                           </p>
-                          <p className="mt-2 text-sm leading-4 text-slate-600">
+                          <p className="mt-2 text-sm leading-4 text-white">
                               You must be logged in to perform the action.
                           </p>
                       </div>
@@ -109,9 +109,9 @@ const page = () => {
                           <button type='submit' className="btnCred"> Log In  </button>
 
                       </form>
-                      <div className="mt-6 text-center text-sm text-slate-800">
+                      <div className="mt-6 text-center text-sm text-white">
                           Don't have an account ? {" "}
-                          <Link href='/register' className="font-medium text-[#4285f4]">Sign up</Link>
+                          <Link href='/register' className="font-medium text-white">Sign up</Link>
                       </div>
                   </div>
               </div>
