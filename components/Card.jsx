@@ -26,7 +26,7 @@ const Card = ({
     const [Likes, setLikes] = useState({ isLiked: false })
     const [copy, setcopy] = useState(false)
     const [likesno, setNo] = useState()
-    const [pending, setpending] = useState(true)
+    const [pending, setpending] = useState(false)
 
     const getLikes = async () => {
 
@@ -46,11 +46,9 @@ const Card = ({
 
     const getLikesNo = async () => {
         try {
-            setpending(true)
             const response = await fetch(serverUrl().concat(`/likes/${postid}`), { method: "GET" })
             const data = await response.json()
             setNo(data.no)
-            setpending(false)
         } catch (error) {
             console.log(error)
         }
@@ -59,7 +57,6 @@ const Card = ({
     useEffect(() => {
         if (session?.user.id) {
             getLikes()
-            getLikesNo()
         }
     }, [session?.user.id])
 
@@ -132,7 +129,7 @@ const Card = ({
 
     return (
 
-        <div className='prompt_card comp-animation' onDoubleClick={handleLike}>
+        <div className='prompt_card comp-animation ' onDoubleClick={handleLike}>
             <div className='ml-1 flex gap-4' >
                 <Link href={`/profile/${userid}`} className='flex gap-3 hover:cursor-pointer'>
                     <Image
@@ -176,7 +173,7 @@ const Card = ({
                             )}
 
                             {pending ? (
-                                <div className="absolute bottom-4 right-8 cursor-pointer h-6 w-6 animate-spin rounded-full border-2 border-blue-500 border-t-transparent">
+                                <div className=" cursor-pointer h-6 w-6 animate-spin rounded-full border-2 border-blue-500 border-t-transparent">
                                 </div>
                             ) : (
                                 <Image

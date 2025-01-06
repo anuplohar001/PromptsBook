@@ -17,27 +17,31 @@
     "@next/bundle-analyzer": "^14.2.8",
     "@sentry/nextjs": "^8.28.0",
     "@vercel/speed-insights": "^1.0.12",
+    "bufferutil": "^4.0.9",
     "cross-env": "^7.0.3",
     "emoji-picker-react": "^4.12.0",
     "hooks": "^0.3.2",
     "moment-timezone": "^0.5.46",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.3",
-    "next": "14.2.12",
+    "next": "^13.5.8",
     "next-auth": "^4.24.7",
     "node-cache": "^5.1.2",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-live-clock": "^6.1.23-beta",
     "sharp": "^0.33.5",
     "socket.io-client": "^4.8.1",
     "sonner": "^1.5.0",
     "swr": "^2.2.5",
-    "typekit": "^0.1.1"
+    "typekit": "^0.1.1",
+    "utf-8-validate": "^5.0.10",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
   }
 }

@@ -14,12 +14,11 @@ const Forms = ({ type, handleClick, post, setPost }) => {
             <form action="" className='flex flex-col'>
 
                 <label htmlFor="" className='flex flex-col'>
-                    <span className='my-5 font-semibold'>
+                    <span className='my-5 font-semibold text-white'>
                         {type} Post
                     </span>
                     <textarea name="prompt"
                         placeholder='Create your Prompt'
-                        id=""
                         className='mb-10 h-44 w-[50vw] p-2 rounded-md shadow-xl'
                         value={post.prompt}
                         onChange={(e) => setPost({ ...post, prompt: (e.target.value) })}
@@ -27,7 +26,7 @@ const Forms = ({ type, handleClick, post, setPost }) => {
                 </label>
 
                 <label htmlFor="" className='flex flex-col'>
-                    <span className='mb-4 font-semibold'>
+                    <span className='mb-4 font-semibold text-white'>
                         Related To (#webdevelopment, #idea, #coding)
                     </span>
                     <input className='rounded-md p-2 w-[50vw] shadow-xl'
@@ -41,7 +40,7 @@ const Forms = ({ type, handleClick, post, setPost }) => {
             <form>
                 <button
                     onClick={handleClick}
-                    className="shadow-xl my-4 w-20 p-2 bg-orange-400 text-white rounded-full text-sm" >{type}...</button>
+                    className="shadow-xl my-4 w-20 p-2 bg-purple-500 hover:bg-purple-600 duration-500 text-white rounded-full text-sm" >{type}...</button>
             </form>
         </div>
     )

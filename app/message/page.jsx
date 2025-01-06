@@ -4,28 +4,36 @@ import socket from '@lib/socket'
 import { serverUrl } from '@lib/actions'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import EmojiPicker from 'emoji-picker-react'
+import Card from '@components/Card'
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
+import Loader from '@components/Loader'
 
 const page = () => {
-
 
     const { data: session } = useSession();
     const [users, setusers] = useState([])
     const chatContainerRef = useRef(null)
     const [messages, setMessages] = useState([]);
+    const [pending, setPending] = useState(false)
     const [message, setMessage] = useState('')
     const [isTyping, setIsTyping] = useState(false);
     const [typingUser, setTypingUser] = useState("");
     const [showPicker, setShowPicker] = useState(false);
     const [username, setUsername] = useState({
-        id: "66fe820a361df8729883be35",
-        name: "AshwiniJanrao",
-        img: "https://lh3.googleusercontent.com/a/ACg8ocJ0OsccDMYiM12NBJ4OuNd_ReavgfRY0zXC783gevTUmYCC6BLU=s96-c"
+        id: "667c1d56ba55cb683d3d92b5",
+        name: "BhosaleOm",
+        img: "https://lh3.googleusercontent.com/a/ACg8ocI7rygkGHpxmFT6DLV8kQKfNKO71UjO2OBtD5A8g5qFLPcRBrE=s96-c"
     });
 
-
+    const backgroundStyle = {
+        width: '100%',
+        height: '95%',
+        backgroundImage: 'url("/assets/chattapp.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+    };
 
     const handleEmojiClick = (emoji) => {
         setMessage((prev) => prev + emoji.native);
@@ -44,6 +52,7 @@ const page = () => {
     }
 
     const getUsers = async () => {
+        setPending(true)
         const response = await fetch(serverUrl().concat('/users'), {
             method: "GET",
             headers: {
@@ -54,6 +63,7 @@ const page = () => {
             const data = await response.json()
             setusers(data.users)
         }
+        setPending(false)
     }
 
     const sendMessage = () => {
@@ -123,30 +133,36 @@ const page = () => {
 
     return (
         <div className="flex h-screen w-screen ">
-            <div className="w-1/3 m-4 p-4 rounded shadow-md border border-white gradient">
+            <div className="w-1/2 m-4 p-4 rounded shadow-md border border-white navbg text-white">
                 <h1 className='text-lg text-center '>All Chats</h1>
                 <div className='h-[80vh] m-3 overflow-y-scroll'>
-                    {
-                        users.map((user, index) => (
-                            <div key={user._id}>
+                    <div>
+                        {
+                            pending ? (<Loader />) : (<div>
                                 {
-
-                                    user._id !== session?.user.id && (
-                                        <div onClick={() => setUsername({ id: user._id, name: user.username, img: user.image })} className='flex m-3 border-2 p-3 rounded-lg hover:bg-slate-400 cursor-pointer duration-700'>
-                                            <Image className='rounded-full' src={user.image} width={30} height={30} alt='img' />
-                                            <div className='mx-3'>
-                                                {user.username}
-                                            </div>
-                                        </div>)
+                                    users.map((user, index) => (
+                                        <div key={user._id}>
+                                            {
+                                                user._id !== session?.user.id && (
+                                                    <div onClick={() => setUsername({ id: user._id, name: user.username, img: user.image })} className=' flex m-3 border-2 p-3 rounded-lg hover:bg-purple-400 cursor-pointer duration-700'>
+                                                        <Image className='rounded-full' src={user.image} width={30} height={30} alt='img' />
+                                                        <div className='mx-3'>
+                                                            {user.username}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                        </div>
+                                    ))
                                 }
-                            </div>
-                        ))
-                    }
+                            </div>)
+                        }
+                    </div>
+
                 </div>
             </div>
 
-            <div className="flex flex-col flex-grow m-4 p-4 gradient rounded shadow-md border border-white">
-                <div className='justify-center flex gap-3'>
+            <div style={backgroundStyle} className="flex flex-col flex-grow m-4 p-4  rounded shadow-md border border-white">
+                <div className='justify-center flex gap-3 text-white font-bold'>
                     <Image className='rounded-full' src={username.img} width={30} height={30} alt='img' />
                     <div>{username.name}</div>
                 </div>
@@ -159,13 +175,27 @@ const page = () => {
                         <div key={index}>
                             {
                                 ((msg.from === session?.user.id && msg.to === username.id) || (msg.from === username.id && msg.to === session?.user.id)) && (<div className={`flex items-center ${msg.from === session?.user.id ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-xs px-4 py-2 rounded-lg shadow-md ${msg.from === session?.user.id ? 'bg-blue-500 text-white text-right' : 'bg-gray-200 text-gray-800 text-left'}`}>
-                                        <div >
-                                            {msg.text}
-                                        </div>
-                                        <div className='text-[10px]'>
-                                            {processDate(msg.date)}
-                                        </div>
+                                    <div>
+                                        {
+                                            msg.text !== 'POST' ? (<div className={`max-w-xs px-4 py-2 rounded-lg shadow-md ${msg.from === session?.user.id ? 'bg-blue-500 text-white text-right' : 'bg-gray-200 text-gray-800 text-left'}`}>
+                                                <div>
+                                                    {msg.text}
+                                                </div>
+                                                <div className='text-[10px]'>
+                                                    {processDate(msg.date)}
+                                                </div>
+                                        </div>) : (<div className='text-left'>
+                                                    <Card
+                                                        prompt={msg.postid.prompt}
+                                                        tag={msg.postid.tag}
+                                                        postid={msg.postid._id}
+                                                        username={msg.postid.padmin.username}
+                                                        userid={msg.postid.padmin._id}
+                                                        img={msg.postid.padmin.image}
+                                                        email={msg.postid.padmin.email}
+                                                    />
+                                        </div>)
+                                        }
                                     </div>
                                 </div>)
                             }
@@ -186,7 +216,7 @@ const page = () => {
                             onChange={(e) => {
                                 setMessage(e.target.value);
                                 handleTyping();
-                                }
+                            }
                             }
                         />
                         <button
@@ -200,11 +230,11 @@ const page = () => {
                     {showPicker && (
                         <div className='absolute z-10 bottom-20 right-28'>
                             <Image
-                            src={'/assets/close.svg'}
-                            height={30}
-                            width={30}
-                            alt='close'
-                            className='cursor-pointer'
+                                src={'/assets/close.svg'}
+                                height={30}
+                                width={30}
+                                alt='close'
+                                className='cursor-pointer'
                                 onClick={() => setShowPicker((prev) => !prev)}
                             />
                             <Picker data={data} onEmojiSelect={handleEmojiClick} />

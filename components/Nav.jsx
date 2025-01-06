@@ -84,17 +84,17 @@ const Nav = () => {
                                         width={40}
                                         height={40}
                                     />
-                                    <div className="lg:block hidden">My Profile</div>
+                                    <div className="ml-1 mt-1 lg:block hidden">My Profile</div>
                                 </Link>
                             </>
 
-                        ) : (<Link href='/login' className="p-2 w-[12vw] h-12 rounded-lg bg-violet-500 hover:bg-violet-800  hover:duration-500 flex">
+                        ) : (<Link href='/login' className="p-2 w-[12vw] rounded-lg bg-violet-500 hover:bg-violet-800  hover:duration-500 flex">
                             <Image src={'/assets/signin.svg'}
                                 alt="SignIn"
                                 height={5}
                                 width={5}
                                 className="w-6 h-6 " />
-                                <div className="m-1 lg:block hidden">Sign In</div>
+                                <div className="ml-2 lg:block hidden">Sign In</div>
                         </Link>)
 
                     }

@@ -63,7 +63,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
         width={25}
         src={'/assets/close.svg'}
         alt='close'
-        className='cursor-pointer m-5 ml-[90vw] gradient rounded-md'
+        className='cursor-pointer m-5 ml-[90vw] navbg p-1 rounded-md'
         onClick={() => router.back()} />
 
       <div className='ml-[10vw] mt-8 flex'>
@@ -77,7 +77,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
           img={img}
           email={email} />
 
-        <div className='gradient h-[50vh] w-[50vw] ml-6 rounded-xl '>
+        <div className='navbg  h-[50vh] w-[50vw] ml-6 rounded-xl '>
           <div className='h-[48vh] overflow-scroll'>
             {
               pending ? (<Loader />) : (
@@ -93,7 +93,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
                         userid={item.userid._id}
                         oldcomments={oldcomments} />
 
-                    ))) : (<div className=' m-[20vh]'> Be the first to comment on this post ... </div>)
+                    ))) : (<div className='text-white m-[20vh]'> Be the first to comment on this post ... </div>)
                   }
                 </div>)
             }

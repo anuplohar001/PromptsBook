@@ -51,7 +51,7 @@ const Feed = ({ posts, storyAdmin }) => {
 
 
     return (
-        <div className="flex items-center flex-col relative">
+        <div className="flex items-center flex-col relative ">
             {
                 share && (<Share handleshare={handleshare} item={items}/>)
             }
