@@ -14,28 +14,48 @@
 
 ## Features
 
-- **User Authentication:** Secure login/signup with Credentials and Google Provider.
-  ![CreatePost](images/login.png) ![CreatePost](images/signup.png)
-- **Home Page** Explore trending AI prompts and categories.
-  ![Home Page](images/home.png)
-- **Prompt Management:** Create, update, delete, and share prompts.
-  Create Post
-  ![CreatePost](images/createPost.png)
-  Manage My Profile
-  ![MyProfile](images/myProfile.png)
-  Edit Post
-  ![EditPost](images/editPost.png)
-  Share Posts
-  ![Share](images/share.png)
-- **Interactive Chat App:** Real-time chat functionality for users.
-  ![Share](images/Chattapp.png)
-- **Stories Feature:** Share stories with AI prompts.
-  ![Share](images/story.png)
-- **Like and Comment System:** Engage with prompts through likes and comments.
-  ![Share](images/comment.png)
-- **Responsive Design:** Optimized for devices of all sizes.
-  ![Responsive](images/responsive.png)
-- **API Integration:** Built with 30+ API routes for seamless data flow.
+**User Authentication:** Secure login/signup with Credentials and Google Provider.
+
+![CreatePost](images/login.png) ![CreatePost](images/signup.png)
+
+**Home Page** Explore trending AI prompts and categories.
+
+![Home Page](images/home.png)
+
+**Prompt Management:** Create, update, delete, and share prompts.
+Create Post
+
+![CreatePost](images/createPost.png)
+
+Manage My Profile
+
+![MyProfile](images/myProfile.png)
+
+Edit Post
+
+![EditPost](images/editPost.png)
+
+Share Posts
+
+![Share](images/share.png)
+
+**Interactive Chat App:** Real-time chat functionality for users.
+
+![Share](images/Chattapp.png)
+
+**Stories Feature:** Share stories with AI prompts.
+
+![Share](images/story.png)
+
+**Like and Comment System:** Engage with prompts through likes and comments.
+
+![Share](images/comment.png)
+
+**Responsive Design:** Optimized for devices of all sizes.
+
+![Responsive](images/responsive.png)
+
+**API Integration:** Built with 30+ API routes for seamless data flow.
 
 ## Technologies Used
 
