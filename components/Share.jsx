@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Card from './Card';
 import Loader from './Loader';
 import socket from '@lib/socket'
+import { toast } from 'sonner'
 
 const Share = ({ handleshare, item }) => {
 
@@ -12,7 +13,6 @@ const Share = ({ handleshare, item }) => {
     const modalReff = useRef(null);
     const [users, setusers] = useState([]);
     const [pending, setPending] = useState(false);
-    const [pendingShare, setPendingShare] = useState(false);
     const [selectedUsers, setselectedUsers] = useState([]);
     const [checkedStates, setCheckedStates] = useState({});
     const { data: session } = useSession();
@@ -51,11 +51,11 @@ const Share = ({ handleshare, item }) => {
     };
 
     const handleMessage = async () => {
-        setPendingShare(true)
         selectedUsers.map((userid, index) => {
             handleForUser(userid);
         });
-
+        toast.success("Post Shared Successfully")
+        
         setselectedUsers([]);
         setCheckedStates((prev) => {
             const resetCheckedStates = { ...prev };
@@ -64,9 +64,6 @@ const Share = ({ handleshare, item }) => {
             });
             return resetCheckedStates;
         });
-        setTimeout(() => {            
-            setPendingShare(false)
-        }, 2000);
     };
 
     const handleForUser = async (userid) => {
@@ -155,7 +152,7 @@ const Share = ({ handleshare, item }) => {
                         {
                             selectedUsers.length !== 0 && (
                                 <div onClick={handleMessage} className='cursor-pointer mt-4 rounded-lg text-white bg-purple-500 hover:bg-purple-700 text-center p-2 duration-500'>
-                                    {pendingShare ? "Sending..." : "Send"}
+                                    Send Post
                                 </div>
                             )
                         }

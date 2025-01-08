@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { serverUrl } from '@lib/actions'
 import { toast } from 'sonner'
+
 const Stories = ({ user, oldStory }) => {
 
     const [story, setstory] = useState("")
