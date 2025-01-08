@@ -42,7 +42,7 @@ const page = () => {
 
     return (
         <div className="register">
-            <div className="relative p-4 w-[24vw] max-w-md h-full md:h-auto gradient rounded-lg shadow">
+            <div className="relative p-4 w-[24vw] max-w-md h-full md:h-auto navbg rounded-lg shadow">
 
                 <Link href='/' type="button" className="btnclose">
                     <Image src={close} alt='close' height={20} width={20} />
@@ -50,10 +50,10 @@ const page = () => {
 
                 <div className="p-5">
                     <div className="text-center">
-                        <p className="mt-2 mb-3 text-xl font-semibold leading-5 text-slate-900">
+                        <p className="mt-2 mb-3 text-xl font-semibold leading-5 text-white">
                             Register your account
                         </p>
-                        <p className="mt-2 text-sm leading-4 text-slate-600">
+                        <p className="mt-2 text-sm leading-4 text-white">
                             You must be registered to perform the action.
                         </p>
                     </div>
@@ -70,7 +70,7 @@ const page = () => {
                         </button>
                     </div>
 
-                    <div className="flex w-full items-center gap-2 py-3 text-sm text-slate-600">
+                    <div className="flex w-full items-center gap-2 py-3 text-sm text-white">
                         <div className="h-px w-full bg-slate-200"></div>
                         OR
                         <div className="h-px w-full bg-slate-200"></div>
@@ -84,7 +84,7 @@ const page = () => {
                         <input onChange={handlechange} name="password" type="password" className="mt-2 userinfo" placeholder="Password" />
                         <button onClick={userRegister} type='submit' className="btnCred"> Register  </button>
                     </div>
-                    <div className="mt-6 text-center text-sm text-slate-800">
+                    <div className="mt-6 text-center text-sm text-white">
                         Already have an account ? {" "}
                         <Link href='/login' className="font-medium text-[#4285f4]">Log In</Link>
                     </div>
