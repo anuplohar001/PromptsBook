@@ -2,7 +2,7 @@
 
 ### Email: anuplohar001@gmail.com   Password: pass@123
 
-###### A feature-rich web application for exploring, creating, and interacting with AI-generated prompts. PromptsBook includes real-time chat, user authentication, and comprehensive features to manage and share prompts.
+### A feature-rich web application for exploring, creating, and interacting with AI-generated prompts. PromptsBook includes real-time chat, user authentication, and comprehensive features to manage and share prompts.
 
 ---
 
