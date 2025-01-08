@@ -22,6 +22,10 @@
 
 ![Home Page](images/home.png)
 
+**User Profile Page** Explore User Profiles includes their posts.
+
+![UserProfile Page](images/userProfile.png)
+
 **Prompt Management:** Create, update, delete, and share prompts.
 Create Post
 
