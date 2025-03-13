@@ -65,7 +65,7 @@ const Feed = ({ posts, storyAdmin }) => {
             </div>
             {
                 !session && (<div className="text-white font-bold">
-                    Email : <u>anuplohar001@gmail.com</u> Password : <u>pass@123</u>
+                    Email : <u>ashwinijanrao@gmail.com</u> Password : <u>1234</u>
                 </div>)
             }
             
