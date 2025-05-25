@@ -1,50 +1,43 @@
 <div align="center">
-## Project is Live @ https://prompts-book.vercel.app/
+
+# PromptsBook
+
+### Technologies Used
+
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+<img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" />
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+<img src="https://img.shields.io/badge/NextAuth.js-0F172A?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" />
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
+
+<br>
+
+
+### 🌐 Live Demo <a href="https://prompts-book.vercel.app/ " target="_blank"> promptsbook.vercel.app </a>
+
+</div>
+
 
 ### Email: anuplohar001@gmail.com   Password: pass@123
 
 ### A feature-rich web application for exploring, creating, and interacting with AI-generated prompts. PromptsBook includes real-time chat, user authentication, and comprehensive features to manage and share prompts.
 
-- ✍️ **Create, edit, and delete prompts**
-- ❤️ **Like and comment on your favorite prompts**
-- 📚 **Categorized prompts for easy browsing**
-- 🧠 **Explore AI-generated suggestions**
-- 🔐 **Secure authentication and authorization**
-- 📈 **Modern, responsive UI built with Next.js & Tailwind CSS**
+✍️ **Create, edit, and delete prompts** <br>
+❤️ **Like and comment on your favorite prompts** <br>
+📚 **Categorized prompts for easy browsing** <br>
+🧠 **Explore AI-generated suggestions**  <br>
+🔐 **Secure authentication and authorization** <br>
+📈 **Modern, responsive UI built with Next.js & Tailwind CSS**
 
-## 🛠️ Tech Stack
-
-**Frontend:**  
-- Next.js  
-- Tailwind CSS  
-- React Redux  
-
-**Backend:**  
-- Node.js  
-- Express.js  
-- MongoDB (with Mongoose)  
-- Next API Routes  
-
-**Authentication:**  
-- NextAuth.js  
-
-**Version Control:**  
-- Git & GitHub
-
-</div>
----
-
-### Table of Contents
-
-- [Features](##Features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-
-## Features
+<br>
 
 **User Authentication:** Secure login/signup with Credentials and Google Provider.
 
-![CreatePost](images/login.png) ![CreatePost](images/signup.png)
+![Login](images/login.png) ![Signup](images/signup.png)
 
 **Home Page** Explore trending AI prompts and categories.
 
@@ -89,39 +82,30 @@ Share Posts
 
 **API Integration:** Built with 30+ API routes for seamless data flow.
 
-## Technologies Used
 
-- **Frontend:**
-
-  - Next.js
-  - React.js
-  - Tailwind CSS
-- **Backend:**
-
-  - Node.js
-  - Express.js
-  - MongoDB
-  - Websockets
-- **Others:**
-
-  - Next.js API Routes
-  - Git & GitHub for version control
 
   ## Installation
 
   Follow these steps to set up and run the PromptsBook project locally:
 
-1. **Clone the Repository**Clone the project from GitHub to your local machine:
-   ``git clone https://github.com/Anup-Lohar/promptsbook.git``
-2. **Navigate to Project Repository**
-   ``cd promptsbook``
-3. **Install dependencies**
-   ``npm install``
-4. **Setup Environment Variables**
-   ``MONGODB_URI=your-mongodb-connection-string``
-   ``NEXTAUTH_SECRET=your-nextauth-secret``
-   ``NEXTAUTH_URL=http://localhost:5000``
-5. **Run Development Server**
-   ``npm run dev``
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/promptsbook.git
+cd promptsbook
 
-### Live Link - https://prompts-book.vercel.app/
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Run the app
+npm run dev
+```
+<div align="center">
+🌐 Live Demo <a href="https://prompts-book.vercel.app/
+" target="_blank">
+  promptsbook.vercel.app
+</a>
+
+</div>
