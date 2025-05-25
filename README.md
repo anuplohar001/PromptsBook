@@ -1,9 +1,37 @@
+<div align="center">
 ## Project is Live @ https://prompts-book.vercel.app/
 
 ### Email: anuplohar001@gmail.com   Password: pass@123
 
 ### A feature-rich web application for exploring, creating, and interacting with AI-generated prompts. PromptsBook includes real-time chat, user authentication, and comprehensive features to manage and share prompts.
 
+- ✍️ **Create, edit, and delete prompts**
+- ❤️ **Like and comment on your favorite prompts**
+- 📚 **Categorized prompts for easy browsing**
+- 🧠 **Explore AI-generated suggestions**
+- 🔐 **Secure authentication and authorization**
+- 📈 **Modern, responsive UI built with Next.js & Tailwind CSS**
+
+## 🛠️ Tech Stack
+
+**Frontend:**  
+- Next.js  
+- Tailwind CSS  
+- React Redux  
+
+**Backend:**  
+- Node.js  
+- Express.js  
+- MongoDB (with Mongoose)  
+- Next API Routes  
+
+**Authentication:**  
+- NextAuth.js  
+
+**Version Control:**  
+- Git & GitHub
+
+</div>
 ---
 
 ### Table of Contents
