@@ -68,14 +68,7 @@ const Nav = () => {
                                     />
                                     <div className="lg:block hidden">Messages</div></Link>
 
-                                <Link onClick={() => signOut({ callbackUrl: '/' })} href='/' className="w-[12vw] flex gap-2 p-2 rounded-lg bg-violet-500 hover:bg-violet-800  hover:duration-500">
-                                    <Image
-                                        src='/assets/out.svg'
-                                        alt="sign out"
-                                        height={15}
-                                        width={15}
-                                        className="w-6 h-6" />
-                                    <div className="lg:block hidden">Sign Out</div></Link>
+                                
                                 <Link className="w-[12vw] cursor-pointer p-1 flex rounded-lg bg-violet-500 hover:bg-violet-800 hover:duration-500" href={`/profile/${session?.user.id}`} >
                                     <Image
                                         className="rounded-full m-1 w-6 h-6"
