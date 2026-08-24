@@ -44,7 +44,8 @@ const page = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json"
-            }
+            },
+            cache: "no-store",
         })
         const olddata = await response.json();
         await olddata.messages.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -57,7 +58,8 @@ const page = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json"
-            }
+            },
+            cache: "no-store",
         })
         if (response.ok) {
             const data = await response.json()

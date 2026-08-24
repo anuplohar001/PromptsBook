@@ -28,6 +28,7 @@ const UpdateProf = () => {
             headers: {
                 "Content-Type": "application/json"
             },
+            cache: "no-store"
         })
         const user = await response.json()
         const data = user.user
@@ -37,7 +38,7 @@ const UpdateProf = () => {
             setpass(true)
         else
             setpass(false)
-        
+
     }
 
     useEffect(() => {
@@ -76,110 +77,101 @@ const UpdateProf = () => {
         else
             setpassword("password")
     }
-
+    const imageSrc = file || session?.user?.image || "/assets/user.jpg";
     return (
         <div className='mt-14'>
-        {
-            pending ? (<Loader/>) : (<div className=''>
+            {
+                pending ? (<Loader />) : (<div className=''>
                     <div className='text-center' onMouseLeave={() => setEditImage(false)}>
+                        <Image
+                            src={imageSrc}
+                            alt="userimage"
+                            height={90}
+                            width={90}
+                            className="text-center rounded-full m-5 mx-[12vw]"
+                            onMouseEnter={() => setEditImage(true)}
+                        />
+                        {
+                            dialog && <div className=' h-[20vh] w-[30vw] bg-white border border-white rounded-lg text-center p-2 absolute'>
+                                <Image src={"/assets/close.svg"}
+                                    alt='close'
+                                    height={20}
+                                    width={20}
+                                    className='cursor-pointer'
+                                    onClick={() => setdialog(false)} />
+                                <input type="file"
+                                    className='rounded-lg w-[20vw] mt-4 border border-black'
+                                    onChange={handleChangeFile} />
+                            </div>
+                        }
 
-                    <Image
-                        src={file ? file : session?.user.image}
-                        alt='userimage'
-                        height={90}
-                        width={90}
-                        className='text-center rounded-full m-5 mx-[12vw] '
-                        onMouseEnter={() => setEditImage(true)}
-                    />
-                    {/* {
-                    editImage && <Image src={"/assets/edit.svg"}
-                        alt="edit"
-                        width={30}
-                        height={30}
-                        className='absolute right-[28vw] top-[41vh] cursor-pointer' 
-                        onClick={()=>setdialog(true)}/>
-                } */}
+                    </div>
+
                     {
-                        dialog && <div className=' h-[20vh] w-[30vw] bg-white border border-white rounded-lg text-center p-2 absolute'>
-                            <Image src={"/assets/close.svg"}
-                                alt='close'
-                                height={20}
-                                width={20}
-                                className='cursor-pointer'
-                                onClick={() => setdialog(false)} />
-                            <input type="file"
-                                className='rounded-lg w-[20vw] mt-4 border border-black'
-                                onChange={handleChangeFile} />
-                        </div>
-                    }
-
-                </div>
-
-                {
                         edit ? (<div className={`flex flex-col gap-3 ml-6 `}>
-                        <div>
-                            <span className='text-white'>Username</span>                            
-                            <input onChange={handleChange} name='name' value={userinfo.name} type="text" placeholder='username' className='text-black w-[15vw] ml-5 p-3 rounded-xl shadow-2xl' />
-                        </div>
-                        <div>
-                                <span className='text-white'>Email</span> 
-                            <input onChange={handleChange} name='email' value={userinfo.email} type="email" placeholder='email' className='w-[15vw] ml-12 p-3 rounded-xl shadow-2xl' />
-                        </div>
+                            <div>
+                                <span className='text-white'>Username</span>
+                                <input onChange={handleChange} name='name' value={userinfo.name} type="text" placeholder='username' className='text-black w-[15vw] ml-5 p-3 rounded-xl shadow-2xl' />
+                            </div>
+                            <div>
+                                <span className='text-white'>Email</span>
+                                <input onChange={handleChange} name='email' value={userinfo.email} type="email" placeholder='email' className='w-[15vw] ml-12 p-3 rounded-xl shadow-2xl' />
+                            </div>
 
-                        <div className='flex flex-row'>
-                            <span className='text-white'>Password</span> 
-                            <div className='flex flex-col gap-3'>
-                                <div className=' flex ml-5 w-[15vw] rounded-xl shadow-2xl bg-white'>
-                                    <input onChange={handleChange} name='password' value={userinfo.password} type={password}
-                                    placeholder={userinfo.password ? ("password") : ("create new password")}
-                                    className='w-[12vw] p-3 rounded-xl' 
-                                    />
-                                    <Image
-                                        src={password === 'password' ? "/assets/show.svg" : "/assets/hide.svg"}
-                                        height={25}
-                                        width={25}
-                                        onClick={handlePassword} 
-                                        className='z-10'
-                                        alt='sh/hi'/>
+                            <div className='flex flex-row'>
+                                <span className='text-white'>Password</span>
+                                <div className='flex flex-col gap-3'>
+                                    <div className=' flex ml-5 w-[15vw] rounded-xl shadow-2xl bg-white'>
+                                        <input onChange={handleChange} name='password' value={userinfo.password} type={password}
+                                            placeholder={userinfo.password ? ("password") : ("create new password")}
+                                            className='w-[12vw] p-3 rounded-xl'
+                                        />
+                                        <Image
+                                            src={password === 'password' ? "/assets/show.svg" : "/assets/hide.svg"}
+                                            height={25}
+                                            width={25}
+                                            onClick={handlePassword}
+                                            className='z-10'
+                                            alt='sh/hi' />
+
+                                    </div>
+
+                                    {
+                                        !pass && (<input name='newpassword' type="password"
+                                            placeholder="confirm password"
+                                            className='ml-5 w-[25vw] p-3 rounded-xl shadow-2xl' />)
+                                    }
 
                                 </div>
 
-                                {
-                                    !pass && (<input name='newpassword' type="password"
-                                        placeholder="confirm password"
-                                        className='ml-5 w-[25vw] p-3 rounded-xl shadow-2xl' />)
-                                }
+                            </div>
+                        </div>) : (<div className='flex flex-col ml-6 gap-3 text-white'>
+                            <div className='flex'>
+                                Username <div className='ml-5 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{userinfo.name}</div>
+                            </div>
+                            <div className='flex'>
 
+                                Email <div className='ml-12 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{userinfo.email}</div>
+                            </div>
+                            <div className='flex'>
+
+                                Password <div type='password'
+                                    className='ml-5 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{pass ? ("********") : ("Set New password")}</div>
                             </div>
 
-                        </div>
-                        </div>) : (<div className='flex flex-col ml-6 gap-3 text-white'>
-                        <div className='flex'>
-                            Username <div className='ml-5 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{userinfo.name}</div>
-                        </div>
-                        <div className='flex'>
-
-                            Email <div className='ml-12 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{userinfo.email}</div>
-                        </div>
-                        <div className='flex'>
-
-                            Password <div type='password'
-                                className='ml-5 w-[17vw] rounded-xl bg-violet-500 p-3 text-white'>{pass ? ("********") : ("Set New password")}</div>
-                        </div>
-
-                    </div>)
-                }
+                        </div>)
+                    }
 
 
-                <div className='flex justify-center items-center mt-7 m-2 gap-8'>
-                    <button onClick={() => setedit(true)}
-                        className='bg-red-400 rounded-2xl p-2 w-20 border focus:border-black'>Edit</button>
-                    <button onClick={saveInfo}
-                        className='bg-green-600 text-white rounded-2xl p-2 w-20 border focus:border-black'>Save</button>
-                </div>
+                    <div className='flex justify-center items-center mt-7 m-2 gap-8'>
+                        <button onClick={() => setedit(true)}
+                            className='bg-red-400 rounded-2xl p-2 w-20 border focus:border-black'>Edit</button>
+                        <button onClick={saveInfo}
+                            className='bg-green-600 text-white rounded-2xl p-2 w-20 border focus:border-black'>Save</button>
+                    </div>
 
-            </div>)
-        }
+                </div>)
+            }
         </div>
     )
 }

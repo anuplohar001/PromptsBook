@@ -40,7 +40,7 @@ const Forms = ({ type, handleClick, post, setPost }) => {
             <form>
                 <button
                     onClick={handleClick}
-                    className="shadow-xl my-4 w-20 p-2 bg-purple-500 hover:bg-purple-600 duration-500 text-white rounded-full text-sm" >{type}...</button>
+                    className="shadow-xl my-4 w-20 p-2 bg-purple-500 hover:bg-purple-600 duration-500 text-white rounded-full text-sm" >{type}</button>
             </form>
         </div>
     )

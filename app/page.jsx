@@ -4,7 +4,6 @@ import Errors from '@components/Errors'
 import { serverUrl } from '@lib/actions'
 import Loader from '@components/Loader'
 
-
 const Home = async () => {
   
   const response = await fetch(serverUrl().concat("/feed"),{
@@ -12,7 +11,7 @@ const Home = async () => {
     headers: {
       "Content-Type": "application/json"
     },
-    next: { revalidate: 2 }
+    cache: "no-store",
   })
   const posts = await response.json()  
 
@@ -21,7 +20,7 @@ const Home = async () => {
     headers: {
       "Content-Type": "application/json"
     },
-    next: { revalidate: 2 }
+    cache: "no-store",
   })
   const oldStory = await storyResponse.json()
   const idd = new Map()

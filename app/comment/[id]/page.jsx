@@ -12,6 +12,7 @@ const CommentComp = async ({ params }) => {
     headers: {
       "Content-Type": "application/json"
     },
+    cache: "no-store",
    })
 
   const prompts = await response.json()

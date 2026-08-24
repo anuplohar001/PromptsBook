@@ -13,9 +13,11 @@ const Create = () => {
   const [post, setPost] = useState({ prompt: "", tag: "" })
   const router = useRouter();
   const { data: session } = useSession()
+  const [loading, setLoading] = useState(false)
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       
       const response = await fetch( serverUrl().concat('/create'), {
@@ -31,18 +33,21 @@ const Create = () => {
       })
       if (response.ok) {
         toast.success('Post Created Successfully')
-        router.back()
+        router.refresh()
+        router.push('/')
       }
 
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
 
   }
 
   return (
     <div>
-      <Forms type='Create' handleClick={handleClick} post={post} setPost={setPost} />      
+      <Forms type={loading ? 'Creating...' : 'Create'} handleClick={handleClick} post={post} setPost={setPost} />      
     </div>
   )
 }

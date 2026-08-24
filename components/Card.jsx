@@ -33,7 +33,8 @@ const Card = ({
         try {
             setpending(true)
             const response = await fetch(serverUrl().concat(`/likes/${postid}/${session?.user.id}`), {
-                method: "GET"
+                method: "GET",
+                cache: "no-store",
             })
             const data = await response.json()
             setLikes({ isLiked: data.isLike })
@@ -46,7 +47,7 @@ const Card = ({
 
     const getLikesNo = async () => {
         try {
-            const response = await fetch(serverUrl().concat(`/likes/${postid}`), { method: "GET" })
+            const response = await fetch(serverUrl().concat(`/likes/${postid}`), { method: "GET", cache: "no-store" })
             const data = await response.json()
             setNo(data.no)
         } catch (error) {
@@ -76,10 +77,11 @@ const Card = ({
                 headers: {
                     "Content-Type": "application/json"
                 },
+                cache: "no-store"
             })
             if (response.ok) {
                 toast.success("Post Deleted Successfully")
-                router.back()
+                router.refresh()
             }
         }
     }
@@ -108,7 +110,8 @@ const Card = ({
                 }),
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                cache: "no-store",
             })
 
         } catch (error) {

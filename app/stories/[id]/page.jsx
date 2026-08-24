@@ -9,7 +9,7 @@ const page = async({ params }) => {
         headers: {
             "Content-Type": "application/json"
         },
-        next: {revalidate: 2}
+        cache: "no-store",
     })
     const oldStory = await response.json()
     return (

@@ -24,6 +24,7 @@ const Comment = ({ prompt, tag, img, username, email, postid, userid }) => {
         headers: {
           "Content-Type": "application/json"
         },
+        cache: "no-store"
       })
       const data = await response.json()
       setoldc(data.comments)

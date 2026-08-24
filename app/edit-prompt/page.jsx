@@ -12,6 +12,7 @@ const Editcomp = () => {
 
     const [post, setPost] = useState({ prompt: "", tag: "" })
     const [pending, setpending] = useState(false)
+    const [loading, setLoading] = useState(false)
     const searchParams = useSearchParams();
     const router = useRouter()
     const id = searchParams.get('id')
@@ -24,11 +25,12 @@ const Editcomp = () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                cache: "no-store",
             })
             const prompt = await response.json()
             const data = prompt.prompts
-            setPost({ prompt: data.prompt, tag: data.tag })
+            setPost({ prompt: data?.prompt, tag: data?.tag })
             setpending(false)
         }
 
@@ -38,6 +40,7 @@ const Editcomp = () => {
 
     const handleClick = async (e) => {
         e.preventDefault();
+        setLoading(true)
         try {
             const response = await fetch(serverUrl().concat(`/editPrompt?id=${id}`), {
                 method: "PATCH",
@@ -52,18 +55,21 @@ const Editcomp = () => {
 
             if (response.ok) {
                 alert("Post Edited Successfully")
+                router.refresh();
                 router.back()
             }
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
         <div>
             {
-                pending ? (<Loader />) : (<Forms type='Edit' post={post} setPost={setPost} handleClick={handleClick} />)
+                pending ? (<Loader />) : (<Forms type={ loading ? 'Editing...' : 'Edit'} post={post} setPost={setPost} handleClick={handleClick} />)
             }
         </div>
     )

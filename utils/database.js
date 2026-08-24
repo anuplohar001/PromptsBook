@@ -1,16 +1,19 @@
 import mongoose from "mongoose";
-let isConnect = false
+// import dns from "dns";
 
 export const connectDb = async () => {
-    mongoose.set('strictQuery', true)
-    if (isConnect) {
+    // dns.setServers(["8.8.8.8", "8.8.4.4"]);
+    mongoose.set("strictQuery", true);
+   
+    if (mongoose.connection.readyState === 1) {
         return;
     }
+
     try {
-        await mongoose.connect(process.env.MONGODB_URI, { dbName: "prompts",})
-        isConnect = true
-        console.log("mongo db connected")
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("MongoDB connected");
     } catch (error) {
-        console.log(error)
+        console.error("MongoDB connection failed:", error);
+        throw error;
     }
-}
+};

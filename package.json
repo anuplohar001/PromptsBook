@@ -19,6 +19,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "bufferutil": "^4.0.9",
     "cross-env": "^7.0.3",
+    "dns": "^0.2.2",
     "emoji-picker-react": "^4.12.0",
     "hooks": "^0.3.2",
     "moment-timezone": "^0.5.46",
